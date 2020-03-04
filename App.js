@@ -2,14 +2,19 @@ import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import NewUser from './screens/NewUser'
 import Header from './components/Header'
+import MainStackNavigator from './navigation/MainStackNavigation'
 
 export default function App() {
+  /* 
+  <View style={styles.container}>
+<Header title = "WELCOME TO PASSPORT"/>
+<NewUser/>
+</View>
+*/
+
   return (
+   <MainStackNavigator/ >
    
-    <View style={styles.container}>
-      <Header title = "WELCOME TO PASSPORT"/>
-      <NewUser/>
-    </View>
 
   );
 }
@@ -17,12 +22,12 @@ export default function App() {
 
 
 
-const styles = StyleSheet.create({
+// const styles = StyleSheet.create({
 
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });

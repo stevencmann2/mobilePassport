@@ -6,111 +6,206 @@ import {
     StyleSheet, 
     TouchableWithoutFeedback,
     Keyboard, 
+    ImageBackground, 
     Alert
 } from 'react-native'
 import Input from '../components/Input'
 import Card from '../components/Card'
 import Colors from '../constants/colors';
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 
-const NewUser = () => {
+const NewUser = props => {
+    const { navigation } = props
 
-    const [inputText, setInputText] = useState({
+    const [firstNameText, setFirstNameText] = useState("");
+    const [lastNameText, setLastNameText] = useState("");
+    const [usernameText, setUsernameText] = useState("");
+    const [emailText, setEmailText] = useState("");
+    const [passwordText, setPasswordText] = useState("");
+    const [confirmPasswordText, setConfirmPasswordText] = useState("");
+    const [newUserInfo, setNewUserInfo]= useState({})
 
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: ""
+    const firstNameTest = /^[A-Za-z]+$/.test(firstNameText)
+    const lastNameTest = /^[A-Za-z]+$/.test(lastNameText)
+    const emailTest = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(emailText)
+    ///Password expresion that requires:
+        // one lower case letter, one upper case letter, 
+        //one digit, one non-word character, 6>= length and no spaces.
+    const passwordTest = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/.test(passwordText)
+    const confirmPasswordTest = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/.test(confirmPasswordText)
+    const usernameTest = /^[a-zA-Z0-9_-]{4,16}$/.test(usernameText) 
+
+
+    const addUser = obj => {
+         if(firstNameTest && lastNameTest && emailTest && usernameTest && passwordTest && confirmPasswordTest ){
+            setNewUserInfo({
+                firstName: firstNameText,
+                lastName: lastNameText,
+                username: usernameText,
+                email: emailText,
+                password: passwordText, 
+                confirmPassword: confirmPasswordText
+            })
+            console.log(newUserInfo)
+            resetFields();
+
+        }else{
+            console.log('NEW USER form NOT complete')
+             incompleteFields()
+             
+           }
         
-    });
-
-    const inputHandler = userInput => {     
-          setInputText(userInput)
     }
 
-    const addUser = userInfo => {
-        console.log(inputText)
-        // resetFields()
-    }
     const resetFields = () => {
-        //MAKE ALL BLANK STRINGS
-        // setInputText("")
+       
+       setFirstNameText("");
+       setLastNameText("")
+       setEmailText("")
+       setPasswordText("")
+       setConfirmPasswordText("")
+       setUsernameText("") 
     }
 
+    const userNameInstructions = press =>{
+        console.log('Touched username field')
+        Alert.alert(
+            'Your Username',
+            'Only Letters and Numbers Permitted (ex: username123, UserName987)',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+        )
+    }
 
-   const confirmUserEnrollment = () => {
-        //FINAL VALIDATION IF EVERYHTINGS A STRING 
-                //EMAIL HAS '@' 
-                // PASSWORD MEETS CRIERIA
-                // ALL FIELDS.LENGTH > 0 
-   }
+    const passwordInstructions = press => {
+        console.log('Touched username field')
+        Alert.alert(
+            'Your Password',
+            'Must contain 1 uppercase letter, 1 lowercase letter, 1 digit, 1 special character & be longer than 6 characters ',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+        )
+
+    }
+    const incompleteFields = () => {
+        Alert.alert(
+            'Sign Up Error',
+            'Please verify all fields are filled out correctly',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+     )
+    }
+
 
     return (
-        <TouchableWithoutFeedback 
+
+    
+        <ImageBackground 
+            source={require('../assets/images/NewUserBackground.jpg')}
+            style={styles.backgroundImage}>
+
+    <TouchableWithoutFeedback 
             onPress={()=> 
                 Keyboard.dismiss()}>
+       
         <View style={styles.screen}>
+       
             <Card>
               <View style={styles.center}>
-                     <Text style={styles.cardHeader}> Create Account</Text>
+                     <Text style={styles.cardHeader}>Create Account</Text>
               </View>
                <View style={styles.container}>
                     <Input
                         style={styles.input}
                         label="First Name"
+                        name="firstName"
                         blurOnSubmit
                         autoCorrect={false}
                         keyboardType="default"
                         maxLength={30}
-                        keyboardAppearance="dark"
-                        onChangeText={inputHandler}
-                        value={inputText.firstName}
+                        onChangeText={(text)=> setFirstNameText(text)}
+                        value={firstNameText}
                     /> 
                     <Input
                         style={styles.input}
                         label='Last Name'
+                        name='lastName'
                         blurOnSubmit
                         autoCorrect={false}
                         keyboardType="default"
                         maxLength={30}
-                        onChangeText={inputHandler}
-                        value={inputText.lastName}
-                        
+                        onChangeText={(text)=> setLastNameText(text)}
+                        value={lastNameText}   
                     /> 
+                    
+                    <TouchableOpacity onPress={userNameInstructions}>
+                    <Input
+                        
+                        style={styles.input}
+                        label='Username'
+                        special='More Info'
+                        name='username'
+                        blurOnSubmit
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        keyboardType="default"
+                        maxLength={30}
+                        onChangeText={(text)=> setUsernameText(text)}
+                        value={usernameText} 
+                    /> 
+                    </TouchableOpacity>
+                    
                     <Input
                         style={styles.input}
                         label="Email Address"
+                        name='email'
                         blurOnSubmit
                         autoCapitalize='none'
                         autoCorrect={false}
                         keyboardType="email-address"
-                        onChangeText={inputHandler}
                         maxLength={50}
-                        value={inputText.email}
+                        onChangeText={(text)=> setEmailText(text)}
+                        value={emailText}
                     /> 
+                    <TouchableOpacity onPress={passwordInstructions}>
                     <Input
+                        
                         style={styles.input}
                         label="Password"
+                        name="password"
+                        special="More Info"
                         blurOnSubmit
                         autoCapitalize='none'
                         autoCorrect={false}
                         keyboardType="default"
                         maxLength={20}
-                        onChangeText={inputHandler}
                         secureTextEntry={true}
-                        value={inputText.password}
+                        onChangeText={(text)=> setPasswordText(text)}
+                        value={passwordText}
                      /> 
+                     </TouchableOpacity>
+
                     <Input
                         style={styles.input}
                         label="Confirm Password"
+                        name="confirmPassword"
                         blurOnSubmit
                         autoCapitalize='none'
                         autoCorrect={false}
                         keyboardType="default"
                         maxLength={20}
-                        onChangeText={inputHandler}
                         secureTextEntry={true}
-                        value={inputText.confirmPassword}
+                        onChangeText={(text)=> setConfirmPasswordText(text)}
+                        value={confirmPasswordText}
                     /> 
                     <View style={styles.buttonContainer}>
                         <View style={styles.button}>
@@ -125,8 +220,8 @@ const NewUser = () => {
                             <Button 
                                 title="Cancel"
                                 color= {Colors.accent}
-                                accessibilityLabel = "Create Account"
-                                onPress={resetFields}
+                                accessibilityLabel = "Cancel"
+                                onPress={()=>props.navigation.navigate('Home')}
                             />
                         </View>
                     </View>
@@ -134,6 +229,8 @@ const NewUser = () => {
             </Card>
         </View>
         </TouchableWithoutFeedback>
+        </ImageBackground>
+        
     )
 }
 
@@ -141,7 +238,9 @@ const styles = StyleSheet.create({
     screen: {
       flex: 1,
       padding: 10,
-      alignItems: 'center'
+      alignItems: 'center',
+      marginTop: 40,
+      opacity: 0.9
     }, 
     container: {
         width: 300,
@@ -169,7 +268,12 @@ const styles = StyleSheet.create({
         width: '100%',
         textAlign: 'center'
     
-    }
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        opacity: 0.8
+     }
 });
 
 
