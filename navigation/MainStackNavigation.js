@@ -1,14 +1,19 @@
 import * as React from 'react'
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import NewUserScreen from '../screens/NewUser';
-import LogInScreen from '../screens/LogIn'
-import HomeScreen  from '../screens/Home'
+import NewUserScreen from '../screens/NotUser/NewUser';
+import LogInScreen from '../screens/NotUser/LogIn'
+import HomeScreen  from '../screens/NotUser/Home'
+import DashboardScreen from '../screens/User/Dashboard';
 
 
-const Stack = createStackNavigator ()
 
-const MainStackNavigator =()=> {
+
+
+const Stack = createStackNavigator ();
+
+
+const MainStackNavigator = ()=> {
   // EXAMPLE OF  THEME TO PASS IN USING REACT NATIVE NAVIGATION
       // COULD ALSO PASS IN CUSTOM HEADER USING REACT NATIVE ELEMENTS USING HEADER COMPONENT
       //MyTheme NOT IN USE RIGHT NOW

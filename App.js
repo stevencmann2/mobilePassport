@@ -1,33 +1,19 @@
-import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import NewUser from './screens/NewUser'
-import Header from './components/Header'
+import React, {useState} from 'react';
 import MainStackNavigator from './navigation/MainStackNavigation'
+import UserNavigation from "./navigation/UserNavigation";
 
 export default function App() {
-  /* 
-  <View style={styles.container}>
-<Header title = "WELCOME TO PASSPORT"/>
-<NewUser/>
-</View>
-*/
+  const[isUser, setIsUser] = useState(false)
 
   return (
-   <MainStackNavigator/ >
-   
+     (isUser) ? <UserNavigation /> : <MainStackNavigator /> 
+    );
 
-  );
+
+
 }
 
 
 
 
-// const styles = StyleSheet.create({
 
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
