@@ -5,14 +5,15 @@ import {
     Button, 
     StyleSheet, 
     TouchableWithoutFeedback,
+    TouchableOpacity,
     Keyboard, 
     ImageBackground, 
     Alert
 } from 'react-native'
-import Input from '../components/Input'
-import Card from '../components/Card'
-import Colors from '../constants/colors';
-import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import Input from '../../components/Input'
+import Card from '../../components/Card'
+import Colors from '../../constants/colors';
+
 
 const NewUser = props => {
     const { navigation } = props
@@ -110,7 +111,7 @@ const NewUser = props => {
 
     
         <ImageBackground 
-            source={require('../assets/images/NewUserBackground.jpg')}
+            source={require('../../assets/images/NewUserBackground.jpg')}
             style={styles.backgroundImage}>
 
     <TouchableWithoutFeedback 
