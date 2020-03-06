@@ -16,7 +16,7 @@ const Home = props => {
    
     return(
     <ImageBackground 
-         source={require('../assets/images/HomeScreenBackground.jpg')}
+         source={require('../../assets/images/HomeScreenBackground.jpg')}
         style={styles.backgroundImage}
     >
      <View style={styles.screen}>
