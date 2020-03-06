@@ -1,9 +1,14 @@
 import * as React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+<<<<<<< HEAD
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import DashboardScreen from '../screens/User/Dashboard';
+=======
+import { NavigationContainer } from '@react-navigation/native';
+>>>>>>> steven
 import SettingsScreen from '../screens/User/Settings'
 import TripsScreen from '../screens/User/Trips';
+import MyAccountScreen from '../screens/User/MyAccount'
 import DrawerAvatar from '../components/DrawerAvatar'
 
 
@@ -23,14 +28,15 @@ const UserNavigation = () => {
     <NavigationContainer theme={MyTheme}>
         
       <Drawer.Navigator 
-        initialRouteName="Dashboard"
+        initialRouteName="Trips"
         drawerStyle={DrawerColor}
         drawerContent={props => DrawerAvatar(props)}
         drawerContentOptions={DrawerOptions}>
-    
-        <Drawer.Screen name="Dashboard" component={DashboardScreen} />
-        <Drawer.Screen name="Settings" component={SettingsScreen} />
+
+        <Drawer.Screen name="My Account" component={MyAccountScreen} />
         <Drawer.Screen name="Trips" component={TripsScreen} />
+        <Drawer.Screen name="Settings" component={SettingsScreen} />
+        
 
       </Drawer.Navigator>
     </NavigationContainer>
