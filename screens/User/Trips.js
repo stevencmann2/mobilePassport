@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Text, 
     View,
     StyleSheet,
     TouchableOpacity
 } from 'react-native'
-import { Header, Image } from 'react-native-elements'
-import Card from '../../components/Card'
+import { Header, Image, Icon } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler';
+
+
+
 
 
 
@@ -16,29 +18,46 @@ const Trips = props =>{
     
     const { navigation } = props
 
+//    const [modalOpen, isModalOpen ] = useState(false)
+
     return(
+     
+
+
+
+
+
+
         <View style={styles.screen}>
         <Header
-            centerComponent={{ text: 'My Trips', style: { color: '#fff' } }}
+            centerComponent={{ 
+                text: 'My Trips', 
+                style: { color: '#fff' } }}
+            rightComponent={{
+                text: '+ Add Trip', 
+                style: { color: '#fff' }, 
+                onPress: ()=> props.navigation.navigate('AddTrip')
+            }}
+            
         />
         <ScrollView>
             <View style={styles.container}>
                 <TouchableOpacity
                     onPress={()=>console.log('heyyyyyyyy')}>
-                    <Card>
+                    <View style={styles.ImgContainer}>
                          <Image 
                             source={require('../../assets/images/PalmTrees.jpg')} 
-                            style={styles.CardContainer}
+                            style={styles.Img}
                             onPress={()=>{console.log('Pressed Hawaii')}}  
-                        />
-                
-                    </Card>
+                            />
+                    </View>
                 </TouchableOpacity>
+
                 <View style={styles.TripName}>
                     <Text>
                         Hawaii Trip
                     </Text>
-                 </View>
+                </View>
             </View>
         </ScrollView>
         </View>
@@ -49,18 +68,24 @@ const Trips = props =>{
 const styles = StyleSheet.create({
     screen: {
       flex: 1,
-      alignItems: 'center'
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     container: {
-        justifyContent: 'center',
         marginTop: 20
     },
-    CardContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
+    ImgContainer: {
+        width : 300,
+        height: 300,
+        borderRadius: 150,
+        borderWidth: 3, 
+        borderColor: 'black',
+        overflow: 'hidden'
+    },
+    Img: {
         width: 300, 
         height: 300,
-        maxWidth: '80%',
+        
         
     },
     TripName: {
