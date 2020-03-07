@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     Text, 
-    View,
+    View, 
     StyleSheet
 } from 'react-native'
 
@@ -12,11 +12,12 @@ const Dashboard = props =>{
     
     const { navigation } = props
 
+    
     return(
         <View style={styles.screen}>
             <View>
                 <Text style={{color: 'black'}}>
-                        USER DASH HOMEPAGE
+                        USER DASBOARD HOMEPAGE
                 </Text>
             </View>
         </View>
@@ -33,4 +34,4 @@ const styles = StyleSheet.create({
     
 })
 
-export default Dashboard
+export default Dashboard;

@@ -4,7 +4,7 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    ImageBackground
+    ImageBackground, 
 } from 'react-native'
 import { Button } from 'react-native-elements';
 
@@ -57,7 +57,8 @@ const Home = props => {
         justifyContent: 'space-between'
       }, 
       welcome: {
-        marginTop: 50
+        marginTop: 150,
+        fontSize: 50
       },
       buttonContainer: {
           marginBottom: 50
