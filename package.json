@@ -19,9 +19,8 @@
     "expo-image-picker": "~8.0.1",
     "expo-permissions": "~8.0.0",
     "express": "^4.17.1",
+    "firebase": "^7.10.0",
     "install": "^0.13.0",
-    "mongoose": "^5.9.3",
-    "mongoose-type-email": "^1.0.12",
     "npm": "^6.14.2",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
@@ -37,7 +36,9 @@
     "react-navigation": "^4.2.2",
     "react-redux": "^7.2.0",
     "react-redux-firebase": "^3.1.2",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-auth-wrapper": "^3.0.0",
+    "redux-firestore": "^0.13.0"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",
