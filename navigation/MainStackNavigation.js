@@ -6,10 +6,6 @@ import LogInScreen from '../screens/NotUser/LogIn'
 import HomeScreen  from '../screens/NotUser/Home'
 
 
-
-
-
-
 const Stack = createStackNavigator ();
 
 
