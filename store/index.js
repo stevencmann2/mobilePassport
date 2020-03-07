@@ -9,11 +9,12 @@ import rootReducer from './reducers';
 const configureStore = (initialState = {}) => {
     const enhancers = [];
     const middleware = [];
-};
+
 
 if (window && window.location && window.location.hostname === 'localhost') {
 
     const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
+    
     if (typeof devToolsExtension === 'function') {
         enhancers.push(devToolsExtension());
     }
@@ -39,6 +40,8 @@ if (module.hot) {
 }
 
 return store;
+
+}
 
 export default configureStore;
 
