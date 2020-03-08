@@ -4,6 +4,7 @@ import UserNavigation from "./navigation/UserNavigation";
 import { Provider } from 'react-redux';
 // import RNFirebase from 'react-native-firebase';
 // import 'firebase/firestore';
+import { Text, View } from 'react-native'
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
 import createStore from './store';
@@ -18,6 +19,8 @@ const initialState = {
   },
 }
 
+console.log(firebaseConfig)
+
 const store = createStore(initialState);
 // const routes = createRoutes(store);
 
@@ -27,6 +30,7 @@ try {
 } catch (err) {
 
 };
+
 
 const App = () => {
   const rrfProps = {
@@ -40,11 +44,7 @@ const App = () => {
 
     <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
-        <View>
-          <Text>
-            Hello World
-          </Text>
-        </View>
+        <MainStackNavigator/>
     </ReactReduxFirebaseProvider>
 </Provider>
 
@@ -53,6 +53,8 @@ const App = () => {
 
 
 }
+
+export default App;
 
 
 
