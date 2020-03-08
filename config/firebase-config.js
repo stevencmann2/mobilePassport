@@ -1,11 +1,11 @@
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_ID,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID,
-    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+    apiKey: "AIzaSyAFOAEEX-gIyLbHCdhSIfOrFAAZ2QQVMwQ",
+    authDomain: "mobilepassport-7f862.firebaseapp.com",
+    databaseURL: "https://mobilepassport-7f862.firebaseio.com",
+    projectId: "mobilepassport-7f862",
+    storageBucket: "mobilepassport-7f862.appspot.com",
+    messagingSenderId: "293458007614",
+    appId: "1:293458007614:web:1c643a60affd55a61b636f",
+    measurementId: "G-ER2QF185B7",
 };
 export default firebaseConfig;
