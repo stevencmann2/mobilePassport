@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": "https://ew-nf5.anonymous.mobilepassport.exp.direct",
-  "packagerNgrokUrl": "https://packager.ew-nf5.anonymous.mobilepassport.exp.direct",
-  "ngrokPid": 26998
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 14060,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

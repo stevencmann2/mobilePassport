@@ -34,22 +34,36 @@ const LogIn = props => {
                     <View style={styles.container}>
                         <Input
                         style={styles.input}
-                        label="Username"
-                        blurOnSubmit
-                        autoCorrect={false}
+                        id="email"
+                        label="E-Mail"
                         keyboardType="default"
+                        blurOnSubmit
+                        required
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        errorMessage="The email or password you entered is incorrect."
+                        minlength={5}
                         maxLength={30}
+                        onValueChange={() => {}}
+                        intitialValue=""
                         // onChangeText={}
                         // value={}
                         />
                         
                         <Input 
                         style={styles.input}
+                        id="password"
                         label="Password"
-                        blurOnSubmit
-                        autoCorrect={false}
                         keyboardType="default"
+                        blurOnSubmit
+                        required
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        errorMessage="The username or password you entered is incorrect."
+                        minlength={5}
                         maxLength={30}
+                        onValueChange={() => {}}
+                        intitialValue=""
                         // onChangeText={}
                         // value={}
                         />
