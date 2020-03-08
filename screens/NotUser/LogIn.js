@@ -8,14 +8,21 @@ import {
     TouchableWithoutFeedback,
     Keyboard
 
-} from 'react-native'
+} from 'react-native';
+import { useDispatch } from 'react-redux';
 import Card from '../../components/Card'
 import Input from '../../components/Input'
 import Colors from '../../constants/colors';
+import * as authActions from '../../store/actions/auth'
 
 const LogIn = props => {
     const { navigation } = props
 
+    const dispatch = useDispatch();
+
+    const signupHandler = () => {
+        dispatch(authActions.signup());
+    }
 
     return(
     <ImageBackground 
