@@ -1,3 +1,5 @@
+import { auth } from "react-native-firebase";
+
 export const SIGNUP = 'SIGNUP';
 
 export const signup = (email, password) => {
@@ -25,3 +27,5 @@ export const signup = (email, password) => {
         dispatch({ type: SIGNUP });
     };
 };
+
+export default authAction;

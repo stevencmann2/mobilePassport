@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 // import 'firebase/firestore';
 import { Text, View } from 'react-native'
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
-import { createFirestoreInstance } from 'redux-firestore';
+import { createFirestoreInstance } from '@ redux-firestore';
 import createStore from './store';
 import firebaseConfig from './config/firebase-config';
 import rrfConfig from './config/rrf-config';
