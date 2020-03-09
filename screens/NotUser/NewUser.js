@@ -68,8 +68,9 @@ const NewUser = props => {
               await dispatch(authActions.signup(emailText, passwordText));
             } catch (err) {
               setError(err.message);
+              setIsLoading(false);
             }
-            setIsLoading(false);
+            // setIsLoading(false);
 
 
 

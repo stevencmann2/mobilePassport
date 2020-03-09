@@ -54,7 +54,8 @@ const LogIn = props => {
               await dispatch(authActions.login(
                 emailText, passwordText  
             ));
-            props.navigation.navigation('My Trips')
+            // props.navigation.navigation('My Trips')
+            console.log('You logged in')
             } catch (err) {
               setError(err.message);
               setIsLoading(false);

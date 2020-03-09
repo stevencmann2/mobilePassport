@@ -111,6 +111,8 @@ const DrawerOptions ={
     //text color!!!
     activeTintColor: 'white',
     inactiveTintColor: 'black',
+    
+
     //background color!!!!! 
     // activeBackgroundColor: '#add8e6',
     // inactiveBackgroundColor: 'pink'

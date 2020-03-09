@@ -1,8 +1,9 @@
 
-
+import { AsyncStorage } from "react-native";
 export const SIGNUP = 'SIGNUP';
 export const LOGIN = 'LOGIN';
-export const USEAPP= 'USEAPP'
+export const LOGOUT = 'LOGOUT'
+
 
 export const signup = (email, password) => {
     return async dispatch => {
@@ -35,9 +36,10 @@ export const signup = (email, password) => {
                 type: SIGNUP, 
                 token: resData.idToken, 
                 userId: resData.localId,
-                loggedIn: true
+                
                 
             });
+            
                   
     };
 };
@@ -49,7 +51,8 @@ export const signup = (email, password) => {
 
 
 export const login = (email, password) => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
+        console.log(getState())
             const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAFOAEEX-gIyLbHCdhSIfOrFAAZ2QQVMwQ',
                 {
                     method: 'POST',
@@ -82,11 +85,17 @@ export const login = (email, password) => {
             type: LOGIN,  
             token: resData.idToken, 
             userId: resData.localId,
-            loggedIn: true
+            
         });
+        console.log(getState)
         
     };
 };
 
+/// logout
+ 
+export const logout = () =>{
+    return{ type: LOGOUT }
 
+}
 
