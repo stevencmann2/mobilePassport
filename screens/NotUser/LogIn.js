@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from 'react';
+import React, { useReducer, useCallback, useState, useEffect } from 'react';
 import {
     Text, 
     View, 
@@ -7,7 +7,8 @@ import {
     ImageBackground,
     TouchableWithoutFeedback,
     Keyboard,
-    ActionSheetIOS
+    ActivityIndicator,
+    Alert
 
 } from 'react-native';
 import { useDispatch } from 'react-redux';
@@ -16,71 +17,63 @@ import Input from '../../components/Input'
 import Colors from '../../constants/colors';
 import * as authActions from '../../store/actions/auth'
 
-const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
-//Form Reducer
-const formReducer = (state, action) => {
-    if (action.type === FORM_INPUT_UPDATE) {
-        const updatedValues = {
-            ...state.inputValues, 
-            [action.input] : action.value
-        };
-        const updatedValidities = {
-            ...state.inputValidities, 
-            [action.input] : action.isValid
-        };
-        let updatedFormIsValid = true; 
-        for (const key in updatedValidities) {
-            updatedFormIsValid = updatedFormIsValid && updatedValidities[key];
-        }
-        return {
-            formIsValid: updatedFormIsValid,
-        }
-    }
-    return state;
-}
-
-//Login Function
 
 const LogIn = props => {
     const { navigation } = props
 
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState();
+    const [emailText, setEmailText] = useState('');
+    const [passwordText, setPasswordText] = useState()
+    const passwordTest = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/.test(passwordText)
+    const emailTest = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(emailText)
+  
+    useEffect(() => {
+        if (error) {
+          Alert.alert('Login Error!', error, [{ text: 'Okay' }]);
+        }
+      }, [error]);
 
-    const [formState, dispatchFormState] = useReducer(formReducer, {
-        inputValues: {
-          email: '', 
-          password: ''
-        },
-        inputValidities: {
-            email: false,
-            password: false
-        },
-        formIsValid: false
-    });
-    
-
-    const signupHandler = () => {
-        dispatch(
-            authActions.signup(
-                formState.inputValues.email, 
-                formState.inputValues.password
-            )
-        );
+    const confirmLogin =() =>{
+        if (passwordTest && emailTest){
+            loginHandler();
+        }else{
+            inputError()
+        }
     }
 
-    const inputChangeHandler = useCallback (
-        (inputIdentifier, inputValue, inputValidity) => {
-            dispatchFormState({
-                type: FORM_INPUT_UPDATE, 
-                value: inputValue, 
-                isValid:inputValidity, 
-                input: inputIdentifier
-            });
-        },
-        [dispatchFormState]
-    );
+    const loginHandler = async() => {
+        
+    
 
+            setError(null);
+            setIsLoading(true);
+            try {
+              await dispatch(authActions.login(
+                emailText, passwordText  
+            ));
+            props.navigation.navigation('My Trips')
+            } catch (err) {
+              setError(err.message);
+              setIsLoading(false);
+            }
+            // setIsLoading(false);
+          };
+        
+    const inputError = press =>{
+        Alert.alert(
+            'Login Error',
+            'Please make sure your email and password are entered correctly',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+        )
+    }
+ 
     return(
     <ImageBackground 
             source={require('../../assets/images/LogInBackground.jpg')}
@@ -108,10 +101,11 @@ const LogIn = props => {
                         errorText="The email or password you entered is incorrect."
                         minlength={5}
                         maxLength={30}
-                        onInputChange={inputChangeHandler}
+                        // onInputChange={inputChangeHandler}
                         intitialValue=""
-                        // onChangeText={}
-                        // value={}
+                        onChangeText={(text)=> setEmailText(text)}
+                        value={emailText}
+                        returnKeyType='next'
                         />
                         
                         <Input 
@@ -121,27 +115,33 @@ const LogIn = props => {
                         keyboardType="default"
                         blurOnSubmit
                         required
+                        secureTextEntry={true}
                         autoCapitalize="none"
                         autoCorrect={false}
                         errorText="The username or password you entered is incorrect."
                         minlength={5}
                         maxLength={30}
-                        onInputChange={inputChangeHandler}
+                        // onInputChange={inputChangeHandler}
                         intitialValue=""
-                        // onChangeText={}
-                        // value={}
+                        onChangeText={(text)=> setPasswordText(text)}
+                        value={passwordText}
+                        returnKeyType='done'
                         />
                        
                     </View>
+                    
                     <View style={styles.buttonContainer}>
+                    
                         <View style={styles.button}>
+                        {isLoading?  (<ActivityIndicator/>):(
                             <Button
                                 title="Sign In"
                                 color= {Colors.primary}
-                                onPress={signupHandler}
+                                onPress={confirmLogin}
                                 accessibilityLabel = "Sign In"
                                 
                             />
+                            )}
                         </View>
 
                         <View style={styles.button}>
@@ -152,12 +152,7 @@ const LogIn = props => {
                                 onPress={()=>props.navigation.navigate('Home')}
                             />
                         </View>
-                        <View style={styles.button}>
-                            <Button 
-                            title="Dummy Login"
-                           
-                            />
-                        </View>
+                    
                     </View>
                 </Card>
             </View>

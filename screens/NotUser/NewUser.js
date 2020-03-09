@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Text, 
     View, 
@@ -8,18 +8,24 @@ import {
     TouchableOpacity,
     Keyboard, 
     ImageBackground, 
-    Alert
+    Alert,
+    ActivityIndicator
 } from 'react-native'
 import Input from '../../components/Input'
 import Card from '../../components/Card'
 import Colors from '../../constants/colors';
-
-
+import { useDispatch } from 'react-redux'
+import * as authActions from '../../store/actions/auth'
 
 const NewUser = props => {
    
+    const dispatch = useDispatch();
+   
+
     const { navigation } = props
 
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState();
     const [firstNameText, setFirstNameText] = useState("");
     const [lastNameText, setLastNameText] = useState("");
     const [usernameText, setUsernameText] = useState("");
@@ -38,9 +44,15 @@ const NewUser = props => {
     const confirmPasswordTest = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/.test(confirmPasswordText)
     const usernameTest = /^[a-zA-Z0-9_-]{4,16}$/.test(usernameText) 
 
+    useEffect(() => {
+        if (error) {
+          Alert.alert('Sign Up Error!', error, [{ text: 'Okay' }]);
+        }
+      }, [error]);
 
-    const addUser = obj => {
-         if(firstNameTest && lastNameTest && emailTest && usernameTest && passwordTest && confirmPasswordTest ){
+    const addUser = async() => {
+         if(firstNameTest && lastNameTest && emailTest && usernameTest && confirmPasswordTest && passwordTest ){
+             if(confirmPasswordText=== passwordText){
             setNewUserInfo({
                 firstName: firstNameText,
                 lastName: lastNameText,
@@ -49,9 +61,26 @@ const NewUser = props => {
                 password: passwordText, 
                 confirmPassword: confirmPasswordText
             })
-            console.log(newUserInfo)
-            resetFields();
 
+            setError(null);
+            setIsLoading(true);
+            try {
+              await dispatch(authActions.signup(emailText, passwordText));
+            } catch (err) {
+              setError(err.message);
+            }
+            setIsLoading(false);
+
+
+
+
+
+
+            // dispatch(authActions.signup(emailText, passwordText))
+            console.log(emailText, passwordText)
+        }else if(confirmPasswordText!== passwordText){
+            passwordsDontMatch()
+        }
         }else{
             console.log('NEW USER form NOT complete')
              incompleteFields()
@@ -75,6 +104,19 @@ const NewUser = props => {
         Alert.alert(
             'Your Username',
             'Only Letters and Numbers Permitted (ex: username123, UserName987)',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+        )
+    }
+
+    const passwordsDontMatch = press =>{
+        
+        Alert.alert(
+            'Check Passwords',
+            'Please Make Sure Your Passwords Match to Continue',
             [
                 {text: 'Ok',
                 onPress: ()=>console.log('Ok Pressed, Alert Closed')
@@ -137,6 +179,7 @@ const NewUser = props => {
                         maxLength={30}
                         onChangeText={(text)=> setFirstNameText(text)}
                         value={firstNameText}
+                        returnKeyType='next'
                     /> 
                     <Input
                         style={styles.input}
@@ -147,7 +190,8 @@ const NewUser = props => {
                         keyboardType="default"
                         maxLength={30}
                         onChangeText={(text)=> setLastNameText(text)}
-                        value={lastNameText}   
+                        value={lastNameText}  
+                        returnKeyType='next' 
                     /> 
                     
                     <TouchableOpacity onPress={userNameInstructions}>
@@ -164,6 +208,7 @@ const NewUser = props => {
                         maxLength={30}
                         onChangeText={(text)=> setUsernameText(text)}
                         value={usernameText} 
+                        returnKeyType='next'
                     /> 
                     </TouchableOpacity>
                     
@@ -178,6 +223,7 @@ const NewUser = props => {
                         maxLength={50}
                         onChangeText={(text)=> setEmailText(text)}
                         value={emailText}
+                        returnKeyType='next'
                     /> 
                     <TouchableOpacity onPress={passwordInstructions}>
                     <Input
@@ -194,6 +240,7 @@ const NewUser = props => {
                         secureTextEntry={true}
                         onChangeText={(text)=> setPasswordText(text)}
                         value={passwordText}
+                        returnKeyType='next'
                      /> 
                      </TouchableOpacity>
 
@@ -209,15 +256,17 @@ const NewUser = props => {
                         secureTextEntry={true}
                         onChangeText={(text)=> setConfirmPasswordText(text)}
                         value={confirmPasswordText}
+                        returnKeyType='done'
                     /> 
                     <View style={styles.buttonContainer}>
                         <View style={styles.button}>
+                        {isLoading?  (<ActivityIndicator/>):(
                             <Button
                                 title="Create Account"
                                 color= {Colors.primary}
                                 accessibilityLabel = "Create Account"
                                 onPress={addUser}
-                            />
+                            />)}
                         </View>
                         <View style={styles.button}>
                             <Button 

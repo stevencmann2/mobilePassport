@@ -23,7 +23,7 @@ const initialState = {
 console.log(firebaseConfig)
 
 const store = createStore(initialState);
-// const routes = createRoutes(store);
+
 
 try {
   firebase.initializeApp(firebaseConfig);
@@ -46,7 +46,7 @@ const App = () => {
 
     <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
-        <UserNavigation/>
+        <MainStackNavigator/>
     </ReactReduxFirebaseProvider>
 </Provider>
 
