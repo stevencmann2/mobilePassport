@@ -13,6 +13,7 @@ import SavingsScreen from '../screens/User/TripsView/SingleUser/Savings'
 import ExpensesScreen from '../screens/User/TripsView/SingleUser/Expenses'
 import ItineraryScreen from '../screens/User/TripsView/SingleUser/Itinerary'
 import { Ionicons } from '@expo/vector-icons';
+import Button from 'react-native-elements'
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -49,7 +50,11 @@ const UserNavigation = () => {
 const TripsPageNavigator = () =>{
   return(
   <Stack.Navigator>
-        <Stack.Screen name="MyTrips" component={TripsScreen} options={{headerShown: false }} />
+        <Stack.Screen name="My Trips" component={TripsScreen} 
+            options= {{
+              headerTitle: 'My Trips',
+             }}
+          />
         <Stack.Screen name="AddTrip" component={AddTripScreen} />
         <Stack.Screen name="DashNav" component={DashboardNavigator} options={{headerShown: false }}/>
   </Stack.Navigator>

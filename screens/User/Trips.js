@@ -5,10 +5,8 @@ import {
     StyleSheet,
     TouchableOpacity
 } from 'react-native'
-import { Header, Image, Icon } from 'react-native-elements'
+import { Header, Image, Icon, Button } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler';
-
-
 
 
 
@@ -18,28 +16,11 @@ const Trips = props =>{
     
     const { navigation } = props
 
-//    const [modalOpen, isModalOpen ] = useState(false)
 
     return(
-     
-
-
-
-
-
-
+ 
         <View style={styles.screen}>
-        <Header
-            centerComponent={{ 
-                text: 'My Trips', 
-                style: { color: '#fff' } }}
-            rightComponent={{
-                text: '+ Add Trip', 
-                style: { color: '#fff' }, 
-                onPress: ()=> props.navigation.navigate('AddTrip')
-            }}
-            
-        />
+
         <ScrollView>
             <View style={styles.container}>
                 <TouchableOpacity
@@ -59,6 +40,16 @@ const Trips = props =>{
                     </Text>
                 </View>
             </View>
+
+            
+            <View style={styles.buttonContainer}>
+            <Button
+                type= 'outline'
+                title="Add Trip"
+                onPress={()=> props.navigation.navigate('AddTrip')}
+            />
+            </View>
+
         </ScrollView>
         </View>
          
@@ -92,6 +83,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 20
+    },
+    buttonContainer: {
+        marginTop: 30,
+        marginBottom: 50
     }
     
 })

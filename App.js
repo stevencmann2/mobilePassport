@@ -13,6 +13,7 @@ import rrfConfig from './config/rrf-config';
 import firebase from 'firebase'
 import '@firebase/firestore';
 
+
 const initialState = {
   firebase: {
     authError: null,
@@ -27,8 +28,9 @@ const store = createStore(initialState);
 try {
   firebase.initializeApp(firebaseConfig);
   firebase.firestore();
+  
 } catch (err) {
-
+  console.log(err)
 };
 
 
@@ -44,7 +46,7 @@ const App = () => {
 
     <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
-        <MainStackNavigator/>
+        <UserNavigation/>
     </ReactReduxFirebaseProvider>
 </Provider>
 

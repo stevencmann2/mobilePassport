@@ -15,7 +15,9 @@ import Card from '../../components/Card'
 import Colors from '../../constants/colors';
 
 
+
 const NewUser = props => {
+   
     const { navigation } = props
 
     const [firstNameText, setFirstNameText] = useState("");
