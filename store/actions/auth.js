@@ -28,4 +28,4 @@ export const signup = (email, password) => {
     };
 };
 
-export default authAction;
+export default auth;
