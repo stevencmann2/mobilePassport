@@ -100,7 +100,6 @@ const DashboardNavigator = () => {
   )
 }
 
-
 // STYLING FOR THE DRAWER
 
 const DrawerColor = {
