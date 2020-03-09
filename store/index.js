@@ -5,16 +5,19 @@ import {
 } from 'redux';
 
 import rootReducer from './reducers';
+import ReduxThunk from 'redux-thunk'
+
+
 
 const configureStore = (initialState = {}) => {
     const enhancers = [];
-    const middleware = [];
+    const middleware = [ReduxThunk];
 
 
 if (window && window.location && window.location.hostname === 'localhost') {
 
     const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
-    
+
     if (typeof devToolsExtension === 'function') {
         enhancers.push(devToolsExtension());
     }

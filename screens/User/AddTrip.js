@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, Switch, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button} from 'react-native-elements';
 import DeviceImage from '../../components/DeviceImage'
-
+import { useDispatch } from 'react-redux';
+import * as addTripActions from '../../store/actions/trips'
 
 
 // Style in the props will allow us to pass in overriding styles I believe
@@ -11,9 +12,18 @@ import DeviceImage from '../../components/DeviceImage'
 const AddTrip = props => {
 
  const { navigation } = props
+ const dispatch = useDispatch();
+
+
+
 
 const [isGroup, setIsGroup] = useState(false)
 const [TripImage, setTripImage] = useState();
+const [tripName, setTripName]= useState('')
+const [destinationText, setDestinationText]= useState('')
+const [returningText, setReturningText]= useState('')
+const [departingText, setDepartingText]= useState('')
+const [totalBudgetText, setTotalBudgetText]= useState('')
 
 const Toggle = isGroup =>{
     setIsGroup(isGroup)
@@ -27,7 +37,8 @@ const TripPhotoHandler = imagePath => {
 
 
 const FormSubmit = ()=>{
-    props.navigation.navigate("DashNav") 
+    dispatch(addTripActions.addTrips(tripName, destinationText, returningText, departingText, totalBudgetText))
+    // props.navigation.navigate("DashNav") 
 }
 
   return (
@@ -68,30 +79,70 @@ const FormSubmit = ()=>{
                 <Input
                 label="Trip Name"
                 placeholder="John's Bachelor Party"
+                name='tripname'
+                blurOnSubmit
+                autoCorrect={true}
+                keyboardType="default"
+                maxLength={50}
+                onChangeText={(text)=> setTripName(text)}
+                value={tripName}
+                returnKeyType='next'
                 />
             </View>
             <View style={styles.inputContainer}>
                 <Input
                     label="Destination"
                     placeholder="Denver, CO"
+                    name='destination'
+                    blurOnSubmit
+                    autoCorrect={true}
+                    keyboardType="default"
+                    maxLength={50}
+                    onChangeText={(text)=> setDestinationText(text)}
+                    value={destinationText}
+                    returnKeyType='next'
                  />
             </View>
             <View style={styles.inputContainer}>
                 <Input
                     label="Departing Date"
                     placeholder="MM/DD/YYYY"
+                    name='departing'
+                    blurOnSubmit
+                    autoCorrect={true}
+                    keyboardType="default"
+                    maxLength={50}
+                    onChangeText={(text)=> setDepartingText(text)}
+                    value={departingText}
+                    returnKeyType='next'
                 />
             </View>
             <View style={styles.inputContainer}>
                 <Input
                     label="Returning Date"
                     placeholder='MM/DD/YY'
+                    name='returning'
+                    blurOnSubmit
+                    autoCorrect={true}
+                    keyboardType="default"
+                    maxLength={50}
+                    onChangeText={(text)=> setReturningText(text)}
+                    value={returningText}
+                    returnKeyType='next'
                  />
             </View>
             <View style={styles.inputContainer}>
                 <Input
                     label="Max Budget"
                     placeholder="1000"
+                    name='returning'
+                    blurOnSubmit
+                    autoCorrect={true}
+                    keyboardType="numeric"
+                    maxLength={50}
+                    onChangeText={(text)=> setTotalBudgetText(text)}
+                    value={totalBudgetText}
+                    returnKeyType='done'
                 />
             </View>
 
