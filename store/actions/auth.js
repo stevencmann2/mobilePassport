@@ -1,5 +1,5 @@
 
-import { AsyncStorage } from "react-native";
+
 export const SIGNUP = 'SIGNUP';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT'
@@ -33,21 +33,15 @@ export const signup = (email, password) => {
             const resData = await response.json();
             console.log(resData);
             dispatch({ 
-                type: SIGNUP, 
+                type: SIGNUP,  
                 token: resData.idToken, 
                 userId: resData.localId,
                 
-                
             });
-            
                   
     };
 };
 
-
-
-
-////// FOR LOGIN
 
 
 export const login = (email, password) => {
@@ -87,10 +81,12 @@ export const login = (email, password) => {
             userId: resData.localId,
             
         });
-        console.log(getState)
+         
         
     };
 };
+//displatch
+
 
 /// logout
  

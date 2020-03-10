@@ -12,6 +12,7 @@ import IndividualDashboardScreen from '../screens/User/TripsView/SingleUser/Dash
 import SavingsScreen from '../screens/User/TripsView/SingleUser/Savings'
 import ExpensesScreen from '../screens/User/TripsView/SingleUser/Expenses'
 import ItineraryScreen from '../screens/User/TripsView/SingleUser/Itinerary'
+import MapsScreen from '../screens/User/MapScreen'
 import { Ionicons } from '@expo/vector-icons';
 import Button from 'react-native-elements'
 
@@ -56,6 +57,7 @@ const TripsPageNavigator = () =>{
              }}
           />
         <Stack.Screen name="AddTrip" component={AddTripScreen} />
+        <Stack.Screen name="MapsScreen" component={MapsScreen} />
         <Stack.Screen name="DashNav" component={DashboardNavigator} options={{headerShown: false }}/>
   </Stack.Navigator>
   )

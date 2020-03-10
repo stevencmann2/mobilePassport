@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch, ScrollView} from 'react-native';
+import { View, Text, StyleSheet, Switch, ScrollView, KeyboardAvoidingView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button} from 'react-native-elements';
 import DeviceImage from '../../components/DeviceImage'
 import { useDispatch } from 'react-redux';
 import * as addTripActions from '../../store/actions/trips'
+import ChooseLocation from '../../components/Location'
 
 
 // Style in the props will allow us to pass in overriding styles I believe
@@ -42,8 +43,11 @@ const FormSubmit = ()=>{
 }
 
   return (
-     
-    
+    <KeyboardAvoidingView 
+    style={{flex:1}}
+    behavior="padding"
+    keyboardVerticalOffset={100}
+    >
     <ScrollView>
     <View style={styles.screen}>
     
@@ -145,6 +149,9 @@ const FormSubmit = ()=>{
                     returnKeyType='done'
                 />
             </View>
+            <View>
+                <ChooseLocation navigation={props.navigation}/>
+            </View>
 
         <Button
            
@@ -164,7 +171,7 @@ const FormSubmit = ()=>{
        
     </View>
     </ScrollView>
-    
+    </KeyboardAvoidingView>
    
   );
 };
