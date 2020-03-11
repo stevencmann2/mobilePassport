@@ -3,8 +3,8 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": "https://tv-tmd.anonymous.mobilepassport.exp.direct",
-  "packagerNgrokUrl": "https://packager.tv-tmd.anonymous.mobilepassport.exp.direct",
-  "ngrokPid": 30249,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }
