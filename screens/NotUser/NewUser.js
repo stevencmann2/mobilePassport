@@ -9,18 +9,22 @@ import {
     Keyboard, 
     ImageBackground, 
     Alert,
-    ActivityIndicator
+    ActivityIndicator,
+    KeyboardAvoidingView,
+    ScrollView
 } from 'react-native'
 import Input from '../../components/Input'
 import Card from '../../components/Card'
 import Colors from '../../constants/colors';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as authActions from '../../store/actions/auth'
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
 
 const NewUser = props => {
    
     const dispatch = useDispatch();
-   
+    const firestore = useFirestore();
+    const firestoreUsers = firestore.collection("Users")
 
     const { navigation } = props
 
@@ -65,20 +69,16 @@ const NewUser = props => {
             setError(null);
             setIsLoading(true);
             try {
-              await dispatch(authActions.signup(emailText, passwordText));
+                await dispatch(authActions.signup(emailText, passwordText));
+            
+              
+
             } catch (err) {
               setError(err.message);
               setIsLoading(false);
             }
-            // setIsLoading(false);
+            
 
-
-
-
-
-
-            // dispatch(authActions.signup(emailText, passwordText))
-            console.log(emailText, passwordText)
         }else if(confirmPasswordText!== passwordText){
             passwordsDontMatch()
         }
@@ -154,17 +154,22 @@ const NewUser = props => {
 
     return (
 
-    
-        <ImageBackground 
+   
+    <ImageBackground 
             source={require('../../assets/images/NewUserBackground.jpg')}
-            style={styles.backgroundImage}>
-
+            style={styles.backgroundImage}> 
     <TouchableWithoutFeedback 
             onPress={()=> 
                 Keyboard.dismiss()}>
-       
+
+    <KeyboardAvoidingView 
+        style={{flex:1}}
+        behavior="padding"
+        keyboardVerticalOffset={100}
+        >
+    <ScrollView>
+                
         <View style={styles.screen}>
-       
             <Card>
               <View style={styles.center}>
                      <Text style={styles.cardHeader}>Create Account</Text>
@@ -281,7 +286,11 @@ const NewUser = props => {
                 </View>
             </Card>
         </View>
+        </ScrollView>
+        </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
+       
+       
         </ImageBackground>
         
     )

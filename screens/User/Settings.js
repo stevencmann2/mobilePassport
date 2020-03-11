@@ -1,26 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Text, 
     View, 
     StyleSheet
 } from 'react-native'
+import CalendarComponent from '../../components/CalendarComponent';
+
+
+
 
 
 
 
 const Settings = props =>{
     
-    const { navigation } = props
-
-    
+    const { navigation } = props 
+   
     return(
         <View style={styles.screen}>
-            <View>
-                <Text style={{color: 'black'}}>
-                        USER SETTINGS HOMEPAGE
-                </Text>
-            </View>
+        <View style={styles.textContainer}>
+            <Text style={{color: 'black'}}>
+                Settings Home page
+            </Text>
+            <CalendarComponent />
         </View>
+        </View>
+
     )
 }
 
@@ -29,8 +34,14 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: 40,
-    }
+      
+    },
+    textContainer:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20
+    },
+   
     
 })
 
