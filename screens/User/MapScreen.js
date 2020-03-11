@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import HeaderButton from '../../components/HeaderButton'
+
 
 const MapScreen = props => {
 
-    const [selectedLocation, setSelectedLocation] = useState()
+    const [selectedLocation, setSelectedLocation] = useState();
+
 
 
   const mapRegion = {
@@ -23,7 +26,10 @@ const MapScreen = props => {
 
 
 
-  let markerCoordinates;
+console.log("THIS IS THE SELECTED LOCATION")
+console.log(selectedLocation)
+
+    let markerCoordinates;
 
   if (selectedLocation){
       markerCoordinates = {
@@ -43,15 +49,23 @@ const MapScreen = props => {
             title="Picked Location"
             coordinate={markerCoordinates}>
         </Marker> }
-
+        
       </MapView>
       )
 
 };
 
+
+
 const styles = StyleSheet.create({
   map: {
     flex: 1
+  },
+  headerButton: {
+      marginHorizontal: 20
+  },
+  headerButtonText: {
+      fontSize: 16
   }
 });
 

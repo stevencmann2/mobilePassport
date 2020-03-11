@@ -13,6 +13,7 @@ const DrawerAvatar = props => {
 return (
 
 <DrawerContentScrollView {...props}>
+
     <View style={styles.Avatarcontainer}>
         <Avatar
             rounded

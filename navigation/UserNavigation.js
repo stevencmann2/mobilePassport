@@ -14,7 +14,9 @@ import ExpensesScreen from '../screens/User/TripsView/SingleUser/Expenses'
 import ItineraryScreen from '../screens/User/TripsView/SingleUser/Itinerary'
 import MapsScreen from '../screens/User/MapScreen'
 import { Ionicons } from '@expo/vector-icons';
-import Button from 'react-native-elements'
+import DeviceImage from '../components/DeviceImage'
+
+import  HeaderButton  from '../components/HeaderButton';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -57,7 +59,10 @@ const TripsPageNavigator = () =>{
              }}
           />
         <Stack.Screen name="AddTrip" component={AddTripScreen} />
-        <Stack.Screen name="MapsScreen" component={MapsScreen} />
+        <Stack.Screen name="MapsScreen" component={MapsScreen} 
+          options={{
+            headerTitle: 'Map',
+            headerRight: ()=>(<HeaderButton/>),}}/>
         <Stack.Screen name="DashNav" component={DashboardNavigator} options={{headerShown: false }}/>
   </Stack.Navigator>
   )

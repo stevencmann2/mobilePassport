@@ -10,19 +10,21 @@ import {
     ImageBackground, 
     Alert,
     ActivityIndicator,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    ScrollView
 } from 'react-native'
 import Input from '../../components/Input'
 import Card from '../../components/Card'
 import Colors from '../../constants/colors';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as authActions from '../../store/actions/auth'
-import { ScrollView } from 'react-native-gesture-handler';
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
 
 const NewUser = props => {
    
     const dispatch = useDispatch();
-   
+    const firestore = useFirestore();
+    const firestoreUsers = firestore.collection("Users")
 
     const { navigation } = props
 
@@ -67,20 +69,16 @@ const NewUser = props => {
             setError(null);
             setIsLoading(true);
             try {
-              await dispatch(authActions.signup(emailText, passwordText));
+                await dispatch(authActions.signup(emailText, passwordText));
+            
+              
+
             } catch (err) {
               setError(err.message);
               setIsLoading(false);
             }
-            // setIsLoading(false);
+            
 
-
-
-
-
-
-            // dispatch(authActions.signup(emailText, passwordText))
-            console.log(emailText, passwordText)
         }else if(confirmPasswordText!== passwordText){
             passwordsDontMatch()
         }

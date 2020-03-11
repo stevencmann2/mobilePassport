@@ -1,4 +1,5 @@
 export const ADD_TRIPS = 'ADD_TRIPS';
+export const TRIP_LOCATION = 'TRIP_LOCATION'
 
 export const addTrips = (tripName, departing, destination, returning, totalBudget) => {
     return dispatch => {
@@ -9,18 +10,18 @@ export const addTrips = (tripName, departing, destination, returning, totalBudge
             Departing: departing, 
             TotalBudget: totalBudget,
         };
-        fetch("https://firestore.googleapis.com/v1/projects/mobilepassport-7f862/databases/(default)/documents?key=AIzaSyAFOAEEX-gIyLbHCdhSIfOrFAAZ2QQVMwQ.json", {
+        fetch("https://firestore.googleapis.com/v1/projects/mobilepassport-7f862/databases/(default)/documents/Trips?key=AIzaSyAFOAEEX-gIyLbHCdhSIfOrFAAZ2QQVMwQ", {
             method: "POST",
-            // headers: {
-            //     'Accept': 'application/json',
-            //     'Content-Type': 'application/json'
-            // },
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(tripData)
         })
         .catch(err => console.log(err))
-        .then(res => res.json())
         .then(parsedRes => {
             console.log(parsedRes);
         });
     };
 };
+

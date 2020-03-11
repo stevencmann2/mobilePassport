@@ -10,7 +10,8 @@ const [chosenPhoto, setChosenPhoto] = useState();
 
     const verifyPermissions = async () => {
                   //// CAMERA_ROLL ACCESSES GALLERY CAMERA ACCESSES CAMERA
-      const result = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
+                  // Permissions.CAMERA, 
+      const result = await Permissions.askAsync(Permissions.CAMERA_ROLL, Permissions.CAMERA);     
       if (result.status !== 'granted') {
         Alert.alert(
           'Insufficient permissions!',
@@ -29,10 +30,10 @@ const [chosenPhoto, setChosenPhoto] = useState();
           return;
       }
       // CAN ALSO CALL launchImageLibraryAsync
-      const image = await ImagePicker.launchCameraAsync({
+      const image = await ImagePicker.launchImageLibraryAsync({
         // allowsEditing: true, // allows cropping
         aspect: [16 , 9],  //aspect ratio
-        quality: 0.5      // value 0-1 1 is highest quality
+        quality: 0.9      // value 0-1 1 is highest quality
       });
 
       console.log( image)
