@@ -7,7 +7,7 @@ export const LOGOUT = 'LOGOUT'
 
 
 
-export const signup = (email, password, userObj) => {
+export const signup = (email, password) => {
     
 
     return async dispatch => {
@@ -92,7 +92,6 @@ export const login = (email, password) => {
         
     };
 };
-//displatch
 
 
 /// logout

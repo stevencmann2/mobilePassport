@@ -9,28 +9,38 @@ import ReduxThunk from 'redux-thunk'
 
 
 
+
 const configureStore = (initialState = {}) => {
     const enhancers = [];
     const middleware = [ReduxThunk];
 
 
-if (window && window.location && window.location.hostname === 'localhost') {
+// if (window && window.location && window.location.hostname === 'localhost') {
 
-    const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
+//     const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
 
-    if (typeof devToolsExtension === 'function') {
-        enhancers.push(devToolsExtension());
-    }
+//     if (typeof devToolsExtension === 'function') {
+//         enhancers.push(devToolsExtension());
+//     }
+// }
+
+let composeEnhancers = compose;
+if(__DEV__) {
+    composeEnhancers =  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 }
+
+console.log('-------ENHANCERS------')
+console.log(enhancers)
 
 const store = createStore(
     rootReducer,
     initialState,
-    compose(
+    composeEnhancers(
         applyMiddleware(...middleware),
         ...enhancers,
-    ),
+    )
 );
+console.log(store)
 
 store.asyncReducers = {};
 
