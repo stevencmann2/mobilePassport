@@ -1,19 +1,42 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch, ScrollView} from 'react-native';
+import { View, Text, StyleSheet, Switch, ScrollView, KeyboardAvoidingView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button} from 'react-native-elements';
 import DeviceImage from '../../components/DeviceImage'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as addTripActions from '../../store/actions/trips'
+import ChooseLocation from '../../components/Location'
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
+
+
+
 
 
 // Style in the props will allow us to pass in overriding styles I believe
-
+///// FOR A LOCATION PICKER ADD AT THE END OF BEFORE BUTTON 
+// <View>
+//  <ChooseLocation navigation={props.navigation}/>
+// </View>
 const AddTrip = props => {
 
  const { navigation } = props
  const dispatch = useDispatch();
+ const firestore = useFirestore();
+ 
+ //GET ROUTE
+ useFirestoreConnect([
+    { collection: 'Trips' },
+  ]);
 
+  const TripsState = useSelector(state => state.firestore.ordered.Trips);
+  const userID = useSelector(state=> state.auth.userId)
+  console.log('==================================================')
+  console.log(userID)
+  console.log('==================================================')
+  console.log(TripsState)
+  console.log('==================================================')
+  
+const firestoreTrips = firestore.collection("Trips")
 
 
 
@@ -36,14 +59,21 @@ const TripPhotoHandler = imagePath => {
 
 
 
+
 const FormSubmit = ()=>{
-    dispatch(addTripActions.addTrips(tripName, destinationText, returningText, departingText, totalBudgetText))
-    // props.navigation.navigate("DashNav") 
+    // dispatch(addTripActions.addTrips(tripName, destinationText, returningText, departingText, totalBudgetText))
+    props.navigation.navigate("DashNav") 
+    const sampleTodo = { text: 'Kevin', done: false }
+    firestoreTrips.add({sampleTodo})
+    console.log('TRYING TO ADD TRIP')
 }
 
   return (
-     
-    
+    <KeyboardAvoidingView 
+    style={{flex:1}}
+    behavior="padding"
+    keyboardVerticalOffset={100}
+    >
     <ScrollView>
     <View style={styles.screen}>
     
@@ -91,6 +121,20 @@ const FormSubmit = ()=>{
             </View>
             <View style={styles.inputContainer}>
                 <Input
+                    label="Max Budget"
+                    placeholder="1000"
+                    name='returning'
+                    blurOnSubmit
+                    autoCorrect={true}
+                    keyboardType="numeric"
+                    maxLength={50}
+                    onChangeText={(text)=> setTotalBudgetText(text)}
+                    value={totalBudgetText}
+                    returnKeyType='next'
+                />
+            </View>
+            <View style={styles.inputContainer}>
+                <Input
                     label="Destination"
                     placeholder="Denver, CO"
                     name='destination'
@@ -131,20 +175,9 @@ const FormSubmit = ()=>{
                     returnKeyType='next'
                  />
             </View>
-            <View style={styles.inputContainer}>
-                <Input
-                    label="Max Budget"
-                    placeholder="1000"
-                    name='returning'
-                    blurOnSubmit
-                    autoCorrect={true}
-                    keyboardType="numeric"
-                    maxLength={50}
-                    onChangeText={(text)=> setTotalBudgetText(text)}
-                    value={totalBudgetText}
-                    returnKeyType='done'
-                />
-            </View>
+            <View>
+            <ChooseLocation navigation={props.navigation}/>
+           </View>
 
         <Button
            
@@ -164,7 +197,7 @@ const FormSubmit = ()=>{
        
     </View>
     </ScrollView>
-    
+    </KeyboardAvoidingView>
    
   );
 };

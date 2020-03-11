@@ -6,6 +6,7 @@ import LogInScreen from '../screens/NotUser/LogIn'
 import HomeScreen  from '../screens/NotUser/Home'
 
 
+
 const Stack = createStackNavigator ();
 
 
@@ -44,6 +45,8 @@ return(
             name='LogIn' 
             component={LogInScreen} 
             options={{ title: 'Log In' }}/>
+      
+      
       </Stack.Navigator>
   </NavigationContainer>
 )
