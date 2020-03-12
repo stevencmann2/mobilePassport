@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch, ScrollView, KeyboardAvoidingView} from 'react-native';
+import { View, Text, StyleSheet, Switch, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button} from 'react-native-elements';
 import DeviceImage from '../../components/DeviceImage'
@@ -24,21 +24,13 @@ const AddTrip = props => {
  const firestore = useFirestore();
  
  //GET ROUTE
- useFirestoreConnect([
-    { collection: 'Trips' },
+  useFirestoreConnect([
+    { collection: 'Trips' },{ collection: 'Users', doc: UserId}
   ]);
 
   const TripsState = useSelector(state => state.firestore.ordered.Trips);
-  const userID = useSelector(state=> state.auth.userId)
-  console.log('==================================================')
-  console.log(userID)
-  console.log('==================================================')
-  console.log(TripsState)
-  console.log('==================================================')
-  
-const firestoreTrips = firestore.collection("Trips")
-
-
+  const UserId = useSelector(state=> state.auth.userId)
+  const firestoreTrips = firestore.collection("Trips")
 
 const [isGroup, setIsGroup] = useState(false)
 const [TripImage, setTripImage] = useState();
@@ -56,16 +48,38 @@ const Toggle = isGroup =>{
 const TripPhotoHandler = imagePath => {
     setTripImage(imagePath)
 }
-
-
-
+const incompleteFields = () => {
+    Alert.alert(
+        'Cannot Add Trip Yet',
+        'Please verify all fields are filled out correctly',
+        [
+            {text: 'Ok',
+            onPress: ()=>console.log('Ok Pressed, Alert Closed')
+            }
+        ]
+ )
+}
 
 const FormSubmit = ()=>{
-    // dispatch(addTripActions.addTrips(tripName, destinationText, returningText, departingText, totalBudgetText))
-    props.navigation.navigate("DashNav") 
-    const sampleTodo = { text: 'Kevin', done: false }
-    firestoreTrips.add({sampleTodo})
-    console.log('TRYING TO ADD TRIP')
+    
+    if(destinationText.length >0 && tripName.length >0 
+        && returningText.length >0 && returningText.length >0 
+        && totalBudgetText.length > 0 && departingText.length >0 ){
+
+    const TripData = {
+        tripName: tripName,
+        totalBudget: totalBudgetText,
+        destination: destinationText,
+        returning: returningText,
+        departing: departingText,
+        users: UserId
+     }
+     //// NEED TO ADD A CATCH STATEMTNT IF NOT POSTED
+    firestoreTrips.add(TripData).then(props.navigation.navigate("DashNav") )
+
+    }else{
+        incompleteFields();
+    }
 }
 
   return (

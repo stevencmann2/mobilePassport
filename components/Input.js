@@ -8,9 +8,9 @@ const Input = props => {
         <Text>
            {props.label}
         </Text>
-        <Text style={styles.specialLabel}>
+        <View style={styles.specialLabel}>
           {props.special}
-        </Text>
+        </View>
         </View>
         <TextInput  {...props} style={{...styles.input, ...props.style}} />
       </View>
@@ -28,9 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   specialLabel: {
-    color: 'red',
-    marginLeft: 5,
-    fontStyle: 'italic'
+    marginLeft: 10,
   }
 
 });
