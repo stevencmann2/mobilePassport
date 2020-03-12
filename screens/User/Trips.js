@@ -24,23 +24,28 @@ const Trips = props =>{
     
     const { navigation } = props
 
-
+    const userTrips = 'userTrips'
     // FIRESTORE STUFF
     const firestore = useFirestore();
     const firestoreUsers = firestore.collection("Users")
+    const UserId = useSelector(state=> state.auth.userId)
     
     useFirestoreConnect([
-        { collection: 'Trips' },{ collection: 'Users', doc: UserId}
+        {
+            collection: 'Trips',
+            where: [
+              ['users', '==', `${UserId}`]
+            ],
+            storeAs: userTrips
+          },{ collection: 'Users', doc: UserId}
       ]);
 
-    //   useFirestoreConnect([
-    //     { collection: 'Users', doc: UserId},
-    //   ]);
-
-      const UserId = useSelector(state=> state.auth.userId)
-      const AllTripsData = useSelector(state => state.firestore.ordered.Trips);
-      const UserData = useSelector(({ firestore: { data } }) => data.Users && data.Users[UserId])
-
+   
+    const TripsData = useSelector(state =>state.firestore.data[userTrips])
+    const UserData = useSelector(({ firestore: { data } }) => data.Users && data.Users[UserId])
+    console.log('999999999999999999999999999999999999999999999')
+    console.log(TripsData)
+    console.log('999999999999999999999999999999999999999999999')
      
     const [firstNameText, setFirstNameText] = useState("");
     const [lastNameText, setLastNameText] = useState("");
