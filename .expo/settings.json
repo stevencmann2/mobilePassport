@@ -3,10 +3,6 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
-<<<<<<< HEAD
-  "urlRandomness": "pq-iuf",
-=======
-  "urlRandomness": "x9-ria",
->>>>>>> c95323c81f7af24cf730971ca573e318822d2aab
+  "urlRandomness": "x4-psg",
   "https": false
 }
