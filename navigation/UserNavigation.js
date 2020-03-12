@@ -13,8 +13,8 @@ import SavingsScreen from '../screens/User/TripsView/SingleUser/Savings'
 import ExpensesScreen from '../screens/User/TripsView/SingleUser/Expenses'
 import ItineraryScreen from '../screens/User/TripsView/SingleUser/Itinerary'
 import MapsScreen from '../screens/User/MapScreen'
+import AddItemScreen from '../screens/User/TripsView/SingleUser/AddItem'
 import { Ionicons } from '@expo/vector-icons';
-import DeviceImage from '../components/DeviceImage'
 
 import  HeaderButton  from '../components/HeaderButton';
 
@@ -85,6 +85,8 @@ const DashboardNavigator = () => {
           iconName = focused ? 'md-list-box' :'md-list'
         }else if(route.name === 'Itinerary'){
           iconName = focused ? 'ios-calendar' :'ios-calendar'
+        }else if(route.name === 'Add'){
+          iconName = focused ? 'md-arrow-round-up' :'md-arrow-round-up'
         }
         
         // You can return any component that you like here!
@@ -98,9 +100,9 @@ const DashboardNavigator = () => {
     }}
     >
 
-      
-      <Tab.Screen name="Expenses" component={ExpensesScreen} />
       <Tab.Screen name="Dashboard" component={IndividualDashboardScreen} />
+      <Tab.Screen name="Expenses" component={ExpensesScreen} />
+      <Tab.Screen name="Add" component={AddItemScreen} />
       <Tab.Screen name="Savings" component={SavingsScreen} />
       <Tab.Screen name="Itinerary" component={ItineraryScreen} />
     </Tab.Navigator>

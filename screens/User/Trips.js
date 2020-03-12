@@ -41,7 +41,7 @@ const Trips = props =>{
       ]);
 
    
-    const TripsData = useSelector(state =>state.firestore.data[userTrips])
+    const TripsData = useSelector(state =>state.firestore.ordered[userTrips])
     const UserData = useSelector(({ firestore: { data } }) => data.Users && data.Users[UserId])
     console.log('999999999999999999999999999999999999999999999')
     console.log(TripsData)
@@ -55,16 +55,18 @@ const Trips = props =>{
     const lastNameTest = /^[A-Za-z]+$/.test(lastNameText)
     const usernameTest = /^[a-zA-Z0-9_-]{4,16}$/.test(usernameText) 
 
-    const userHandler =() => {
+    const userHandler = async() => {
     if (firstNameTest && lastNameTest && usernameTest){
-            firestoreUsers.doc(UserId).set({
+        try {
+            await firestoreUsers.doc(UserId).set({
                 firstName: firstNameText,
                 lastName: lastNameText,
                 username: usernameText,
                 userId: UserId
             })
-                
-            
+         } catch (err) {
+          console.log(err)
+        }      
     }else{
         incompleteFields();
     }
@@ -100,78 +102,78 @@ const Trips = props =>{
 
     if(!UserData){
         return(
-    <TouchableWithoutFeedback 
-        onPress={()=> 
-        Keyboard.dismiss()}>
-    <View style={styles.firstScreen}>
+         <TouchableWithoutFeedback 
+                onPress={()=> 
+                Keyboard.dismiss()}>
+            <View style={styles.firstScreen}>
    
-        <View style={styles.banner}>
-            <Text>
-                Please Create a User Profile to Continue
-            </Text>
-        </View>
+                 <View style={styles.banner}>
+                     <Text>
+                        Please Create a User Profile to Continue
+                    </Text>
+                </View>
        
        
-        <Card style={styles.formCard}>
-            <View>
-                <Input
-                    style={styles.input}
-                    label="First Name"
-                    name="firstName"
-                    blurOnSubmit
-                    autoCorrect={false}
-                    keyboardType="default"
-                    maxLength={30}
-                    onChangeText={(text)=> setFirstNameText(text)}
-                    value={firstNameText}
-                    returnKeyType='next'
-                /> 
-                <Input
-                    style={styles.input}
-                    label='Last Name'
-                    name='lastName'
-                    blurOnSubmit
-                    autoCorrect={false}
-                    keyboardType="default"
-                    maxLength={30}
-                    onChangeText={(text)=> setLastNameText(text)}
-                    value={lastNameText}  
-                    returnKeyType='next' 
-                /> 
+                <Card style={styles.formCard}>
+                     <View>
+                        <Input
+                            style={styles.input}
+                            label="First Name"
+                            name="firstName"
+                            blurOnSubmit
+                            autoCorrect={false}
+                            keyboardType="default"
+                            maxLength={30}
+                            onChangeText={(text)=> setFirstNameText(text)}
+                            value={firstNameText}
+                            returnKeyType='next'
+                        /> 
+                        <Input
+                            style={styles.input}
+                            label='Last Name'
+                            name='lastName'
+                            blurOnSubmit
+                            autoCorrect={false}
+                            keyboardType="default"
+                            maxLength={30}
+                            onChangeText={(text)=> setLastNameText(text)}
+                            value={lastNameText}  
+                            returnKeyType='next' 
+                        /> 
                 
-                <TouchableOpacity onPress={userNameInstructions}>
-                <Input
-                    
-                    style={styles.input}
-                    label='Username'
-                    special={<Icon
-                        name='ios-information-circle-outline'
-                        type='ionicon'
-                        size ={18}
-                        color='red'
-                      />}
-                    name='username'
-                    blurOnSubmit
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    keyboardType="default"
-                    maxLength={30}
-                    onChangeText={(text)=> setUsernameText(text)}
-                    value={usernameText} 
-                    returnKeyType='next'
-                /> 
-                </TouchableOpacity>
-                <Button 
-                    type='outline'
-                    title="Next"
-                    onPress={userHandler}
-                />
+                        <TouchableOpacity onPress={userNameInstructions}>
+                        <Input
+                            
+                            style={styles.input}
+                            label='Username'
+                            special={<Icon
+                                name='ios-information-circle-outline'
+                                type='ionicon'
+                                size ={18}
+                                color='red'
+                            />}
+                            name='username'
+                            blurOnSubmit
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            keyboardType="default"
+                            maxLength={30}
+                            onChangeText={(text)=> setUsernameText(text)}
+                            value={usernameText} 
+                            returnKeyType='next'
+                        /> 
+                        </TouchableOpacity>
+                        <Button 
+                            type='outline'
+                            title="Next"
+                            onPress={userHandler}
+                        />
                 
-            </View>
-        </Card>
+                    </View>
+                </Card>
     
-    </View>
-    </TouchableWithoutFeedback>
+            </View>
+        </TouchableWithoutFeedback>
         )
 
     }else if(!isLoaded(UserData)){
@@ -184,27 +186,40 @@ const Trips = props =>{
     }else if(UserData){
             
         return(
+            
             <View style={styles.screen}>
-                <ScrollView>
-                <View style={styles.container}>
-                    <TouchableOpacity
-                        onPress={()=>console.log('heyyyyyyyy')}>
-                        <View style={styles.ImgContainer}>
-                            <Image 
-                                source={require('../../assets/images/PalmTrees.jpg')} 
-                                style={styles.Img}
-                                onPress={()=>{console.log('Pressed Hawaii')}}  
-                            />
+            <ScrollView>
+            {TripsData.length > 0 ? (
+                TripsData.map((trip)=>
+                    
+                    <View style={styles.container} key={trip.id}>
+                        <TouchableOpacity
+                            onPress={()=>props.navigation.navigate('DashNav')}>
+                            <View style={styles.ImgContainer}>
+                                <Image 
+                                    source={require('../../assets/images/PalmTrees.jpg')} 
+                                    style={styles.Img}
+                                    onPress={()=>props.navigation.navigate('DashNav')}  
+                                />
+                            </View>
+                         </TouchableOpacity>
+
+                        <View style={styles.TripName}>
+                            <Text>
+                                {trip.tripName}
+                            </Text>
                         </View>
-                    </TouchableOpacity>
+                    </View>
+                )
 
-                <View style={styles.TripName}>
-                    <Text>
-                        Hawaii Trip
-                    </Text>
-                </View>
-            </View>
 
+
+            ) : (<Text style={styles.container}>
+                    You have no trips yet, click the button below to add a trip! 
+                </Text>) 
+            }
+                
+               
             
             <View style={styles.buttonContainer}>
             <Button
