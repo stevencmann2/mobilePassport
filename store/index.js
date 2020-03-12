@@ -29,8 +29,8 @@ if(__DEV__) {
     composeEnhancers =  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 }
 
-console.log('-------ENHANCERS------')
-console.log(enhancers)
+// console.log('-------ENHANCERS------')
+// console.log(enhancers)
 
 const store = createStore(
     rootReducer,

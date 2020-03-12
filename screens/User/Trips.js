@@ -14,8 +14,8 @@ import { Header, Image, Icon, Button } from 'react-native-elements'
 import Input from '../../components/Input'
 import Card from '../../components/Card';
 import { useSelector } from 'react-redux';
-import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
-import { withFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+import { useFirestoreConnect, useFirestore, withFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+
 
 
 
@@ -30,12 +30,12 @@ const Trips = props =>{
     const firestoreUsers = firestore.collection("Users")
     
     useFirestoreConnect([
-        { collection: 'Trips' },
+        { collection: 'Trips' },{ collection: 'Users', doc: UserId}
       ]);
 
-      useFirestoreConnect([
-        { collection: 'Users', doc: UserId},
-      ]);
+    //   useFirestoreConnect([
+    //     { collection: 'Users', doc: UserId},
+    //   ]);
 
       const UserId = useSelector(state=> state.auth.userId)
       const AllTripsData = useSelector(state => state.firestore.ordered.Trips);
