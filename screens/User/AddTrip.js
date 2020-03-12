@@ -1,21 +1,36 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch, ScrollView} from 'react-native';
+import { View, Text, StyleSheet, Switch, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button} from 'react-native-elements';
 import DeviceImage from '../../components/DeviceImage'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as addTripActions from '../../store/actions/trips'
+import ChooseLocation from '../../components/Location'
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
+
+
+
 
 
 // Style in the props will allow us to pass in overriding styles I believe
-
+///// FOR A LOCATION PICKER ADD AT THE END OF BEFORE BUTTON 
+// <View>
+//  <ChooseLocation navigation={props.navigation}/>
+// </View>
 const AddTrip = props => {
 
  const { navigation } = props
  const dispatch = useDispatch();
+ const firestore = useFirestore();
+ 
+ //GET ROUTE
+  useFirestoreConnect([
+    { collection: 'Trips' },{ collection: 'Users', doc: UserId}
+  ]);
 
-
-
+  const TripsState = useSelector(state => state.firestore.ordered.Trips);
+  const UserId = useSelector(state=> state.auth.userId)
+  const firestoreTrips = firestore.collection("Trips")
 
 const [isGroup, setIsGroup] = useState(false)
 const [TripImage, setTripImage] = useState();
@@ -33,17 +48,46 @@ const Toggle = isGroup =>{
 const TripPhotoHandler = imagePath => {
     setTripImage(imagePath)
 }
-
-
+const incompleteFields = () => {
+    Alert.alert(
+        'Cannot Add Trip Yet',
+        'Please verify all fields are filled out correctly',
+        [
+            {text: 'Ok',
+            onPress: ()=>console.log('Ok Pressed, Alert Closed')
+            }
+        ]
+ )
+}
 
 const FormSubmit = ()=>{
-    dispatch(addTripActions.addTrips(tripName, destinationText, returningText, departingText, totalBudgetText))
-    // props.navigation.navigate("DashNav") 
+    
+    if(destinationText.length >0 && tripName.length >0 
+        && returningText.length >0 && returningText.length >0 
+        && totalBudgetText.length > 0 && departingText.length >0 ){
+
+    const TripData = {
+        tripName: tripName,
+        totalBudget: totalBudgetText,
+        destination: destinationText,
+        returning: returningText,
+        departing: departingText,
+        users: UserId
+     }
+     //// NEED TO ADD A CATCH STATEMTNT IF NOT POSTED
+    firestoreTrips.add(TripData).then(props.navigation.navigate("DashNav") )
+
+    }else{
+        incompleteFields();
+    }
 }
 
   return (
-     
-    
+    <KeyboardAvoidingView 
+    style={{flex:1}}
+    behavior="padding"
+    keyboardVerticalOffset={100}
+    >
     <ScrollView>
     <View style={styles.screen}>
     
@@ -91,6 +135,20 @@ const FormSubmit = ()=>{
             </View>
             <View style={styles.inputContainer}>
                 <Input
+                    label="Max Budget"
+                    placeholder="1000"
+                    name='returning'
+                    blurOnSubmit
+                    autoCorrect={true}
+                    keyboardType="numeric"
+                    maxLength={50}
+                    onChangeText={(text)=> setTotalBudgetText(text)}
+                    value={totalBudgetText}
+                    returnKeyType='next'
+                />
+            </View>
+            <View style={styles.inputContainer}>
+                <Input
                     label="Destination"
                     placeholder="Denver, CO"
                     name='destination'
@@ -131,20 +189,9 @@ const FormSubmit = ()=>{
                     returnKeyType='next'
                  />
             </View>
-            <View style={styles.inputContainer}>
-                <Input
-                    label="Max Budget"
-                    placeholder="1000"
-                    name='returning'
-                    blurOnSubmit
-                    autoCorrect={true}
-                    keyboardType="numeric"
-                    maxLength={50}
-                    onChangeText={(text)=> setTotalBudgetText(text)}
-                    value={totalBudgetText}
-                    returnKeyType='done'
-                />
-            </View>
+            <View>
+            <ChooseLocation navigation={props.navigation}/>
+           </View>
 
         <Button
            
@@ -164,7 +211,7 @@ const FormSubmit = ()=>{
        
     </View>
     </ScrollView>
-    
+    </KeyboardAvoidingView>
    
   );
 };

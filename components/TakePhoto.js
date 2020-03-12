@@ -4,7 +4,7 @@ import { Avatar } from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
-const DeviceImage = props => {
+const TakePhoto = props => {
 
 const [chosenPhoto, setChosenPhoto] = useState();
 
@@ -30,7 +30,7 @@ const [chosenPhoto, setChosenPhoto] = useState();
           return;
       }
       // CAN ALSO CALL launchImageLibraryAsync
-      const image = await ImagePicker.launchImageLibraryAsync({
+      const image = await ImagePicker.launchCameraAsync({
         // allowsEditing: true, // allows cropping
         aspect: [16 , 9],  //aspect ratio
         quality: 0.9      // value 0-1 1 is highest quality
@@ -60,4 +60,4 @@ const [chosenPhoto, setChosenPhoto] = useState();
   const styles = StyleSheet.create({
   })
   
-  export default DeviceImage;
+  export default TakePhoto;

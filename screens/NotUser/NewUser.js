@@ -9,40 +9,39 @@ import {
     Keyboard, 
     ImageBackground, 
     Alert,
-    ActivityIndicator
+    ActivityIndicator,
+    KeyboardAvoidingView,
+    ScrollView
 } from 'react-native'
+import { Icon }from 'react-native-elements'
 import Input from '../../components/Input'
 import Card from '../../components/Card'
 import Colors from '../../constants/colors';
-import { useDispatch } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import * as authActions from '../../store/actions/auth'
+
+
 
 const NewUser = props => {
    
     const dispatch = useDispatch();
-   
+
+  
 
     const { navigation } = props
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState();
-    const [firstNameText, setFirstNameText] = useState("");
-    const [lastNameText, setLastNameText] = useState("");
-    const [usernameText, setUsernameText] = useState("");
     const [emailText, setEmailText] = useState("");
     const [passwordText, setPasswordText] = useState("");
     const [confirmPasswordText, setConfirmPasswordText] = useState("");
     const [newUserInfo, setNewUserInfo]= useState({})
 
-    const firstNameTest = /^[A-Za-z]+$/.test(firstNameText)
-    const lastNameTest = /^[A-Za-z]+$/.test(lastNameText)
+   
     const emailTest = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(emailText)
-    ///Password expresion that requires:
-        // one lower case letter, one upper case letter, 
-        //one digit, one non-word character, 6>= length and no spaces.
     const passwordTest = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/.test(passwordText)
     const confirmPasswordTest = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/.test(confirmPasswordText)
-    const usernameTest = /^[a-zA-Z0-9_-]{4,16}$/.test(usernameText) 
+   
 
     useEffect(() => {
         if (error) {
@@ -51,12 +50,9 @@ const NewUser = props => {
       }, [error]);
 
     const addUser = async() => {
-         if(firstNameTest && lastNameTest && emailTest && usernameTest && confirmPasswordTest && passwordTest ){
+         if(emailTest && confirmPasswordTest && passwordTest ){
              if(confirmPasswordText=== passwordText){
             setNewUserInfo({
-                firstName: firstNameText,
-                lastName: lastNameText,
-                username: usernameText,
                 email: emailText,
                 password: passwordText, 
                 confirmPassword: confirmPasswordText
@@ -65,20 +61,16 @@ const NewUser = props => {
             setError(null);
             setIsLoading(true);
             try {
-              await dispatch(authActions.signup(emailText, passwordText));
+                await dispatch(authActions.signup(emailText, passwordText));
+            
+              
+
             } catch (err) {
               setError(err.message);
               setIsLoading(false);
             }
-            // setIsLoading(false);
+            
 
-
-
-
-
-
-            // dispatch(authActions.signup(emailText, passwordText))
-            console.log(emailText, passwordText)
         }else if(confirmPasswordText!== passwordText){
             passwordsDontMatch()
         }
@@ -90,28 +82,6 @@ const NewUser = props => {
         
     }
 
-    const resetFields = () => {
-       
-       setFirstNameText("");
-       setLastNameText("")
-       setEmailText("")
-       setPasswordText("")
-       setConfirmPasswordText("")
-       setUsernameText("") 
-    }
-
-    const userNameInstructions = press =>{
-        console.log('Touched username field')
-        Alert.alert(
-            'Your Username',
-            'Only Letters and Numbers Permitted (ex: username123, UserName987)',
-            [
-                {text: 'Ok',
-                onPress: ()=>console.log('Ok Pressed, Alert Closed')
-                }
-            ]
-        )
-    }
 
     const passwordsDontMatch = press =>{
         
@@ -154,64 +124,27 @@ const NewUser = props => {
 
     return (
 
-    
-        <ImageBackground 
+   
+    <ImageBackground 
             source={require('../../assets/images/NewUserBackground.jpg')}
-            style={styles.backgroundImage}>
-
+            style={styles.backgroundImage}> 
     <TouchableWithoutFeedback 
             onPress={()=> 
                 Keyboard.dismiss()}>
-       
+
+    <KeyboardAvoidingView 
+        style={{flex:1}}
+        behavior="padding"
+        keyboardVerticalOffset={100}
+        >
+    <ScrollView>
+                
         <View style={styles.screen}>
-       
             <Card>
               <View style={styles.center}>
                      <Text style={styles.cardHeader}>Create Account</Text>
               </View>
                <View style={styles.container}>
-                    <Input
-                        style={styles.input}
-                        label="First Name"
-                        name="firstName"
-                        blurOnSubmit
-                        autoCorrect={false}
-                        keyboardType="default"
-                        maxLength={30}
-                        onChangeText={(text)=> setFirstNameText(text)}
-                        value={firstNameText}
-                        returnKeyType='next'
-                    /> 
-                    <Input
-                        style={styles.input}
-                        label='Last Name'
-                        name='lastName'
-                        blurOnSubmit
-                        autoCorrect={false}
-                        keyboardType="default"
-                        maxLength={30}
-                        onChangeText={(text)=> setLastNameText(text)}
-                        value={lastNameText}  
-                        returnKeyType='next' 
-                    /> 
-                    
-                    <TouchableOpacity onPress={userNameInstructions}>
-                    <Input
-                        
-                        style={styles.input}
-                        label='Username'
-                        special='More Info'
-                        name='username'
-                        blurOnSubmit
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        keyboardType="default"
-                        maxLength={30}
-                        onChangeText={(text)=> setUsernameText(text)}
-                        value={usernameText} 
-                        returnKeyType='next'
-                    /> 
-                    </TouchableOpacity>
                     
                     <Input
                         style={styles.input}
@@ -232,7 +165,12 @@ const NewUser = props => {
                         style={styles.input}
                         label="Password"
                         name="password"
-                        special="More Info"
+                        special={<Icon
+                            name='ios-information-circle-outline'
+                            type='ionicon'
+                            size ={18}
+                            color='red'
+                          />}
                         blurOnSubmit
                         autoCapitalize='none'
                         autoCorrect={false}
@@ -281,7 +219,11 @@ const NewUser = props => {
                 </View>
             </Card>
         </View>
+        </ScrollView>
+        </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
+       
+       
         </ImageBackground>
         
     )

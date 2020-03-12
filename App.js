@@ -14,17 +14,18 @@ import firebase from 'firebase'
 import '@firebase/firestore';
 
 
+
 const initialState = {
   firebase: {
     authError: null,
   },
 }
 
-console.log(firebaseConfig)
+// console.log(firebaseConfig)
 
 const store = createStore(initialState);
 
-store.subscribe(()=> console.log(store.getState()))
+// store.subscribe(()=> console.log(store.getState()))
 
 try {
   firebase.initializeApp(firebaseConfig);

@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Text, 
     View, 
     StyleSheet
 } from 'react-native'
+<<<<<<< HEAD
 // import { StyleSheet, View } from "react-native";
 import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
+=======
+import CalendarComponent from '../../components/CalendarComponent';
+
+
+>>>>>>> c95323c81f7af24cf730971ca573e318822d2aab
 
 
 
 
+<<<<<<< HEAD
 const Settings = props =>{
     
     const { navigation } = props
@@ -20,8 +27,15 @@ const Settings = props =>{
         { quarter: 4, earnings: 19000 }
       ];
       
+=======
+
+const Settings = props =>{
+>>>>>>> c95323c81f7af24cf730971ca573e318822d2aab
     
+    const { navigation } = props 
+   
     return(
+<<<<<<< HEAD
         <View style={styles.container}>
             <View>
                 <Text style={{color: 'black'}}>
@@ -41,12 +55,23 @@ const Settings = props =>{
         </VictoryChart>
       </View> */}
 
+=======
+        <View style={styles.screen}>
+        <View style={styles.textContainer}>
+            <Text style={{color: 'black'}}>
+                Settings Home page
+            </Text>
+            <CalendarComponent />
         </View>
+>>>>>>> c95323c81f7af24cf730971ca573e318822d2aab
+        </View>
+
     )
 }
 
 
 const styles = StyleSheet.create({
+<<<<<<< HEAD
   container: {
     flex: 1,
     justifyContent: "center",
@@ -54,5 +79,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5fcff"
   }
 });
+=======
+    screen: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      
+    },
+    textContainer:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20
+    },
+   
+    
+})
+>>>>>>> c95323c81f7af24cf730971ca573e318822d2aab
 
 export default Settings;
