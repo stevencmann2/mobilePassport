@@ -3,6 +3,10 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
+<<<<<<< HEAD
   "urlRandomness": "x4-psg",
+=======
+  "urlRandomness": "64-gnj",
+>>>>>>> a9138a88b800d2f7e407b7c66b4ea7a0e29dedd7
   "https": false
 }
