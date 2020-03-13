@@ -37,8 +37,6 @@ const [isGroup, setIsGroup] = useState(false)
 const [TripImage, setTripImage] = useState();
 const [tripName, setTripName]= useState('')
 const [destinationText, setDestinationText]= useState('')
-const [returningText, setReturningText]= useState('')
-const [departingText, setDepartingText]= useState('')
 const [totalBudgetText, setTotalBudgetText]= useState('')
 const [dateDep, setDateDep] = useState(new Date())
 const [dateRet, setDateRet] = useState(dateDep)
@@ -67,10 +65,22 @@ const incompleteFields = () => {
 
 const FormSubmit = ()=>{
     const totalBudgetTest = /^[0-9]*$/.test(totalBudgetText)
+    // DEPARTING STRINGIFY
+    const departingDateString = JSON.stringify(dateDep)
+    const departingArray = departingDateString.split('T')
+    const depString = departingArray[0]
+    const depArray = depString.split('"')
+    const departingText = depArray[1]
     
-    if(destinationText.length >0 && tripName.length >0 
-        && returningText.length >0 && returningText.length >0 
-        && totalBudgetTest && departingText.length >0 ){
+    //RETUNING STRINGIFY
+    const returningDateString = JSON.stringify(dateRet)
+    const returningArray = returningDateString.split('T')
+    const retString = returningArray[0]
+    const retArray = retString.split('"')
+    const returningText = retArray[1]
+    
+    
+    if(destinationText.length >0 && tripName.length >0 && totalBudgetTest){
 
     const TripData = {
         tripName: tripName,
@@ -90,15 +100,15 @@ const FormSubmit = ()=>{
 }
 
 const onChangeDeparting = (event, selectedDate) => {
-
-    setDateDep(selectedDate);
-    console.log(dateDep)
+    const DepartingDate = selectedDate || date
+    setDateDep(DepartingDate);
+    console.log('this is the departing date ', dateDep)
   };
   
 const onChangeReturning = (event, selectedDate) => {
-
-    setDateRet(selectedDate);
-    console.log(dateRet)
+    const ReturningDate = selectedDate || date
+    setDateRet(ReturningDate);
+    console.log('this is the returning date ', dateRet)
   };
 
   const showDeparting=()=>{
@@ -214,12 +224,12 @@ const onChangeReturning = (event, selectedDate) => {
             </View>
             <View style={styles.inputContainer}>
                 <Input
-                    label="Max Budget"
+                    label="Max Budget ($)"
                     placeholder="1000"
                     name='returning'
                     blurOnSubmit
                     autoCorrect={true}
-                    keyboardType="numeric"
+                    keyboardType="number-pad"
                     maxLength={50}
                     onChangeText={(text)=> setTotalBudgetText(text)}
                     value={totalBudgetText}
@@ -241,20 +251,6 @@ const onChangeReturning = (event, selectedDate) => {
                  />
             </View>
         
-            <View style={styles.inputContainer}>
-                <Input
-                    label="Returning Date"
-                    placeholder='MM/DD/YY'
-                    name='returning'
-                    blurOnSubmit
-                    autoCorrect={true}
-                    keyboardType="default"
-                    maxLength={50}
-                    onChangeText={(text)=> setReturningText(text)}
-                    value={returningText}
-                    returnKeyType='next'
-                 />
-            </View>
             <View>
             <ChooseLocation navigation={navigation}/>
            </View>
