@@ -16,7 +16,7 @@ const Expenses = props =>{
         <View style={styles.screen}>
             <View>
                 <Text style={{color: 'black'}}>
-                        SAVINGS HOMEPAGE
+                        EXPENSES HOMEPAGE
                 </Text>
             </View>
         </View>
