@@ -27,7 +27,6 @@ const Trips = props =>{
     const userTrips = 'userTrips'
     // FIRESTORE STUFF
     const firestore = useFirestore();
-    const firestoreUsers = firestore.collection("Users")
     const UserId = useSelector(state=> state.auth.userId)
     
     useFirestoreConnect([
@@ -56,6 +55,7 @@ const Trips = props =>{
     const usernameTest = /^[a-zA-Z0-9_-]{4,16}$/.test(usernameText) 
 
     const userHandler = async() => {
+        const firestoreUsers = firestore.collection("Users")
     if (firstNameTest && lastNameTest && usernameTest){
         try {
             await firestoreUsers.doc(UserId).set({

@@ -13,6 +13,10 @@ import rrfConfig from './config/rrf-config';
 import firebase from 'firebase'
 import '@firebase/firestore';
 
+import {decode, encode} from 'base-64'
+if (!global.btoa) {  global.btoa = encode }
+if (!global.atob) { global.atob = decode }
+
 
 
 const initialState = {
