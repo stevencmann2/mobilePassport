@@ -62,6 +62,7 @@ const NewUser = props => {
             setIsLoading(true);
             try {
                 await dispatch(authActions.signup(emailText, passwordText));
+                
             
               
 

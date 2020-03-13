@@ -49,7 +49,8 @@
     "redux-auth-wrapper": "^3.0.0",
     "redux-firestore": "^0.13.0",
     "redux-thunk": "^2.3.0",
-    "victory-native": "^34.1.0"
+    "victory-native": "^34.1.0",
+    "@react-native-community/datetimepicker": "2.1.0"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as addTripActions from '../../store/actions/trips'
 import ChooseLocation from '../../components/Location'
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 
@@ -39,6 +40,10 @@ const [destinationText, setDestinationText]= useState('')
 const [returningText, setReturningText]= useState('')
 const [departingText, setDepartingText]= useState('')
 const [totalBudgetText, setTotalBudgetText]= useState('')
+const [dateDep, setDateDep] = useState(new Date())
+const [dateRet, setDateRet] = useState(dateDep)
+const [showDep, setShowDep] = useState(false);
+const [showRet, setShowRet] = useState(false);
 
 const Toggle = isGroup =>{
     setIsGroup(isGroup)
@@ -61,14 +66,15 @@ const incompleteFields = () => {
 }
 
 const FormSubmit = ()=>{
+    const totalBudgetTest = /^[0-9]*$/.test(totalBudgetText)
     
     if(destinationText.length >0 && tripName.length >0 
         && returningText.length >0 && returningText.length >0 
-        && totalBudgetText.length > 0 && departingText.length >0 ){
+        && totalBudgetTest && departingText.length >0 ){
 
     const TripData = {
         tripName: tripName,
-        totalBudget: totalBudgetText,
+        totalBudget: parseInt(totalBudgetText),
         destination: destinationText,
         returning: returningText,
         departing: departingText,
@@ -81,6 +87,28 @@ const FormSubmit = ()=>{
     }else{
         incompleteFields();
     }
+}
+
+const onChangeDeparting = (event, selectedDate) => {
+
+    setDateDep(selectedDate);
+    console.log(dateDep)
+  };
+  
+const onChangeReturning = (event, selectedDate) => {
+
+    setDateRet(selectedDate);
+    console.log(dateRet)
+  };
+
+  const showDeparting=()=>{
+      setShowDep(true)
+      
+  }
+
+  const showReturning=()=>{
+    setShowRet(true)
+    
 }
 
   return (
@@ -118,7 +146,57 @@ const FormSubmit = ()=>{
                     />
             </View>
         </View>
+
         
+        <View style={styles.dateContainer}>
+        {showDep ? (
+            <View>
+                <DateTimePicker 
+                    value={dateDep}
+                    display="default"
+                    minimumDate={new Date ()}
+                    onChange={onChangeDeparting}
+                    />
+                    <Button
+                        type="outline"
+                        title="Hide Departing Date"
+                        onPress={()=> setShowDep(false)}
+                        
+                    />
+               </View>
+                  
+                 ):(<Button
+                    type="outline"
+                    title="Departing Date"
+                    onPress={showDeparting}
+                     
+                  />)}
+        </View>
+        <View style={styles.dateContainer}>
+        {showRet ? (
+            <View>
+                <DateTimePicker 
+                    value={dateRet}
+                    display="default"
+                    minimumDate={dateDep}
+                    onChange={onChangeReturning}
+                    />
+                    <Button
+                        type="outline"
+                        title="Hide Returning Date"
+                        onPress={()=> setShowRet(false)}
+                        
+                    />
+               </View>
+                  
+                 ):(<Button
+                    type="outline"
+                    title="Returning Date"
+                    onPress={showReturning}
+                     
+                  />)}
+    
+        </View>
         <View style={styles.formContainer}>
             <View style={styles.inputContainer}>
                 <Input
@@ -162,20 +240,7 @@ const FormSubmit = ()=>{
                     returnKeyType='next'
                  />
             </View>
-            <View style={styles.inputContainer}>
-                <Input
-                    label="Departing Date"
-                    placeholder="MM/DD/YYYY"
-                    name='departing'
-                    blurOnSubmit
-                    autoCorrect={true}
-                    keyboardType="default"
-                    maxLength={50}
-                    onChangeText={(text)=> setDepartingText(text)}
-                    value={departingText}
-                    returnKeyType='next'
-                />
-            </View>
+        
             <View style={styles.inputContainer}>
                 <Input
                     label="Returning Date"
@@ -234,6 +299,11 @@ const styles = StyleSheet.create({
           maxWidth: '80%'
 
       },
+      dateContainer: {
+        width: 300,
+        marginBottom: 10,
+        maxWidth: '80%'
+    },
     groupContainer: {
         flexDirection: 'row',
         marginBottom:10,
