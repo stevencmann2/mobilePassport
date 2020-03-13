@@ -20,9 +20,9 @@ import { useFirestoreConnect, useFirestore, withFirestore, isLoaded, isEmpty } f
 
 
 
-const Trips = props =>{
+const Trips = ({ navigation }) =>{
     
-    const { navigation } = props
+   
 
     const userTrips = 'userTrips'
     // FIRESTORE STUFF
@@ -42,9 +42,7 @@ const Trips = props =>{
    
     const TripsData = useSelector(state =>state.firestore.ordered[userTrips])
     const UserData = useSelector(({ firestore: { data } }) => data.Users && data.Users[UserId])
-    console.log('999999999999999999999999999999999999999999999')
-    console.log(TripsData)
-    console.log('999999999999999999999999999999999999999999999')
+   
      
     const [firstNameText, setFirstNameText] = useState("");
     const [lastNameText, setLastNameText] = useState("");
@@ -73,7 +71,7 @@ const Trips = props =>{
     }
 
     const userNameInstructions = press =>{
-        console.log('Touched username field')
+        
         Alert.alert(
             'Your Username',
             'Only Letters and Numbers Permitted (ex: username123, UserName987)',
@@ -186,20 +184,19 @@ const Trips = props =>{
     }else if(UserData){
             
         return(
-            
-            <View style={styles.screen}>
             <ScrollView>
+            <View style={styles.screen}>
+            
             {TripsData.length > 0 ? (
                 TripsData.map((trip)=>
                     
                     <View style={styles.container} key={trip.id}>
                         <TouchableOpacity
-                            onPress={()=>props.navigation.navigate('DashNav')}>
+                            onPress={()=>navigation.navigate('DashNav')}>
                             <View style={styles.ImgContainer}>
                                 <Image 
                                     source={require('../../assets/images/PalmTrees.jpg')} 
-                                    style={styles.Img}
-                                    onPress={()=>props.navigation.navigate('DashNav')}  
+                                    style={styles.Img} 
                                 />
                             </View>
                          </TouchableOpacity>
@@ -225,12 +222,13 @@ const Trips = props =>{
             <Button
                 type= 'outline'
                 title="Add Trip"
-                onPress={()=> props.navigation.navigate('AddTrip')}
+                onPress={()=> navigation.navigate('AddTrip')}
             />
             </View>
 
-            </ScrollView>
+            
          </View>
+         </ScrollView>
 
         )
     }

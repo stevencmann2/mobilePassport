@@ -8,8 +8,9 @@ import {
 
 
 const Dashboard = props =>{
+   
     
-    const { navigation } = props
+    
    
    
     return(
@@ -17,7 +18,9 @@ const Dashboard = props =>{
             <View>
                 <Text style={{color: 'black'}}>
                         USER DASBOARD HOMEPAGE
+                        
                 </Text>
+               
                 
             </View>
         </View>

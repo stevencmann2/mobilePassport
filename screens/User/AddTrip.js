@@ -17,9 +17,9 @@ import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
 // <View>
 //  <ChooseLocation navigation={props.navigation}/>
 // </View>
-const AddTrip = props => {
+const AddTrip = ({ navigation }) => {
 
- const { navigation } = props
+ 
  const dispatch = useDispatch();
  const firestore = useFirestore();
  
@@ -75,8 +75,9 @@ const FormSubmit = ()=>{
         users: UserId
      }
      //// NEED TO ADD A CATCH STATEMTNT IF NOT POSTED
-    firestoreTrips.add(TripData).then(props.navigation.navigate("DashNav") )
-
+    firestoreTrips.add(TripData)
+        .then(()=> navigation.navigate("DashNav") )
+        .catch(error=> console.log(error))
     }else{
         incompleteFields();
     }
@@ -190,7 +191,7 @@ const FormSubmit = ()=>{
                  />
             </View>
             <View>
-            <ChooseLocation navigation={props.navigation}/>
+            <ChooseLocation navigation={navigation}/>
            </View>
 
         <Button

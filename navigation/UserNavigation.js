@@ -63,7 +63,11 @@ const TripsPageNavigator = () =>{
           options={{
             headerTitle: 'Map',
             headerRight: ()=>(<HeaderButton/>),}}/>
-        <Stack.Screen name="DashNav" component={DashboardNavigator} options={{headerShown: false }}/>
+        <Stack.Screen name="DashNav" 
+            component={DashboardNavigator} 
+            options={{headerShown: false }}
+          
+            />
   </Stack.Navigator>
   )
 }
@@ -72,6 +76,7 @@ const DashboardNavigator = () => {
 
   return(
     <Tab.Navigator
+    options={({ route }) => ({ tripId: tripId })}
     screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
@@ -88,7 +93,7 @@ const DashboardNavigator = () => {
         }else if(route.name === 'Add'){
           iconName = focused ? 'md-arrow-round-up' :'md-arrow-round-up'
         }
-        
+        console.log('inside tab navigator ', route)
         // You can return any component that you like here!
         return <Ionicons name={iconName} size={size} color={color} />;
       }
@@ -99,6 +104,8 @@ const DashboardNavigator = () => {
       inactiveTintColor: 'gray',
     }}
     >
+    
+
 
       <Tab.Screen name="Dashboard" component={IndividualDashboardScreen} />
       <Tab.Screen name="Expenses" component={ExpensesScreen} />
