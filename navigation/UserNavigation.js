@@ -93,7 +93,7 @@ const DashboardNavigator = () => {
         }else if(route.name === 'Add'){
           iconName = focused ? 'md-arrow-round-up' :'md-arrow-round-up'
         }
-        console.log('inside tab navigator ', route)
+        // console.log('inside tab navigator ', route)
         // You can return any component that you like here!
         return <Ionicons name={iconName} size={size} color={color} />;
       }

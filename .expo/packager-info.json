@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://dd-ckj.anonymous.mobilepassport.exp.direct",
+  "packagerNgrokUrl": "https://packager.dd-ckj.anonymous.mobilepassport.exp.direct",
+  "ngrokPid": 59193
 }

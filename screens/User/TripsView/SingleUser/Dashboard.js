@@ -4,13 +4,13 @@ import {
     View, 
     StyleSheet
 } from 'react-native'
-
+import { useSelector } from 'react-redux'
 
 
 const Dashboard = props =>{
    
-    
-    
+    const selectedTrip = useSelector(state=> state.tripID.id)
+    console.log('this should be the trip DASHBOARD ', selectedTrip)
    
    
     return(

@@ -13,17 +13,17 @@ import {
 import { Header, Image, Icon, Button } from 'react-native-elements'
 import Input from '../../components/Input'
 import Card from '../../components/Card';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFirestoreConnect, useFirestore, withFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
-
+import * as tripActions from '../../store/actions/trips'
 
 
 
 
 const Trips = ({ navigation }) =>{
     
-   
-
+    
+    const dispatch = useDispatch();
     const userTrips = 'userTrips'
     // FIRESTORE STUFF
     const firestore = useFirestore();
@@ -95,6 +95,19 @@ const Trips = ({ navigation }) =>{
      )
     }
 
+    const selectTrip = async(id) => {
+        console.log('this is the id im grabbing', id)
+        try {
+            await dispatch(tripActions.trackTrip(id));
+            navigation.navigate('DashNav')
+
+        } catch (err) {
+         console.log(err);
+    
+        }
+        
+    }
+   
     
 
 
@@ -192,7 +205,7 @@ const Trips = ({ navigation }) =>{
                     
                     <View style={styles.container} key={trip.id}>
                         <TouchableOpacity
-                            onPress={()=>navigation.navigate('DashNav')}>
+                            onPress={()=>selectTrip(trip.id)}>
                             <View style={styles.ImgContainer}>
                                 <Image 
                                     source={require('../../assets/images/PalmTrees.jpg')} 
