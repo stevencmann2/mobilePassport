@@ -76,7 +76,7 @@ const FormSubmit = ()=>{
      }
      //// NEED TO ADD A CATCH STATEMTNT IF NOT POSTED
     firestoreTrips.add(TripData)
-        .then(()=> navigation.navigate("DashNav") )
+        .then(()=> navigation.navigate("My Trips") )
         .catch(error=> console.log(error))
     }else{
         incompleteFields();
