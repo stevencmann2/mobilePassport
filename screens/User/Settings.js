@@ -6,12 +6,6 @@ import {
 } from 'react-native'
 import CalendarComponent from '../../components/CalendarComponent';
 
-
-
-
-
-
-
 const Settings = props =>{
     
     const { navigation } = props 
@@ -29,6 +23,7 @@ const Settings = props =>{
     )
 }
 
+
 const styles = StyleSheet.create({
     screen: {
       flex: 1,
@@ -45,4 +40,4 @@ const styles = StyleSheet.create({
     
 })
 
-export default Settings
+export default Settings;

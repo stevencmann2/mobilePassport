@@ -3,8 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": "https://64-gnj.anonymous.mobilepassport.exp.direct",
-  "packagerNgrokUrl": "https://packager.64-gnj.anonymous.mobilepassport.exp.direct",
-  "ngrokPid": 52983,
-  "webpackServerPort": null
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
