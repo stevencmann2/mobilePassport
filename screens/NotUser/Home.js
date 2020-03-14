@@ -76,16 +76,17 @@ const Home = props => {
         <View style={styles.buttonContainer}>
             <TouchableOpacity>
                 <Button  
-                    title="Sign Up"
-                    type="solid"
-                    onPress={()=> props.navigation.navigate('NewUser') }
-                    buttonStyle={styles.newUserButton}
-                />
-                <Button  
-                     title="Log In"
+                     title="Sign In"
                      type="solid"
                      buttonStyle={styles.logInButton}
                      onPress={()=> props.navigation.navigate('LogIn') }
+                />
+
+                <Button  
+                    title="Create Account"
+                    type="solid"
+                    onPress={()=> props.navigation.navigate('NewUser') }
+                    buttonStyle={styles.newUserButton}
                 />
             </TouchableOpacity>
         </View>
@@ -103,21 +104,24 @@ const Home = props => {
         justifyContent: 'space-between'
       }, 
       welcome: {
-        marginTop: 150,
+        marginTop: 200,
         fontSize: 50
       },
       buttonContainer: {
-          marginBottom: 50
-      },
-      newUserButton: {
-          marginBottom: 8,
-          backgroundColor: "purple",
-          opacity: 0.9
+        marginBottom: 50,
       },
       logInButton:{
+        marginBottom: 10,
+        borderRadius: 50, 
         backgroundColor: '#cb81e6',
         opacity: 0.9
       },
+      newUserButton: {
+        marginBottom: 10,
+        borderRadius: 50,
+        backgroundColor: "purple",
+        opacity: 0.9
+     },
      backgroundImage: {
         flex: 1,
         resizeMode: 'cover',
