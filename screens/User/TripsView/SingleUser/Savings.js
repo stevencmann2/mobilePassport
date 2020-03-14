@@ -4,13 +4,14 @@ import {
     View, 
     StyleSheet
 } from 'react-native'
-
+import { useSelector } from 'react-redux'
 
 
 const Savings = props =>{
     
     const { navigation } = props
-
+    const selectedTrip = useSelector(state=> state.tripID.id)
+    console.log('this should be the trip SAVINGS', selectedTrip)
     
     return(
         <View style={styles.screen}>

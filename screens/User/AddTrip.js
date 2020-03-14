@@ -7,19 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as addTripActions from '../../store/actions/trips'
 import ChooseLocation from '../../components/Location'
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
+const AddTrip = ({ navigation }) => {
 
-
-
-// Style in the props will allow us to pass in overriding styles I believe
-///// FOR A LOCATION PICKER ADD AT THE END OF BEFORE BUTTON 
-// <View>
-//  <ChooseLocation navigation={props.navigation}/>
-// </View>
-const AddTrip = props => {
-
- const { navigation } = props
+ 
  const dispatch = useDispatch();
  const firestore = useFirestore();
  
@@ -28,7 +21,7 @@ const AddTrip = props => {
     { collection: 'Trips' },{ collection: 'Users', doc: UserId}
   ]);
 
-  const TripsState = useSelector(state => state.firestore.ordered.Trips);
+//   const TripsState = useSelector(state => state.firestore.ordered.Trips);
   const UserId = useSelector(state=> state.auth.userId)
   const firestoreTrips = firestore.collection("Trips")
 
@@ -36,9 +29,11 @@ const [isGroup, setIsGroup] = useState(false)
 const [TripImage, setTripImage] = useState();
 const [tripName, setTripName]= useState('')
 const [destinationText, setDestinationText]= useState('')
-const [returningText, setReturningText]= useState('')
-const [departingText, setDepartingText]= useState('')
 const [totalBudgetText, setTotalBudgetText]= useState('')
+const [dateDep, setDateDep] = useState(new Date())
+const [dateRet, setDateRet] = useState(dateDep)
+const [showDep, setShowDep] = useState(false);
+const [showRet, setShowRet] = useState(false);
 
 const Toggle = isGroup =>{
     setIsGroup(isGroup)
@@ -61,25 +56,61 @@ const incompleteFields = () => {
 }
 
 const FormSubmit = ()=>{
+    const totalBudgetTest = /^[0-9]*$/.test(totalBudgetText)
+    // DEPARTING STRINGIFY
+    const departingDateString = JSON.stringify(dateDep)
+    const departingArray = departingDateString.split('T')
+    const depString = departingArray[0]
+    const depArray = depString.split('"')
+    const departingText = depArray[1]
     
-    if(destinationText.length >0 && tripName.length >0 
-        && returningText.length >0 && returningText.length >0 
-        && totalBudgetText.length > 0 && departingText.length >0 ){
+    //RETUNING STRINGIFY
+    const returningDateString = JSON.stringify(dateRet)
+    const returningArray = returningDateString.split('T')
+    const retString = returningArray[0]
+    const retArray = retString.split('"')
+    const returningText = retArray[1]
+    
+    
+    if(destinationText.length >0 && tripName.length >0 && totalBudgetTest){
 
     const TripData = {
         tripName: tripName,
-        totalBudget: totalBudgetText,
+        totalBudget: parseInt(totalBudgetText),
         destination: destinationText,
         returning: returningText,
         departing: departingText,
         users: UserId
      }
      //// NEED TO ADD A CATCH STATEMTNT IF NOT POSTED
-    firestoreTrips.add(TripData).then(props.navigation.navigate("DashNav") )
-
+    firestoreTrips.add(TripData)
+        .then(()=> navigation.navigate("My Trips") )
+        .catch(error=> console.log(error))
     }else{
         incompleteFields();
     }
+}
+
+const onChangeDeparting = (event, selectedDate) => {
+    const DepartingDate = selectedDate || date
+    setDateDep(DepartingDate);
+    console.log('this is the departing date ', dateDep)
+  };
+  
+const onChangeReturning = (event, selectedDate) => {
+    const ReturningDate = selectedDate || date
+    setDateRet(ReturningDate);
+    console.log('this is the returning date ', dateRet)
+  };
+
+  const showDeparting=()=>{
+      setShowDep(true)
+      
+  }
+
+  const showReturning=()=>{
+    setShowRet(true)
+    
 }
 
   return (
@@ -117,7 +148,57 @@ const FormSubmit = ()=>{
                     />
             </View>
         </View>
+
         
+        <View style={styles.dateContainer}>
+        {showDep ? (
+            <View>
+                <DateTimePicker 
+                    value={dateDep}
+                    display="default"
+                    minimumDate={new Date ()}
+                    onChange={onChangeDeparting}
+                    />
+                    <Button
+                        type="outline"
+                        title="Hide Departing Date"
+                        onPress={()=> setShowDep(false)}
+                        
+                    />
+               </View>
+                  
+                 ):(<Button
+                    type="outline"
+                    title="Departing Date"
+                    onPress={showDeparting}
+                     
+                  />)}
+        </View>
+        <View style={styles.dateContainer}>
+        {showRet ? (
+            <View>
+                <DateTimePicker 
+                    value={dateRet}
+                    display="default"
+                    minimumDate={dateDep}
+                    onChange={onChangeReturning}
+                    />
+                    <Button
+                        type="outline"
+                        title="Hide Returning Date"
+                        onPress={()=> setShowRet(false)}
+                        
+                    />
+               </View>
+                  
+                 ):(<Button
+                    type="outline"
+                    title="Returning Date"
+                    onPress={showReturning}
+                     
+                  />)}
+    
+        </View>
         <View style={styles.formContainer}>
             <View style={styles.inputContainer}>
                 <Input
@@ -135,12 +216,12 @@ const FormSubmit = ()=>{
             </View>
             <View style={styles.inputContainer}>
                 <Input
-                    label="Max Budget"
+                    label="Max Budget ($)"
                     placeholder="1000"
                     name='returning'
                     blurOnSubmit
                     autoCorrect={true}
-                    keyboardType="numeric"
+                    keyboardType="number-pad"
                     maxLength={50}
                     onChangeText={(text)=> setTotalBudgetText(text)}
                     value={totalBudgetText}
@@ -161,36 +242,9 @@ const FormSubmit = ()=>{
                     returnKeyType='next'
                  />
             </View>
-            <View style={styles.inputContainer}>
-                <Input
-                    label="Departing Date"
-                    placeholder="MM/DD/YYYY"
-                    name='departing'
-                    blurOnSubmit
-                    autoCorrect={true}
-                    keyboardType="default"
-                    maxLength={50}
-                    onChangeText={(text)=> setDepartingText(text)}
-                    value={departingText}
-                    returnKeyType='next'
-                />
-            </View>
-            <View style={styles.inputContainer}>
-                <Input
-                    label="Returning Date"
-                    placeholder='MM/DD/YY'
-                    name='returning'
-                    blurOnSubmit
-                    autoCorrect={true}
-                    keyboardType="default"
-                    maxLength={50}
-                    onChangeText={(text)=> setReturningText(text)}
-                    value={returningText}
-                    returnKeyType='next'
-                 />
-            </View>
+        
             <View>
-            <ChooseLocation navigation={props.navigation}/>
+            <ChooseLocation navigation={navigation}/>
            </View>
 
         <Button
@@ -233,6 +287,11 @@ const styles = StyleSheet.create({
           maxWidth: '80%'
 
       },
+      dateContainer: {
+        width: 300,
+        marginBottom: 10,
+        maxWidth: '80%'
+    },
     groupContainer: {
         flexDirection: 'row',
         marginBottom:10,
