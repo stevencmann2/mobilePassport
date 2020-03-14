@@ -26,27 +26,37 @@ const Dashboard = props =>{
    
 
      useFirestoreConnect([{ collection: 'Trips', doc: `${selectedTrip}`},
-    //  { collection: 'Trips', doc: `${selectedTrip}`, collection: 'BudgetBreakdown'}
+     { collection: 'Trips', 
+     doc: `${selectedTrip}`, 
+     subcollections: [{ collection: "BudgetBreakdown" }],
+     storeAs: 'BudgetBreakdownData'
+    }
     ]);
-      
+
     const getTrip  = useSelector(state =>state.firestore.data.userTrips[selectedTrip])
-    
-    
-    
-   
-    const [airfareText, setAirfareText]= useState(0);
-    const [transportationText, setTranportationText]= useState(0);
-    const [lodgingText, setLodgingText]= useState(0);
-    const [foodText, setFoodText]= useState(0);
-    const [activitiesText, setActivitiesText]= useState(0);
-    const [emergencyText, setEmergencyText]= useState(0);
-    const [miscText, setMiscText]= useState(0);
-    const [total, setTotal] =useState(0)
+    // const getBBData  = useSelector(state =>state.firestore.data.Trips[selectedTrip].BudgetBreakown[BudgetBreakdownData])
+    // console.log(getBBData)
+
+    const [airfareText, setAirfareText]= useState();
+    const [transportationText, setTranportationText]= useState();
+    const [lodgingText, setLodgingText]= useState();
+    const [foodText, setFoodText]= useState();
+    const [activitiesText, setActivitiesText]= useState();
+    const [emergencyText, setEmergencyText]= useState();
+    const [miscText, setMiscText]= useState();
+    const [total, setTotal] = useState()
 
       const currentFormTotal = () =>{
+         
+        
           const currentTotal =  parseInt(airfareText) + parseInt(transportationText) + parseInt(lodgingText) + parseInt(foodText) +
           parseInt(activitiesText) + parseInt(emergencyText) + parseInt(miscText)
-        
+
+          if (Number.isNaN(currentTotal)){
+              
+              return setTotal(0)
+          }
+
          setTotal(parseInt(currentTotal)) 
       }
 
@@ -138,7 +148,7 @@ const Dashboard = props =>{
                                     onChangeText={(text)=> setTranportationText(text)}
                                     value={transportationText}
                                     returnKeyType='next'
-                                />
+                                    />
                                 </View>
                                 <View style={styles.inputContainer}>
                                     <Input
@@ -164,7 +174,7 @@ const Dashboard = props =>{
                                         keyboardType="number-pad"
                                         maxLength={50}
                                         onChangeText={(text)=> setFoodText(text)}
-                                        value={foodText.toString()}
+                                        value={foodText}
                                         returnKeyType='next'
                                     />
                                 </View>
@@ -190,7 +200,7 @@ const Dashboard = props =>{
                                         keyboardType="number-pad"
                                         maxLength={50}
                                         onChangeText={(text)=> setEmergencyText(text)}
-                                        value={emergencyText.toString()}
+                                        value={emergencyText}
                                         returnKeyType='next'
                                     />
                                 </View>
@@ -203,7 +213,7 @@ const Dashboard = props =>{
                                         keyboardType="number-pad"
                                         maxLength={50}
                                         onChangeText={(text)=> setMiscText(text)}
-                                        value={miscText.toString()}
+                                        value={miscText}
                                         returnKeyType='done'
                                 />
                             </View>
