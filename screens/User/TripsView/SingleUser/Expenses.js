@@ -4,7 +4,6 @@ import {
     View, 
     StyleSheet,
     Picker,
-    
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button, Overlay} from 'react-native-elements'
