@@ -61,10 +61,9 @@ const NewUser = props => {
             setError(null);
             setIsLoading(true);
             try {
+                
                 await dispatch(authActions.signup(emailText, passwordText));
-            
-              
-
+    
             } catch (err) {
               setError(err.message);
               setIsLoading(false);
@@ -135,7 +134,7 @@ const NewUser = props => {
     <KeyboardAvoidingView 
         style={{flex:1}}
         behavior="padding"
-        keyboardVerticalOffset={100}
+        keyboardVerticalOffset={15}
         >
     <ScrollView>
                 

@@ -13,17 +13,17 @@ import {
 import { Header, Image, Icon, Button } from 'react-native-elements'
 import Input from '../../components/Input'
 import Card from '../../components/Card';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFirestoreConnect, useFirestore, withFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+import * as tripActions from '../../store/actions/trips'
 
 
 
 
-
-const Trips = props =>{
+const Trips = ({ navigation }) =>{
     
-    const { navigation } = props
-
+    
+    const dispatch = useDispatch();
     const userTrips = 'userTrips'
     // FIRESTORE STUFF
     const firestore = useFirestore();
@@ -42,9 +42,7 @@ const Trips = props =>{
    
     const TripsData = useSelector(state =>state.firestore.ordered[userTrips])
     const UserData = useSelector(({ firestore: { data } }) => data.Users && data.Users[UserId])
-    console.log('999999999999999999999999999999999999999999999')
-    console.log(TripsData)
-    console.log('999999999999999999999999999999999999999999999')
+   
      
     const [firstNameText, setFirstNameText] = useState("");
     const [lastNameText, setLastNameText] = useState("");
@@ -73,7 +71,7 @@ const Trips = props =>{
     }
 
     const userNameInstructions = press =>{
-        console.log('Touched username field')
+        
         Alert.alert(
             'Your Username',
             'Only Letters and Numbers Permitted (ex: username123, UserName987)',
@@ -97,6 +95,19 @@ const Trips = props =>{
      )
     }
 
+    const selectTrip = async(id) => {
+        console.log('this is the id im grabbing', id)
+        try {
+            await dispatch(tripActions.trackTrip(id));
+            navigation.navigate('DashNav')
+
+        } catch (err) {
+         console.log(err);
+    
+        }
+        
+    }
+   
     
 
 
@@ -186,20 +197,19 @@ const Trips = props =>{
     }else if(UserData){
             
         return(
-            
-            <View style={styles.screen}>
             <ScrollView>
+            <View style={styles.screen}>
+            
             {TripsData.length > 0 ? (
                 TripsData.map((trip)=>
                     
                     <View style={styles.container} key={trip.id}>
                         <TouchableOpacity
-                            onPress={()=>props.navigation.navigate('DashNav')}>
+                            onPress={()=>selectTrip(trip.id)}>
                             <View style={styles.ImgContainer}>
                                 <Image 
                                     source={require('../../assets/images/PalmTrees.jpg')} 
-                                    style={styles.Img}
-                                    onPress={()=>props.navigation.navigate('DashNav')}  
+                                    style={styles.Img} 
                                 />
                             </View>
                          </TouchableOpacity>
@@ -225,12 +235,13 @@ const Trips = props =>{
             <Button
                 type= 'outline'
                 title="Add Trip"
-                onPress={()=> props.navigation.navigate('AddTrip')}
+                onPress={()=> navigation.navigate('AddTrip')}
             />
             </View>
 
-            </ScrollView>
+            
          </View>
+         </ScrollView>
 
         )
     }
