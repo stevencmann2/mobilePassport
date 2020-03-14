@@ -100,15 +100,16 @@ const Home = props => {
         flex: 1,
         flexDirection: 'column',
         padding: 10,
-        alignItems: 'center',
         justifyContent: 'space-between'
       }, 
       welcome: {
         marginTop: 200,
-        fontSize: 50
+        fontSize: 50,
+        alignItems: 'center'
       },
       buttonContainer: {
         marginBottom: 50,
+        marginHorizontal: 40
       },
       logInButton:{
         marginBottom: 10,
