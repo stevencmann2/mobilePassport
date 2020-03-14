@@ -14,7 +14,7 @@ import Input from '../../../../components/Input'
 import Card from '../../../../components/Card'
 import { Button } from 'react-native-elements'
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
-import { parse } from 'react-native-svg';
+
 
 
 
@@ -25,7 +25,9 @@ const Dashboard = props =>{
     const bbLocation = firestore.collection('Trips').doc(selectedTrip)
    
 
-     useFirestoreConnect([{ collection: 'Trips', doc: `${selectedTrip}`}]);
+     useFirestoreConnect([{ collection: 'Trips', doc: `${selectedTrip}`},
+    //  { collection: 'Trips', doc: `${selectedTrip}`, collection: 'BudgetBreakdown'}
+    ]);
       
     const getTrip  = useSelector(state =>state.firestore.data.userTrips[selectedTrip])
     
@@ -44,14 +46,8 @@ const Dashboard = props =>{
       const currentFormTotal = () =>{
           const currentTotal =  parseInt(airfareText) + parseInt(transportationText) + parseInt(lodgingText) + parseInt(foodText) +
           parseInt(activitiesText) + parseInt(emergencyText) + parseInt(miscText)
-          console.log('**********************')
-          console.log('current total', currentTotal)
-          console.log('**********************')
-          console.log(typeof(currentTotal))
-            setTotal(parseInt(currentTotal))
-            console.log('**********************')
-            console.log(typeof(total), total)
-            console.log('**********************')
+        
+         setTotal(parseInt(currentTotal)) 
       }
 
       
@@ -110,7 +106,7 @@ const Dashboard = props =>{
 
                              <View style={styles.totalContainer}>
                                 <View style={styles.formTotal}>
-                                    <Text>Category Total: {parseInt(total)}</Text>
+                                    <Text>Category Total: {total}</Text>
                                 </View>
                                 <View style={styles.databaseTotal}>
                                     <Text>Total Budget: {getTrip.totalBudget} </Text>
@@ -121,6 +117,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                     label="Airfare ($)"
+                                    placeholder='0'
                                     blurOnSubmit
                                     autoCorrect={true}
                                     keyboardType="number-pad"
@@ -133,6 +130,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                     label="Transportation ($)"
+                                    placeholder='0'
                                     blurOnSubmit
                                     autoCorrect={true}
                                     keyboardType="number-pad"
@@ -145,6 +143,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Lodging ($)"
+                                        placeholder='0'
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
@@ -159,6 +158,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Food and Drink ($)"
+                                        placeholder='0'
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
@@ -171,6 +171,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Activities ($)"
+                                        placeholder='0'
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
@@ -183,6 +184,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Emergency ($)"
+                                        placeholder='0'
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
@@ -195,6 +197,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Miscellaneous ($)"
+                                        placeholder='0'
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
