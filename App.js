@@ -95,10 +95,10 @@ try {
 
 
 
-useFirestoreConnect([
-  { collection: 'Trips' },
-]);
-const statuses = useSelector(state => state.firestore.ordered.Trips);
+// useFirestoreConnect([
+//   { collection: 'Trips' },
+// ]);
+// const statuses = useSelector(state => state.firestore.ordered.Trips);
 
 
 
