@@ -277,7 +277,6 @@ const styles = StyleSheet.create({
         width: 300, 
         height: 300,
         
-        
     },
     TripName: {
         alignItems: 'center',

@@ -274,7 +274,6 @@ const styles = StyleSheet.create({
     inputContainer: {
         width: '100%',
         textAlign: 'center'
-    
     },
     buttonContainer: {
         flexDirection: 'row',
