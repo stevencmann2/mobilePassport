@@ -48,14 +48,18 @@ const Expenses = props =>{
     const addExpense = async() => {
         const expenseDescription = DescriptionText.trim()
         const expenseAmount = parseInt(AmountText)
+
+        const expenseObj = { 
+            Category: pickedCategory,
+            Description: expenseDescription,
+            Amount: expenseAmount
+        }
        if (pickedCategory && expenseDescription.length>0 && expenseAmount > 0){
         try{    
-            await ExpenseLocation.collection("Expenses").add({
-                Category: pickedCategory,
-                Description: expenseDescription,
-                Amount: expenseAmount
-             })
-             console.log('posting Expense to Firestore')
+            await ExpenseLocation.collection("Expenses").add(expenseObj)
+             console.log(`posting Expense to Firestore ${expenseObj}`)
+             setOpen(false)
+
           } catch (err) {
               console.log(err)
           }
@@ -102,7 +106,7 @@ const Expenses = props =>{
                             blurOnSubmit
                             autoCorrect={true}
                             keyboardType="default"
-                            maxLength={10}
+                            maxLength={30}
                             onChangeText={(text)=> setDescriptionText(text)}
                             value={DescriptionText}  
                             returnKeyType='next' 
