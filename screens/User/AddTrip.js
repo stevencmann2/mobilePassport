@@ -10,14 +10,6 @@ import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
-
-
-
-// Style in the props will allow us to pass in overriding styles I believe
-///// FOR A LOCATION PICKER ADD AT THE END OF BEFORE BUTTON 
-// <View>
-//  <ChooseLocation navigation={props.navigation}/>
-// </View>
 const AddTrip = ({ navigation }) => {
 
  
@@ -29,7 +21,7 @@ const AddTrip = ({ navigation }) => {
     { collection: 'Trips' },{ collection: 'Users', doc: UserId}
   ]);
 
-  const TripsState = useSelector(state => state.firestore.ordered.Trips);
+//   const TripsState = useSelector(state => state.firestore.ordered.Trips);
   const UserId = useSelector(state=> state.auth.userId)
   const firestoreTrips = firestore.collection("Trips")
 

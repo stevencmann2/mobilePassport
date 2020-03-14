@@ -6,29 +6,90 @@ import {
     TouchableWithoutFeedback,
     Keyboard, 
     KeyboardAvoidingView,
-    ScrollView
+    ScrollView,
+    Alert
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import Input from '../../../../components/Input'
 import Card from '../../../../components/Card'
 import { Button } from 'react-native-elements'
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
+import { parse } from 'react-native-svg';
 
 
 
 const Dashboard = props =>{
-
+    const firestore = useFirestore();
     const selectedTrip = useSelector(state=> state.tripID.id)
-    const [open, setOpen] = useState(true) 
+    
+    const bbLocation = firestore.collection('Trips').doc(selectedTrip)
    
-    const [airfareText, setAirfareText]= useState('');
-    const [transportationText, setTranportationText]= useState('');
-    const [lodgingText, setLodgingText]= useState('');
-    const [foodText, setFoodText]= useState('');
-    const [activitiesText, setActivitiesText]= useState('');
-    const [emergencyText, setEmergencyText]= useState('');
-    const [miscText, setMiscText]= useState('');
-    const [total, setTotal] =useState('')
 
+     useFirestoreConnect([{ collection: 'Trips', doc: `${selectedTrip}`}]);
+      
+    const getTrip  = useSelector(state =>state.firestore.data.userTrips[selectedTrip])
+    
+    
+    
+   
+    const [airfareText, setAirfareText]= useState(0);
+    const [transportationText, setTranportationText]= useState(0);
+    const [lodgingText, setLodgingText]= useState(0);
+    const [foodText, setFoodText]= useState(0);
+    const [activitiesText, setActivitiesText]= useState(0);
+    const [emergencyText, setEmergencyText]= useState(0);
+    const [miscText, setMiscText]= useState(0);
+    const [total, setTotal] =useState(0)
+
+      const currentFormTotal = () =>{
+          const currentTotal =  parseInt(airfareText) + parseInt(transportationText) + parseInt(lodgingText) + parseInt(foodText) +
+          parseInt(activitiesText) + parseInt(emergencyText) + parseInt(miscText)
+          console.log('**********************')
+          console.log('current total', currentTotal)
+          console.log('**********************')
+          console.log(typeof(currentTotal))
+            setTotal(parseInt(currentTotal))
+            console.log('**********************')
+            console.log(typeof(total), total)
+            console.log('**********************')
+      }
+
+      
+
+    const submitBudget = async() =>{
+        
+    if (getTrip.totalBudget === total){
+       try{    
+           await bbLocation.collection("BudgetBreakdown").doc(selectedTrip).set({
+                Airfare: parseInt(airfareText),
+                Tranportation: parseInt(transportationText),
+                Lodging: parseInt(lodgingText),
+                FoodandDrink: parseInt(foodText),
+                Activities: parseInt(activitiesText),
+                Emergency: parseInt(emergencyText),
+                Misc: parseInt(miscText)
+            })
+            console.log('after post to DB')
+         } catch (err) {
+             console.log(err)
+         }
+     }else{
+        BudgetFormInstructions()
+     }
+
+    }
+    const BudgetFormInstructions = press =>{
+        
+        Alert.alert(
+            'Form Error',
+            'Please verify your desired budget by category equals your total trip budget to continue',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+        )
+    }
 
    
     return(
@@ -44,15 +105,15 @@ const Dashboard = props =>{
                     <View style={styles.screen}>
                         <Card stlye={styles.card}>
                             <View style={styles.center}>
-                                <Text style={styles.cardHeader}>Desired Budget</Text>
+                                <Text style={styles.cardHeader}>Budget by Category</Text>
                              </View>
 
                              <View style={styles.totalContainer}>
                                 <View style={styles.formTotal}>
-                                    <Text>FORM TOTAL</Text>
+                                    <Text>Category Total: {parseInt(total)}</Text>
                                 </View>
                                 <View style={styles.databaseTotal}>
-                                    <Text>DATABSE TOTAL</Text>
+                                    <Text>Total Budget: {getTrip.totalBudget} </Text>
                                 </View>
                             
                              </View>
@@ -60,39 +121,36 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                     label="Airfare ($)"
-                                    placeholder="enter number here"
                                     blurOnSubmit
                                     autoCorrect={true}
                                     keyboardType="number-pad"
                                     maxLength={50}
-                                    onChangeText={(text)=> setAirfareText(parseInt(text))}
-                                    value={airfareText.toString()}
+                                    onChangeText={(text)=> setAirfareText(text)}
+                                    value={airfareText}
                                     returnKeyType='next'
                                     />
                                 </View>
                                 <View style={styles.inputContainer}>
                                     <Input
                                     label="Transportation ($)"
-                                    placeholder="enter number here"
                                     blurOnSubmit
                                     autoCorrect={true}
                                     keyboardType="number-pad"
                                     maxLength={50}
-                                    onChangeText={(text)=> setTranportationText(parseInt(text))}
-                                    value={transportationText.toString()}
+                                    onChangeText={(text)=> setTranportationText(text)}
+                                    value={transportationText}
                                     returnKeyType='next'
                                 />
                                 </View>
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Lodging ($)"
-                                        placeholder="enter number here"
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
                                         maxLength={50}
-                                        onChangeText={(text)=> setLodgingText(parseInt(text))}
-                                        value={lodgingText.toString()}
+                                        onChangeText={(text)=> setLodgingText(text)}
+                                        value={lodgingText}
                                         returnKeyType='next'
                                     />
                                 </View>
@@ -101,12 +159,11 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Food and Drink ($)"
-                                        placeholder="enter number here"
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
                                         maxLength={50}
-                                        onChangeText={(text)=> setFoodText(parseInt(text))}
+                                        onChangeText={(text)=> setFoodText(text)}
                                         value={foodText.toString()}
                                         returnKeyType='next'
                                     />
@@ -114,25 +171,23 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Activities ($)"
-                                        placeholder="enter number here"
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
                                         maxLength={50}
-                                        onChangeText={(text)=> setActivitiesText(parseInt(text))}
-                                        value={activitiesText.toString()}
+                                        onChangeText={(text)=> setActivitiesText(text)}
+                                        value={activitiesText}
                                         returnKeyType='next'
                                     />
                                 </View>
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Emergency ($)"
-                                        placeholder="enter number here"
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
                                         maxLength={50}
-                                        onChangeText={(text)=> setEmergencyText(parseInt(text))}
+                                        onChangeText={(text)=> setEmergencyText(text)}
                                         value={emergencyText.toString()}
                                         returnKeyType='next'
                                     />
@@ -140,20 +195,27 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Miscellaneous ($)"
-                                        placeholder="enter number here"
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
                                         maxLength={50}
-                                        onChangeText={(text)=> setMiscText(parseInt(text))}
+                                        onChangeText={(text)=> setMiscText(text)}
                                         value={miscText.toString()}
                                         returnKeyType='done'
                                 />
                             </View>
-                            <Button 
-                            type="outline"
-                            title="Set Budget"
+                            <View style={styles.buttonContainer}>
+                                <Button 
+                                type="outline"
+                                title="Continue"
+                                onPress = {submitBudget}
+                                />
+                                <Button 
+                                type="outline"
+                                title="Show Total"
+                                onPress = {currentFormTotal}
                             />
+                            </View>
                      </View>
                 </Card>
                 </View>
@@ -171,7 +233,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
       }, 
       card: {
-          marginTop: 20
+          marginTop: 40
       },
     center : {
         alignItems: 'center',
@@ -201,6 +263,10 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    }
 })
 
 export default Dashboard;
