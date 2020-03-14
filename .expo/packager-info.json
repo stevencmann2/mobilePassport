@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": null,
-  "packagerPid": null,
+  "packagerPort": 19001,
+  "packagerPid": 7340,
   "expoServerNgrokUrl": "https://3t-mfs.anonymous.mobilepassport.exp.direct",
   "packagerNgrokUrl": "https://packager.3t-mfs.anonymous.mobilepassport.exp.direct",
-  "ngrokPid": 6984
+  "ngrokPid": 8760
 }

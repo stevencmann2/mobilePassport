@@ -12,12 +12,12 @@ import firebaseConfig from './config/firebase-config';
 import rrfConfig from './config/rrf-config';
 import firebase from 'firebase';
 import '@firebase/firestore';
-//Animated Home Screen Imports Start
-import { Asset } from 'expo';
-import { AppLoading } from 'expo';
-import Home from './screens/NotUser/Home';
 
-//Animated Home Screen Imports End
+//Animated Home Screen Imports Start
+// import { Asset } from 'expo';
+// import { AppLoading } from 'expo';
+// import Home from './screens/NotUser/Home';
+// //Animated Home Screen Imports End
 
 import {decode, encode} from 'base-64'
 if (!global.btoa) { global.btoa = encode }
@@ -25,48 +25,48 @@ if (!global.atob) { global.atob = decode }
 
 //Animated Home Screen Start
 
-function cacheImages(images) {
-  return images.map(image => {
-    if (typeof image === 'string') {
-      return Image.prefetch(image);
-    } else {
-      return Asset.fromModule(image).downloadAsync();
-    }
-  });
-}
+// function cacheImages(images) {
+//   return images.map(image => {
+//     if (typeof image === 'string') {
+//       return Image.prefetch(image);
+//     } else {
+//       return Asset.fromModule(image).downloadAsync();
+//     }
+//   });
+// }
 
-export default class App extends React.Component{
-  constructor(){
-      super()
-      this.state = {
-          isReady: false
-      }
-  }
+// export default class App extends React.Component{
+//   constructor(){
+//       super()
+//       this.state = {
+//           isReady: false
+//       }
+//   }
 
-  async _loadAssetsAsync() {
-      const imageAssets = cacheImages([
+//   async _loadAssetsAsync() {
+//       const imageAssets = cacheImages([
        
-        require('../../assets/images/HomeScreenBackground.jpg'),
-      ]);
+//         require('../../assets/images/HomeScreenBackground.jpg'),
+//       ]);
   
   
-      await Promise.all([...imageAssets]);
-    }
+//       await Promise.all([...imageAssets]);
+//     }
 
-  render(){
-      if (!this.state.isReady) {
-          return (
-            <AppLoading
-              startAsync={this._loadAssetsAsync}
-              onFinish={() => this.setState({ isReady: true })}
-              onError={console.warn}
-            />
-          );
-        }
+//   return(){
+//       if (!this.state.isReady) {
+//           return (
+//             <AppLoading
+//               startAsync={this._loadAssetsAsync}
+//               onFinish={() => this.setState({ isReady: true })}
+//               onError={console.warn}
+//             />
+//           );
+//         }
     
-      return<Home />
-  }
-}
+//       return<Home />
+//   }
+// }
 
 //Animated Home Screen End
 
@@ -95,10 +95,10 @@ try {
 
 
 
-// useFirestoreConnect([
-//   { collection: 'Trips' },
-// ]);
-// const statuses = useSelector(state => state.firestore.ordered.Trips);
+useFirestoreConnect([
+  { collection: 'Trips' },
+]);
+const statuses = useSelector(state => state.firestore.ordered.Trips);
 
 
 
