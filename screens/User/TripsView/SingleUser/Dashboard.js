@@ -14,7 +14,6 @@ import Input from '../../../../components/Input'
 import Card from '../../../../components/Card'
 import { Button } from 'react-native-elements'
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
-import { parse } from 'react-native-svg';
 
 
 
