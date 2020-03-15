@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+// import * as Font from 'expo-font';
+// import { AppLoading } from 'expo';
 import MainStackNavigator from './navigation/MainStackNavigation'
 import UserNavigation from "./navigation/UserNavigation";
 import { Provider, useSelector } from 'react-redux';
@@ -13,64 +15,42 @@ import rrfConfig from './config/rrf-config';
 import firebase from 'firebase';
 import '@firebase/firestore';
 
-//Animated Home Screen Imports Start
-// import { Asset } from 'expo';
-// import { AppLoading } from 'expo';
-// import Home from './screens/NotUser/Home';
-// //Animated Home Screen Imports End
+import Home from './screens/NotUser/Home';
+import LogIn from './screens/NotUser/LogIn';
+import NewUser from './screens/NotUser/NewUser';
 
 import {decode, encode} from 'base-64'
+import { isFrontCameraAvailable } from 'expo/build/AR';
 if (!global.btoa) { global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
-//Animated Home Screen Start
 
-// function cacheImages(images) {
-//   return images.map(image => {
-//     if (typeof image === 'string') {
-//       return Image.prefetch(image);
-//     } else {
-//       return Asset.fromModule(image).downloadAsync();
-//     }
-//   });
-// }
-
-// export default class App extends React.Component{
-//   constructor(){
-//       super()
-//       this.state = {
-//           isReady: false
-//       }
+// const getFonts = () => Font.loadAsync({
+//     'comfortaa-regular': require('./assets/fonts/Comfortaa-Regular.ttf'),
+//     'comfortaa-bold': require('./assets/fonts/Comfortaa-Bold.ttf'), 
+//     'abel-regular': require('./assets/fonts/Abel-Regular')
 //   }
+// );
 
-//   async _loadAssetsAsync() {
-//       const imageAssets = cacheImages([
-       
-//         require('../../assets/images/HomeScreenBackground.jpg'),
-//       ]);
-  
-  
-//       await Promise.all([...imageAssets]);
-//     }
 
-//   return(){
-//       if (!this.state.isReady) {
-//           return (
-//             <AppLoading
-//               startAsync={this._loadAssetsAsync}
-//               onFinish={() => this.setState({ isReady: true })}
-//               onError={console.warn}
-//             />
-//           );
-//         }
-    
-//       return<Home />
+// export default function App () {
+//   const [fontsLoaded, setFontsLoaded] = useState(false);
+
+//   if(fontsLoaded){
+//     return (
+//       <Home />,
+//       <LogIn />,
+//       <NewUser />
+//     );
+//   } else {
+//     return (
+//       <AppLoading
+//         startAsync={getFonts}
+//         onFinish={() => setFontsLoaded(true)}
+//       />
+//     )
 //   }
 // }
-
-//Animated Home Screen End
-
-
 
 
 const initialState = {

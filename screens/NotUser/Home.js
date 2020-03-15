@@ -104,6 +104,7 @@ const Home = props => {
       }, 
       welcome: {
         marginTop: 200,
+        fontFamily: 'Comfortaa-Bold',
         fontSize: 50,
         alignItems: 'center'
       },
