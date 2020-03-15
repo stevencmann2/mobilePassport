@@ -150,7 +150,7 @@ const Expenses = props =>{
             <View>
 
                 <Text style={{color: 'black'}}>
-                        SAVINGS HOMEPAGE
+                        EXPENSES HOMEPAGE
                 </Text>
              
                 <Button 

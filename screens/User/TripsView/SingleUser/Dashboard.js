@@ -17,7 +17,6 @@ import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
 
 
 
-
 const Dashboard = props =>{
     const firestore = useFirestore();
     const selectedTrip = useSelector(state=> state.tripID.id)
