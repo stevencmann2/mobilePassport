@@ -10,7 +10,7 @@ const getFonts = () => Font.loadAsync({
 );
 
 
-function FontApp () {
+export default function App () {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   if(fontsLoaded){
