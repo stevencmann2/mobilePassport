@@ -3,7 +3,8 @@ import {
     Text, 
     View, 
     StyleSheet,
-    Picker
+    Picker,
+    Alert
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button, Overlay } from 'react-native-elements'
@@ -49,13 +50,38 @@ const Savings = props =>{
 
           } catch (err) {
               console.log(err)
+              errorAlert();
+              setOpen(false)
           }
        }else{
+           incompleteAlert();
         console.log('failed test')
         console.log(pickedCategory, savingsAmount, savingsDescription)
        }
     }
 
+    const incompleteAlert = () => {
+        Alert.alert(
+            'Cannot Log Savings',
+            'Please verify all fields are filled out completley and there is a dollar amount',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+     )
+    }
+    const errorAlert = () => {
+        Alert.alert(
+            'Internal Catch Error',
+            'Something went wrong, please let us know an issue occured while loging a savings',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+     )
+    }
 
 
     

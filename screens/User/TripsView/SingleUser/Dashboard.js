@@ -33,6 +33,7 @@ const Dashboard = props =>{
     }
     ]);
 
+    const BudgetData = useSelector(state =>state.firestore.data.BudgetBreakdownData)
     const getTrip  = useSelector(state =>state.firestore.data.userTrips[selectedTrip])
     // const getBBData  = useSelector(state =>state.firestore.data.Trips[selectedTrip].BudgetBreakown[BudgetBreakdownData])
     // console.log(getBBData)
@@ -109,6 +110,9 @@ const Dashboard = props =>{
                 >
                 <ScrollView>
                     <View style={styles.screen}>
+
+                    {!BudgetData ? (
+
                         <Card stlye={styles.card}>
                             <View style={styles.center}>
                                 <Text style={styles.cardHeader}>Budget by Category</Text>
@@ -127,7 +131,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                     label="Airfare ($)"
-                                    placeholder='0'
+                                    placeholder='Enter value here...'
                                     blurOnSubmit
                                     autoCorrect={true}
                                     keyboardType="number-pad"
@@ -140,7 +144,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                     label="Transportation ($)"
-                                    placeholder='0'
+                                    placeholder='enter 0 if not desired...'
                                     blurOnSubmit
                                     autoCorrect={true}
                                     keyboardType="number-pad"
@@ -153,7 +157,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Lodging ($)"
-                                        placeholder='0'
+                                        placeholder=''
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
@@ -168,7 +172,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Food and Drink ($)"
-                                        placeholder='0'
+                                        placeholder=''
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
@@ -181,7 +185,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Activities ($)"
-                                        placeholder='0'
+                                        placeholder=''
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
@@ -194,7 +198,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Emergency ($)"
-                                        placeholder='0'
+                                        placeholder=''
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
@@ -207,7 +211,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Miscellaneous ($)"
-                                        placeholder='0'
+                                        placeholder=''
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
@@ -231,6 +235,13 @@ const Dashboard = props =>{
                             </View>
                      </View>
                 </Card>
+                ): (
+                    <View>
+                        <Text>
+                            There is Budget Data
+                        </Text>
+                    </View>
+                )}
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>

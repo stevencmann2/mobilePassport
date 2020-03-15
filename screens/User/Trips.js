@@ -64,11 +64,24 @@ const Trips = ({ navigation }) =>{
             })
          } catch (err) {
           console.log(err)
+          errorAlert();
         }      
     }else{
         incompleteFields();
     }
     }
+    const errorAlert = () => {
+        Alert.alert(
+            'Internal Catch Error',
+            'Something went wrong, please let us know an issue occured while submitting your profile',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+     )
+    }
+
 
     const userNameInstructions = press =>{
         
@@ -263,7 +276,8 @@ const styles = StyleSheet.create({
         
       },
     container: {
-        marginTop: 20
+        marginTop: 20,
+        paddingHorizontal: 10
     },
     ImgContainer: {
         width : 300,

@@ -4,6 +4,7 @@ import {
     View, 
     StyleSheet,
     Picker,
+    Alert
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button, Overlay} from 'react-native-elements'
@@ -63,9 +64,22 @@ const Expenses = props =>{
               console.log(err)
           }
        }else{
+        incompleteAlert();
         console.log('failed test')
         console.log(pickedCategory, expenseAmount, expenseDescription)
        }
+    }
+
+    const incompleteAlert = () => {
+        Alert.alert(
+            'Cannot Add Expense',
+            'Please verify all fields are filled out and there is a dollar amount',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+     )
     }
 
     
