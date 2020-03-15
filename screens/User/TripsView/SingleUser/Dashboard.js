@@ -2,7 +2,7 @@ import React, { useState }  from 'react';
 import {
     Text, 
     View, 
-   StyleSheet, 
+    StyleSheet, 
     TouchableWithoutFeedback,
     Keyboard, 
     KeyboardAvoidingView,
@@ -14,42 +14,56 @@ import Input from '../../../../components/Input'
 import Card from '../../../../components/Card'
 import { Button } from 'react-native-elements'
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
-
+import BudgetBreakdownChart from '../../../../components/Charts/BudgetBreakdownChart'
 
 
 const Dashboard = props =>{
     const firestore = useFirestore();
     const selectedTrip = useSelector(state=> state.tripID.id)
-    
+    const UserId = useSelector(state=> state.auth.userId)
     const bbLocation = firestore.collection('Trips').doc(selectedTrip)
    
 
      useFirestoreConnect([{ collection: 'Trips', doc: `${selectedTrip}`},
-    //  { collection: 'Trips', doc: `${selectedTrip}`, collection: 'BudgetBreakdown'}
+     { collection: 'Trips', 
+     doc: `${selectedTrip}`, 
+     subcollections: [{ collection: "BudgetBreakdown" }],
+     storeAs: 'BudgetBreakdownData'
+    }
     ]);
-      
+
+    const BudgetData = useSelector(state =>state.firestore.data.BudgetBreakdownData)
+    const UserProfileUsername = useSelector(state =>state.firestore.ordered.Users[0].username)
+    console.log('))))))))))))))))))))))))))))))))))')
+    console.log(UserProfileUsername)
+    console.log('))))))))))))))))))))))))))))))))))')
     const getTrip  = useSelector(state =>state.firestore.data.userTrips[selectedTrip])
-    
-    
-    
-   
-    const [airfareText, setAirfareText]= useState(0);
-    const [transportationText, setTranportationText]= useState(0);
-    const [lodgingText, setLodgingText]= useState(0);
-    const [foodText, setFoodText]= useState(0);
-    const [activitiesText, setActivitiesText]= useState(0);
-    const [emergencyText, setEmergencyText]= useState(0);
-    const [miscText, setMiscText]= useState(0);
-    const [total, setTotal] =useState(0)
+    // const getBBData  = useSelector(state =>state.firestore.data.Trips[selectedTrip].BudgetBreakown[BudgetBreakdownData])
+    // console.log(getBBData)
+
+    const [airfareText, setAirfareText]= useState();
+    const [transportationText, setTranportationText]= useState();
+    const [lodgingText, setLodgingText]= useState();
+    const [foodText, setFoodText]= useState();
+    const [activitiesText, setActivitiesText]= useState();
+    const [emergencyText, setEmergencyText]= useState();
+    const [miscText, setMiscText]= useState();
+    const [total, setTotal] = useState()
 
       const currentFormTotal = () =>{
+         
+        
           const currentTotal =  parseInt(airfareText) + parseInt(transportationText) + parseInt(lodgingText) + parseInt(foodText) +
           parseInt(activitiesText) + parseInt(emergencyText) + parseInt(miscText)
-        
+
+          if (Number.isNaN(currentTotal)){
+              
+              return setTotal(0)
+          }
+
          setTotal(parseInt(currentTotal)) 
       }
 
-      
 
     const submitBudget = async() =>{
         
@@ -59,7 +73,7 @@ const Dashboard = props =>{
                 Airfare: parseInt(airfareText),
                 Tranportation: parseInt(transportationText),
                 Lodging: parseInt(lodgingText),
-                FoodandDrink: parseInt(foodText),
+                "Food & Drink": parseInt(foodText),
                 Activities: parseInt(activitiesText),
                 Emergency: parseInt(emergencyText),
                 Misc: parseInt(miscText)
@@ -86,6 +100,8 @@ const Dashboard = props =>{
         )
     }
 
+  
+    
    
     return(
     <TouchableWithoutFeedback 
@@ -98,6 +114,9 @@ const Dashboard = props =>{
                 >
                 <ScrollView>
                     <View style={styles.screen}>
+
+                    {!BudgetData ? (
+
                         <Card stlye={styles.card}>
                             <View style={styles.center}>
                                 <Text style={styles.cardHeader}>Budget by Category</Text>
@@ -116,7 +135,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                     label="Airfare ($)"
-                                    placeholder='0'
+                                    placeholder='Enter value here...'
                                     blurOnSubmit
                                     autoCorrect={true}
                                     keyboardType="number-pad"
@@ -129,7 +148,7 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                     label="Transportation ($)"
-                                    placeholder='0'
+                                    placeholder='enter 0 if not desired...'
                                     blurOnSubmit
                                     autoCorrect={true}
                                     keyboardType="number-pad"
@@ -137,12 +156,12 @@ const Dashboard = props =>{
                                     onChangeText={(text)=> setTranportationText(text)}
                                     value={transportationText}
                                     returnKeyType='next'
-                                />
+                                    />
                                 </View>
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Lodging ($)"
-                                        placeholder='0'
+                                        placeholder=''
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
@@ -157,20 +176,20 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Food and Drink ($)"
-                                        placeholder='0'
+                                        placeholder=''
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
                                         maxLength={50}
                                         onChangeText={(text)=> setFoodText(text)}
-                                        value={foodText.toString()}
+                                        value={foodText}
                                         returnKeyType='next'
                                     />
                                 </View>
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Activities ($)"
-                                        placeholder='0'
+                                        placeholder=''
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
@@ -183,26 +202,26 @@ const Dashboard = props =>{
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Emergency ($)"
-                                        placeholder='0'
+                                        placeholder=''
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
                                         maxLength={50}
                                         onChangeText={(text)=> setEmergencyText(text)}
-                                        value={emergencyText.toString()}
+                                        value={emergencyText}
                                         returnKeyType='next'
                                     />
                                 </View>
                                 <View style={styles.inputContainer}>
                                     <Input
                                         label="Miscellaneous ($)"
-                                        placeholder='0'
+                                        placeholder=''
                                         blurOnSubmit
                                         autoCorrect={true}
                                         keyboardType="number-pad"
                                         maxLength={50}
                                         onChangeText={(text)=> setMiscText(text)}
-                                        value={miscText.toString()}
+                                        value={miscText}
                                         returnKeyType='done'
                                 />
                             </View>
@@ -220,6 +239,14 @@ const Dashboard = props =>{
                             </View>
                      </View>
                 </Card>
+                ): (
+                    <View styles={styles.chartContainer}>  
+                        <View>
+                            <Text>Welcome {`${UserProfileUsername}`}</Text>
+                        </View>  
+                        <BudgetBreakdownChart/>
+                </View>
+                )}
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
@@ -263,11 +290,13 @@ const styles = StyleSheet.create({
     inputContainer: {
         width: '100%',
         textAlign: 'center'
-    
     },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around'
+    },
+    chartContainer: {
+        marginTop: 100
     }
 })
 

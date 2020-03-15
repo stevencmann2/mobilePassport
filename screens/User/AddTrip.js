@@ -208,7 +208,7 @@ const onChangeReturning = (event, selectedDate) => {
                 blurOnSubmit
                 autoCorrect={true}
                 keyboardType="default"
-                maxLength={50}
+                maxLength={30}
                 onChangeText={(text)=> setTripName(text)}
                 value={tripName}
                 returnKeyType='next'
@@ -222,7 +222,7 @@ const onChangeReturning = (event, selectedDate) => {
                     blurOnSubmit
                     autoCorrect={true}
                     keyboardType="number-pad"
-                    maxLength={50}
+                    maxLength={10}
                     onChangeText={(text)=> setTotalBudgetText(text)}
                     value={totalBudgetText}
                     returnKeyType='next'
@@ -236,7 +236,7 @@ const onChangeReturning = (event, selectedDate) => {
                     blurOnSubmit
                     autoCorrect={true}
                     keyboardType="default"
-                    maxLength={50}
+                    maxLength={30}
                     onChangeText={(text)=> setDestinationText(text)}
                     value={destinationText}
                     returnKeyType='next'
