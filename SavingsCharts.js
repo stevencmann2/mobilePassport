@@ -1,17 +1,34 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView} from 'react-native';
 import { VictoryPie, VictoryAnimation, VictoryLabel  } from 'victory-native';
-
-
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
+import { useSelector } from 'react-redux'
 
 
 
 const SavingsCharts = () => {
+
+    const firestore = useFirestore();
+    const selectedTrip = useSelector(state=> state.tripID.id)
+
+    useFirestoreConnect([{ collection: 'Trips', doc: `${selectedTrip}`},
+    { collection: 'Trips', 
+    doc: `${selectedTrip}`, 
+    subcollections: [{ collection: "Savings" }],
+    storeAs: 'SavingsData'
+   }
+   ]);
+
     const expenseTotal = 3220
     const CategoryTotal = 5000
     const ExpPercent  = (expenseTotal/CategoryTotal)
     const PercentasText = (ExpPercent.toFixed(2))*100
     console.log(ExpPercent)
+
+
+
+
+
     return(
         <ScrollView>
             <View style={styles.screen}>
