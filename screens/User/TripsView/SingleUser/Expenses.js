@@ -10,14 +10,7 @@ import { useSelector } from 'react-redux'
 import { Button, Overlay} from 'react-native-elements'
 import Input  from '../../../../components/Input'
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
-// import { VictoryPie } from 'victory-native';
-// <VictoryPie
-// data={[
-//     { x: "Cats", y: 35 },
-//     { x: "Dogs", y: 40 },
-//     { x: "Birds", y: 55 }
-//     ]}
-// />
+
 
 
 
@@ -62,6 +55,8 @@ const Expenses = props =>{
 
           } catch (err) {
               console.log(err)
+              errorAlert();
+              setOpen(false)
           }
        }else{
         incompleteAlert();
@@ -73,7 +68,18 @@ const Expenses = props =>{
     const incompleteAlert = () => {
         Alert.alert(
             'Cannot Add Expense',
-            'Please verify all fields are filled out and there is a dollar amount',
+            'Please verify all fields are filled out completely and there is a dollar amount',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+     )
+    }
+    const errorAlert = () => {
+        Alert.alert(
+            'Internal Catch Error',
+            'Something went wrong, please let us know an issue occured while posting an expense',
             [
                 {text: 'Ok',
                 onPress: ()=>console.log('Ok Pressed, Alert Closed')
@@ -105,7 +111,7 @@ const Expenses = props =>{
                             <Picker.Item label="Airfare" value="Airfare" />
                             <Picker.Item label="Transportation" value="Transportation" />
                             <Picker.Item label="Lodging" value="Lodging" />
-                            <Picker.Item label="Food/Drink" value="FoodandDrink" />
+                            <Picker.Item label="Food/Drink" value="Food & Drink" />
                             <Picker.Item label="Activities" value="Activities" />
                             <Picker.Item label="Emergency" value="Emergency" />
                             <Picker.Item label="Misc." value="Misc" />
@@ -150,7 +156,7 @@ const Expenses = props =>{
             <View>
 
                 <Text style={{color: 'black'}}>
-                        EXPENSES HOMEPAGE
+                        SAVINGS HOMEPAGE
                 </Text>
              
                 <Button 

@@ -2,7 +2,7 @@ import React, { useState }  from 'react';
 import {
     Text, 
     View, 
-   StyleSheet, 
+    StyleSheet, 
     TouchableWithoutFeedback,
     Keyboard, 
     KeyboardAvoidingView,
@@ -14,13 +14,13 @@ import Input from '../../../../components/Input'
 import Card from '../../../../components/Card'
 import { Button } from 'react-native-elements'
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
-
+import BudgetBreakdownChart from '../../../../components/Charts/BudgetBreakdownChart'
 
 
 const Dashboard = props =>{
     const firestore = useFirestore();
     const selectedTrip = useSelector(state=> state.tripID.id)
-    
+    const UserId = useSelector(state=> state.auth.userId)
     const bbLocation = firestore.collection('Trips').doc(selectedTrip)
    
 
@@ -33,6 +33,10 @@ const Dashboard = props =>{
     ]);
 
     const BudgetData = useSelector(state =>state.firestore.data.BudgetBreakdownData)
+    const UserProfileUsername = useSelector(state =>state.firestore.ordered.Users[0].username)
+    console.log('))))))))))))))))))))))))))))))))))')
+    console.log(UserProfileUsername)
+    console.log('))))))))))))))))))))))))))))))))))')
     const getTrip  = useSelector(state =>state.firestore.data.userTrips[selectedTrip])
     // const getBBData  = useSelector(state =>state.firestore.data.Trips[selectedTrip].BudgetBreakown[BudgetBreakdownData])
     // console.log(getBBData)
@@ -60,7 +64,6 @@ const Dashboard = props =>{
          setTotal(parseInt(currentTotal)) 
       }
 
-      
 
     const submitBudget = async() =>{
         
@@ -70,7 +73,7 @@ const Dashboard = props =>{
                 Airfare: parseInt(airfareText),
                 Tranportation: parseInt(transportationText),
                 Lodging: parseInt(lodgingText),
-                FoodandDrink: parseInt(foodText),
+                "Food & Drink": parseInt(foodText),
                 Activities: parseInt(activitiesText),
                 Emergency: parseInt(emergencyText),
                 Misc: parseInt(miscText)
@@ -97,6 +100,8 @@ const Dashboard = props =>{
         )
     }
 
+  
+    
    
     return(
     <TouchableWithoutFeedback 
@@ -235,11 +240,12 @@ const Dashboard = props =>{
                      </View>
                 </Card>
                 ): (
-                    <View>
-                        <Text>
-                            There is Budget Data
-                        </Text>
-                    </View>
+                    <View styles={styles.chartContainer}>  
+                        <View>
+                            <Text>Welcome {`${UserProfileUsername}`}</Text>
+                        </View>  
+                        <BudgetBreakdownChart/>
+                </View>
                 )}
                 </View>
             </ScrollView>
@@ -288,6 +294,9 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around'
+    },
+    chartContainer: {
+        marginTop: 100
     }
 })
 
