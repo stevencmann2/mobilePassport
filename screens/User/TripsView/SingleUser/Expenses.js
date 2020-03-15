@@ -68,7 +68,7 @@ const Expenses = props =>{
              </Overlay>
             <View>
                 <Text style={{color: 'black'}}>
-                        SAVINGS HOMEPAGE
+                        EXPENSES HOMEPAGE
                 </Text>
                 <Button 
                 type="outline"

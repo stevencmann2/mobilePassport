@@ -40,11 +40,11 @@ return(
         <Stack.Screen 
             name='NewUser' 
             component={NewUserScreen} 
-            options={{ title: 'Sign Up' }}/>
+            options={{ title: 'Passport' }}/>
         <Stack.Screen 
             name='LogIn' 
             component={LogInScreen} 
-            options={{ title: 'Log In' }}/>
+            options={{ title: 'Passport' }}/>
       
       
       </Stack.Navigator>

@@ -87,7 +87,7 @@ const LogIn = props => {
             <View style={styles.screen}>
                 <Card style={styles.card}>
                     <View style={styles.center}>
-                        <Text style={styles.cardHeader}>Log In</Text>
+                        <Text style={styles.cardHeader}>Sign In</Text>
                     </View>
                     <View style={styles.container}>
                         <Input
