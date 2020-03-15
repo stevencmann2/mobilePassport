@@ -22,6 +22,7 @@
     "expo": "~36.0.0",
     "expo-asset": "~8.0.0",
     "expo-calendar": "~8.0.0",
+    "expo-font": "~8.0.0",
     "expo-image-picker": "~8.0.1",
     "expo-location": "~8.0.0",
     "expo-permissions": "~8.0.0",
@@ -42,7 +43,6 @@
     "react-native-reanimated": "~1.4.0",
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
-    "react-native-svg": "^12.0.3",
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.2.2",
     "react-redux": "^7.2.0",
@@ -52,7 +52,7 @@
     "redux-firestore": "^0.13.0",
     "redux-thunk": "^2.3.0",
     "victory-native": "^34.1.0",
-    "expo-font": "~8.0.0"
+    "react-native-svg": "9.13.3"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",

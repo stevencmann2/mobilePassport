@@ -9,9 +9,10 @@ import firebaseConfig from './config/firebase-config';
 import rrfConfig from './config/rrf-config';
 import firebase from 'firebase';
 import '@firebase/firestore';
-
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
+
+
 
 
 
@@ -27,6 +28,7 @@ const getFonts = () => Font.loadAsync({
     'comfortaa-bold': require('./assets/fonts/Comfortaa-Bold.ttf'), 
     'abel-regular': require('./assets/fonts/Abel-Regular.ttf')
   }
+
 );
 
 
@@ -70,6 +72,7 @@ const App = () => {
 
 
   if(fontsLoaded){
+
     return (
       
         <Provider store={store}>
