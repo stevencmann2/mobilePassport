@@ -20,7 +20,7 @@ import BudgetBreakdownChart from '../../../../components/Charts/BudgetBreakdownC
 const Dashboard = props =>{
     const firestore = useFirestore();
     const selectedTrip = useSelector(state=> state.tripID.id)
-    
+    const UserId = useSelector(state=> state.auth.userId)
     const bbLocation = firestore.collection('Trips').doc(selectedTrip)
    
 
@@ -33,11 +33,10 @@ const Dashboard = props =>{
     ]);
 
     const BudgetData = useSelector(state =>state.firestore.data.BudgetBreakdownData)
-    console.log('000000000000000000000000000000000')
-    console.log(BudgetData)
-    console.log('000000000000000000000000000000000')
-   
-   
+    const UserProfileUsername = useSelector(state =>state.firestore.ordered.Users[0].username)
+    console.log('))))))))))))))))))))))))))))))))))')
+    console.log(UserProfileUsername)
+    console.log('))))))))))))))))))))))))))))))))))')
     const getTrip  = useSelector(state =>state.firestore.data.userTrips[selectedTrip])
     // const getBBData  = useSelector(state =>state.firestore.data.Trips[selectedTrip].BudgetBreakown[BudgetBreakdownData])
     // console.log(getBBData)
@@ -241,7 +240,10 @@ const Dashboard = props =>{
                      </View>
                 </Card>
                 ): (
-                    <View styles={styles.chartContainer}>    
+                    <View styles={styles.chartContainer}>  
+                        <View>
+                            <Text>Welcome {`${UserProfileUsername}`}</Text>
+                        </View>  
                         <BudgetBreakdownChart/>
                 </View>
                 )}
