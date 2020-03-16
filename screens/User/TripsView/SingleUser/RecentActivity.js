@@ -3,7 +3,7 @@ import {
     Text, 
     View, 
     StyleSheet,
-    
+    ScrollView
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
@@ -62,44 +62,82 @@ const RecentActivity = () => {
     return x.Category === y.Category && _.assign(x, y);
   });
 
-  console.log('%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%')
-  console.log(SavingsResultsArr)
-  console.log('%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%')
+ const ExpensesResultsArr = _.intersectionWith(_.cloneDeep(fullStoreExpensesArr), iconArray, function(x, y) {
+  return x.Category === y.Category && _.assign(x, y);
+});
 
 
-  const list = [
-    {
-      category: 'Airfare',
-      description: "United Airlines",
-      Amount: 300,
-      icon: 'airplanemode-active'
-    },
-  ]
+  
 
 
   return (
-      
+    <ScrollView>
       <View stlye={styles.screen}>
-        <View>
-        <Text>Recent Activity Page</Text>
+        <View style={styles.screenHeader}>
+          <Text>Recent Actions </Text>
         </View>
-    <View style={styles.list}>
-  
-  {
-    SavingsResultsArr.map((item, index) => (
-      <ListItem
-        key={index}
-        // leftAvatar={{ source: { uri: item.avatar_url } }}
-        title={item.Description}
-        rightTitle={item.Category}
-        subtitle={`$${item.Amount}`}
-        leftIcon={{ name: item.Icon}}
-        bottomDivider
-      />
-    ))
-  }
+
+        {ExpensesResultsArr.length > 0 && SavingsResultsArr.length > 0 ? 
+          (null) : (
+          <View style={styles.emptyContainer}>
+              <Text> No recent acitons to report</Text>
+          </View>
+        )}
+
+
+
+      
+      {SavingsResultsArr.length > 0 ? (
+        <View style={styles.resultsContainer}>
+          <View style={styles.listHeader}>
+            <Text>Savings</Text>
+          </View>
+              <View style={styles.listContainer}>
+            {
+              SavingsResultsArr.map((item, index) => (
+                <ListItem
+                  key={index}
+                  // leftAvatar={{ source: { uri: item.avatar_url } }}
+                  title={item.Description}
+                  rightTitle={item.Category}
+                  subtitle={`$${item.Amount}`}
+                  leftIcon={{ name: item.Icon}}
+                  bottomDivider
+                />
+              ))
+            }
+          </View>
+        </View>
+        ) : 
+        (null)}
+
+   {ExpensesResultsArr.length > 0 ? (
+    <View style={styles.resultsContainer}>
+      <View style={styles.listHeader}>
+        <Text>Expenses</Text>
+      </View>
+      <View style={styles.listContainer}>
+      {
+        ExpensesResultsArr.map((item, index) => (
+          <ListItem
+            key={index}
+            // leftAvatar={{ source: { uri: item.avatar_url } }}
+            title={item.Description}
+            rightTitle={item.Category}
+            subtitle={`$${item.Amount}`}
+            leftIcon={{ name: item.Icon}}
+            bottomDivider
+          />
+        ))
+      }
+    </View>
+  </View>
+  ) : 
+        (null)}
+
+        
 </View>
-</View>
+</ScrollView>
   )
 
 }
@@ -108,6 +146,27 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 40,
       },
+      screenHeader:{
+        marginTop: 30,
+        marginBottom: 40,
+        alignItems: 'center'
+      },
+      listHeader:{
+        alignItems: 'flex-start',
+        paddingLeft: 8
+      },
+      listContainer:{
+        marginTop: 10,
+        marginBottom:20
+
+      },
+      resultsContainer: {
+        marginBottom: 20
+      },
+      emptyContainer:{
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
       
 })
 
