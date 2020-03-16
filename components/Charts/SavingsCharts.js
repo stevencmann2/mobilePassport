@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView} from 'react-native';
 import { VictoryPie  } from 'victory-native';
-import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
+import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 
 
@@ -91,15 +91,38 @@ const SavingsCharts = () =>{
 
 
 
+if(!isLoaded(fullStoreSavingsArr)){
+   
+        return (
+            <View style={styles.screen}>
+                <ActivityIndicator  
+                    size="large"
+                /> 
+            </View>
+            
+            )
+    }
 
 
+return(
+    <View style={styles.screen}>
+        <Text>
+            Charts Will Go here
+        </Text>
+    </View>
 
-    return(
-    
-        <View>
-        </View>
-    )
+)
+
+        
+  
 
    }
+   const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+    })
 
    export default SavingsCharts;

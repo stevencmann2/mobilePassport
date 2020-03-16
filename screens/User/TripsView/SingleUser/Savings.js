@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import { Button, Overlay } from 'react-native-elements'
 import Input  from '../../../../components/Input'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+import SavingsCharts from '../../../../components/Charts/SavingsCharts'
 
 
 const Savings = props =>{
@@ -182,8 +183,8 @@ if(!isLoaded(fullStoreSavingsArr)){
     </View>)
 }
 
-    return(
-        <View style={styles.screen}>
+return(
+    <View style={styles.screen}>
         <Overlay 
         isVisible={open}
         onBackdropPress={() => setOpen(false)}
@@ -246,19 +247,20 @@ if(!isLoaded(fullStoreSavingsArr)){
             </View>
         </View>
      </Overlay>
-    <View>
-                
+            
+            <View style={styles.buttonContainer}>   
                 <Button 
                 type="outline"
                 title="Add Savings"
                 onPress={()=>setOpen(true)}
                 />
             </View>
-            <Text>
-                NOT EMPTYY NOT EMPTYY THER IS LOGGED SAVINGS CHART GOES HERE
-            </Text>
-        </View>   
-    )
+            <View style={styles.chartsContainer}>
+                 <SavingsCharts/>       
+            </View>
+            
+    </View>   
+)
 }
 
 const styles = StyleSheet.create({
@@ -291,11 +293,14 @@ const styles = StyleSheet.create({
           marginTop: 10,
           marginBottom: 10,
           width: '100%',
-          textAlign: 'center',
-         
+          textAlign: 'center',   
       },
       buttonContainer: {
-          marginTop: 10,
+          marginTop: 30,
+      },
+      chartsContainer:{
+          alignItems: 'center',
+          justifyContent: 'center'
       }
     
 })
