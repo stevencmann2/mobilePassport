@@ -28,6 +28,8 @@ const Savings = props =>{
    }
    ]);
 
+   const storeSavings = useSelector(state=> state.firestore.ordered.SavingsData)
+   console.log(storeSavings)
     const [open, setOpen] = useState(false)
     const[AmountText, setAmountText] = useState()
     const[pickedCategory, setPickedCategory] = useState('Misc');
@@ -47,11 +49,13 @@ const Savings = props =>{
             await SavingsLocation.collection("Savings").add(savingsObj)
              console.log(`posting Savings to Firestore ${savingsObj}`)
              setOpen(false)
+             clearValues();
 
           } catch (err) {
               console.log(err)
               errorAlert();
               setOpen(false)
+              clearValues();
           }
        }else{
            incompleteAlert();
@@ -82,7 +86,11 @@ const Savings = props =>{
             ]
      )
     }
+    const clearValues = ()=> {
+        setAmountText();
+        setDescriptionText("")
 
+    }
 
     
     return(
@@ -150,9 +158,7 @@ const Savings = props =>{
         </View>
      </Overlay>
     <View>
-                <Text style={{color: 'black'}}>
-                        SAVINGS HOMEPAGE
-                </Text>
+                
                 <Button 
                 type="outline"
                 title="Add Savings"

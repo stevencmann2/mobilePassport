@@ -124,7 +124,7 @@ const Trips = ({ navigation }) =>{
     
 
 
-    if(!UserData){
+    if(isEmpty(UserData)){
         return(
          <TouchableWithoutFeedback 
                 onPress={()=> 
@@ -200,14 +200,16 @@ const Trips = ({ navigation }) =>{
         </TouchableWithoutFeedback>
         )
 
-    }else if(!isLoaded(UserData)){
+    }
+    
+    if(!isLoaded(UserData)){
 
         return( 
             <View style={styles.screen}>
                 <ActivityIndicator  size="large"/> 
             </View>)
         
-    }else if(UserData){
+    }
             
         return(
             <ScrollView>
@@ -259,7 +261,7 @@ const Trips = ({ navigation }) =>{
         )
     }
 
-}
+
 
     
 

@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://3t-mfs.anonymous.mobilepassport.exp.direct",
+  "packagerNgrokUrl": "https://packager.3t-mfs.anonymous.mobilepassport.exp.direct",
+  "ngrokPid": 4982
 }

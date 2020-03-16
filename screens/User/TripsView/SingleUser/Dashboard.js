@@ -7,22 +7,28 @@ import {
     Keyboard, 
     KeyboardAvoidingView,
     ScrollView,
+    ActivityIndicator,
     Alert
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import Input from '../../../../components/Input'
 import Card from '../../../../components/Card'
 import { Button } from 'react-native-elements'
-import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
+import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import BudgetBreakdownChart from '../../../../components/Charts/BudgetBreakdownChart'
 
 
 const Dashboard = props =>{
+ ///// TIME EQUATIONS
+ 
+
+
+
     const firestore = useFirestore();
     const selectedTrip = useSelector(state=> state.tripID.id)
     const UserId = useSelector(state=> state.auth.userId)
     const bbLocation = firestore.collection('Trips').doc(selectedTrip)
-   
+
 
      useFirestoreConnect([{ collection: 'Trips', doc: `${selectedTrip}`},
      { collection: 'Trips', 
@@ -68,6 +74,8 @@ const Dashboard = props =>{
     const submitBudget = async() =>{
         
     if (getTrip.totalBudget === total){
+
+
        try{    
            await bbLocation.collection("BudgetBreakdown").doc(selectedTrip).set({
                 Airfare: parseInt(airfareText),
@@ -101,158 +109,178 @@ const Dashboard = props =>{
     }
 
   
+    if(!isLoaded(BudgetData)){
+        return (<View style={styles.screen}>
+                    <ActivityIndicator  
+                        size="large"
+                    /> 
+                </View>)
+    }
+    if(isEmpty(BudgetData)){
+        return(
+            
+            <TouchableWithoutFeedback 
+            onPress={()=> 
+            Keyboard.dismiss()}>
+                    <KeyboardAvoidingView 
+                    style={{flex:1}}
+                    behavior="padding"
+                    keyboardVerticalOffset={15}
+                    >
+                    <ScrollView>
+                        <View style={styles.screen}>    
+                            <Card stlye={styles.card}>
+                                <View style={styles.center}>
+                                    <Text style={styles.cardHeader}>Budget by Category</Text>
+                                 </View>
     
-   
-    return(
-    <TouchableWithoutFeedback 
-        onPress={()=> 
-        Keyboard.dismiss()}>
-                <KeyboardAvoidingView 
-                style={{flex:1}}
-                behavior="padding"
-                keyboardVerticalOffset={15}
-                >
-                <ScrollView>
-                    <View style={styles.screen}>
-
-                    {!BudgetData ? (
-
-                        <Card stlye={styles.card}>
-                            <View style={styles.center}>
-                                <Text style={styles.cardHeader}>Budget by Category</Text>
-                             </View>
-
-                             <View style={styles.totalContainer}>
-                                <View style={styles.formTotal}>
-                                    <Text>Category Total: {total}</Text>
-                                </View>
-                                <View style={styles.databaseTotal}>
-                                    <Text>Total Budget: {getTrip.totalBudget} </Text>
-                                </View>
+                                 <View style={styles.totalContainer}>
+                                    <View style={styles.formTotal}>
+                                        <Text>Category Total: {total}</Text>
+                                    </View>
+                                    <View style={styles.databaseTotal}>
+                                        <Text>Total Budget: {getTrip.totalBudget} </Text>
+                                    </View>
+                                
+                                 </View>
+                                 <View style={styles.container}>
+                                    <View style={styles.inputContainer}>
+                                        <Input
+                                        label="Airfare ($)"
+                                        placeholder='Enter value here...'
+                                        blurOnSubmit
+                                        autoCorrect={true}
+                                        keyboardType="number-pad"
+                                        maxLength={50}
+                                        onChangeText={(text)=> setAirfareText(text)}
+                                        value={airfareText}
+                                        returnKeyType='next'
+                                        />
+                                    </View>
+                                    <View style={styles.inputContainer}>
+                                        <Input
+                                        label="Transportation ($)"
+                                        placeholder='enter 0 if not desired...'
+                                        blurOnSubmit
+                                        autoCorrect={true}
+                                        keyboardType="number-pad"
+                                        maxLength={50}
+                                        onChangeText={(text)=> setTranportationText(text)}
+                                        value={transportationText}
+                                        returnKeyType='next'
+                                        />
+                                    </View>
+                                    <View style={styles.inputContainer}>
+                                        <Input
+                                            label="Lodging ($)"
+                                            placeholder=''
+                                            blurOnSubmit
+                                            autoCorrect={true}
+                                            keyboardType="number-pad"
+                                            maxLength={50}
+                                            onChangeText={(text)=> setLodgingText(text)}
+                                            value={lodgingText}
+                                            returnKeyType='next'
+                                        />
+                                    </View>
                             
-                             </View>
-                             <View style={styles.container}>
-                                <View style={styles.inputContainer}>
-                                    <Input
-                                    label="Airfare ($)"
-                                    placeholder='Enter value here...'
-                                    blurOnSubmit
-                                    autoCorrect={true}
-                                    keyboardType="number-pad"
-                                    maxLength={50}
-                                    onChangeText={(text)=> setAirfareText(text)}
-                                    value={airfareText}
-                                    returnKeyType='next'
+                            
+                                    <View style={styles.inputContainer}>
+                                        <Input
+                                            label="Food and Drink ($)"
+                                            placeholder=''
+                                            blurOnSubmit
+                                            autoCorrect={true}
+                                            keyboardType="number-pad"
+                                            maxLength={50}
+                                            onChangeText={(text)=> setFoodText(text)}
+                                            value={foodText}
+                                            returnKeyType='next'
+                                        />
+                                    </View>
+                                    <View style={styles.inputContainer}>
+                                        <Input
+                                            label="Activities ($)"
+                                            placeholder=''
+                                            blurOnSubmit
+                                            autoCorrect={true}
+                                            keyboardType="number-pad"
+                                            maxLength={50}
+                                            onChangeText={(text)=> setActivitiesText(text)}
+                                            value={activitiesText}
+                                            returnKeyType='next'
+                                        />
+                                    </View>
+                                    <View style={styles.inputContainer}>
+                                        <Input
+                                            label="Emergency ($)"
+                                            placeholder=''
+                                            blurOnSubmit
+                                            autoCorrect={true}
+                                            keyboardType="number-pad"
+                                            maxLength={50}
+                                            onChangeText={(text)=> setEmergencyText(text)}
+                                            value={emergencyText}
+                                            returnKeyType='next'
+                                        />
+                                    </View>
+                                    <View style={styles.inputContainer}>
+                                        <Input
+                                            label="Miscellaneous ($)"
+                                            placeholder=''
+                                            blurOnSubmit
+                                            autoCorrect={true}
+                                            keyboardType="number-pad"
+                                            maxLength={50}
+                                            onChangeText={(text)=> setMiscText(text)}
+                                            value={miscText}
+                                            returnKeyType='done'
                                     />
                                 </View>
-                                <View style={styles.inputContainer}>
-                                    <Input
-                                    label="Transportation ($)"
-                                    placeholder='enter 0 if not desired...'
-                                    blurOnSubmit
-                                    autoCorrect={true}
-                                    keyboardType="number-pad"
-                                    maxLength={50}
-                                    onChangeText={(text)=> setTranportationText(text)}
-                                    value={transportationText}
-                                    returnKeyType='next'
+                                <View style={styles.buttonContainer}>
+                                    <Button 
+                                    type="outline"
+                                    title="Continue"
+                                    onPress = {submitBudget}
                                     />
-                                </View>
-                                <View style={styles.inputContainer}>
-                                    <Input
-                                        label="Lodging ($)"
-                                        placeholder=''
-                                        blurOnSubmit
-                                        autoCorrect={true}
-                                        keyboardType="number-pad"
-                                        maxLength={50}
-                                        onChangeText={(text)=> setLodgingText(text)}
-                                        value={lodgingText}
-                                        returnKeyType='next'
-                                    />
-                                </View>
-                        
-                        
-                                <View style={styles.inputContainer}>
-                                    <Input
-                                        label="Food and Drink ($)"
-                                        placeholder=''
-                                        blurOnSubmit
-                                        autoCorrect={true}
-                                        keyboardType="number-pad"
-                                        maxLength={50}
-                                        onChangeText={(text)=> setFoodText(text)}
-                                        value={foodText}
-                                        returnKeyType='next'
-                                    />
-                                </View>
-                                <View style={styles.inputContainer}>
-                                    <Input
-                                        label="Activities ($)"
-                                        placeholder=''
-                                        blurOnSubmit
-                                        autoCorrect={true}
-                                        keyboardType="number-pad"
-                                        maxLength={50}
-                                        onChangeText={(text)=> setActivitiesText(text)}
-                                        value={activitiesText}
-                                        returnKeyType='next'
-                                    />
-                                </View>
-                                <View style={styles.inputContainer}>
-                                    <Input
-                                        label="Emergency ($)"
-                                        placeholder=''
-                                        blurOnSubmit
-                                        autoCorrect={true}
-                                        keyboardType="number-pad"
-                                        maxLength={50}
-                                        onChangeText={(text)=> setEmergencyText(text)}
-                                        value={emergencyText}
-                                        returnKeyType='next'
-                                    />
-                                </View>
-                                <View style={styles.inputContainer}>
-                                    <Input
-                                        label="Miscellaneous ($)"
-                                        placeholder=''
-                                        blurOnSubmit
-                                        autoCorrect={true}
-                                        keyboardType="number-pad"
-                                        maxLength={50}
-                                        onChangeText={(text)=> setMiscText(text)}
-                                        value={miscText}
-                                        returnKeyType='done'
+                                    <Button 
+                                    type="outline"
+                                    title="Show Total"
+                                    onPress = {currentFormTotal}
                                 />
-                            </View>
-                            <View style={styles.buttonContainer}>
-                                <Button 
-                                type="outline"
-                                title="Continue"
-                                onPress = {submitBudget}
-                                />
-                                <Button 
-                                type="outline"
-                                title="Show Total"
-                                onPress = {currentFormTotal}
-                            />
-                            </View>
-                     </View>
-                </Card>
-                ): (
-                    <View styles={styles.chartContainer}>  
-                        <View>
-                            <Text>Welcome {`${UserProfileUsername}`}</Text>
-                        </View>  
-                        <BudgetBreakdownChart/>
-                </View>
-                )}
-                </View>
+                                </View>
+                         </View>
+                    </Card>
+                    </View>
             </ScrollView>
         </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
-    )
+        
+     )}
+   
+    return(
+    
+    
+<ScrollView>
+    <View style={styles.screen}>  
+        <View style={styles.banner}>
+            <Text>Welcome {`${UserProfileUsername}`}</Text>
+        </View>  
+        <View style={styles.chartContainer}>
+            <BudgetBreakdownChart/>
+        </View>
+            <View>
+                <Text>
+                    What else should go here
+                </Text>
+            </View>
+    </View>
+</ScrollView>
+)
+
 }
+
+
 
 const styles = StyleSheet.create({
     screen: {
@@ -296,7 +324,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     chartContainer: {
-        marginTop: 100
+        justifyContent: 'center'
+    },
+    banner:{
+        marginTop: 30
     }
 })
 

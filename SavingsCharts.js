@@ -38,6 +38,8 @@ const SavingsCharts = () => {
                 </View>
             
                 <View style={styles.chartContainer}>
+                <VictoryLegend x={125} y={50}
+                title="Legend"/>
                     <VictoryPie 
                         data={[{ x: 1, y: ExpPercent}, {x: 2, y: (1-ExpPercent)} ]}    
                         innerRadius={120}
