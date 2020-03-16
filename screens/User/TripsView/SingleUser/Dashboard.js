@@ -110,7 +110,7 @@ const Dashboard = props =>{
 
   
     if(!isLoaded(BudgetData)){
-        return (<View style={styles.screen}>
+        return (<View style={styles.Loadingscreen}>
                     <ActivityIndicator  
                         size="large"
                     /> 
@@ -288,6 +288,12 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         marginTop: 20,
+      }, 
+      Loadingscreen: {
+        flex: 1,
+        alignItems: 'center',
+        marginTop: 40,
+        justifyContent: 'center'
       }, 
       card: {
           marginTop: 40

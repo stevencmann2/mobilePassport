@@ -4,12 +4,13 @@ import {
     View, 
     StyleSheet,
     Picker,
-    Alert
+    Alert,
+    ActivityIndicator
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button, Overlay } from 'react-native-elements'
 import Input  from '../../../../components/Input'
-import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
+import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 
 
 const Savings = props =>{
@@ -25,67 +26,14 @@ const Savings = props =>{
     doc: `${selectedTrip}`, 
     subcollections: [{ collection: "Savings" }],
     storeAs: 'SavingsData'
-   },
-   { collection: 'Trips', 
-    doc: `${selectedTrip}`, 
-    subcollections: [{ collection: "Savings" }],
-    where:['Category', '==', 'Emergency'],
-    storeAs: 'EmergencySavings'
-   },
-   { collection: 'Trips', 
-    doc: `${selectedTrip}`, 
-    subcollections: [{ collection: "Savings" }],
-    where:['Category', '==', 'Misc'],
-    storeAs: 'MiscSavings'
-   },
-   { collection: 'Trips', 
-    doc: `${selectedTrip}`, 
-    subcollections: [{ collection: "Savings" }],
-    where:['Category', '==', 'Activities'],
-    storeAs: 'ActivitiesSavings'
-  },
-  { collection: 'Trips', 
-    doc: `${selectedTrip}`, 
-    subcollections: [{ collection: "Savings" }],
-    where:['Category', '==', 'Food & Drink'],
-    storeAs: 'FoodDrinkSavings'
- },
- { collection: 'Trips', 
-    doc: `${selectedTrip}`, 
-    subcollections: [{ collection: "Savings" }],
-    where:['Category', '==', 'Lodging'],
-    storeAs: 'LodgingSavings'
-},
-{ collection: 'Trips', 
-    doc: `${selectedTrip}`, 
-    subcollections: [{ collection: "Savings" }],
-    where:['Category', '==', 'Transportation'],
-    storeAs: 'TransportationSavings'
-},
-{ collection: 'Trips', 
-    doc: `${selectedTrip}`, 
-    subcollections: [{ collection: "Savings" }],
-    where:['Category', '==', 'Airfare'],
-    storeAs: 'AirfareSavings'
-},
+   }
    ]);
-   const EmergencySavingsArr = useSelector(state=> state.firestore.ordered.EmergencySavings)
-   const MiscSavingsArr = useSelector(state=> state.firestore.ordered.MiscSavings)
-   const ActivitiesSavingsArr = useSelector(state=> state.firestore.ordered.ActivitiesSavings)
-   const TransportationSavingsArr = useSelector(state=> state.firestore.ordered.TransportationSavings)
-   const FoodDrinkSavingsArr = useSelector(state=> state.firestore.ordered.FoodDrinkSavings)
-   const LodgingSavingsArr = useSelector(state=> state.firestore.ordered.LodgingSavings)
-   const AirfareSavingsArr = useSelector(state=> state.firestore.ordered.AirfareSavings)
-   const storeSavingsArr = useSelector(state=> state.firestore.ordered.SavingsData)
-   console.group("Savings Arrays")
-   console.log("Emergency", EmergencySavingsArr)
-   console.log("Misc", MiscSavingsArr)
-   console.log("Act", ActivitiesSavingsArr)
-   console.log("Trans", TransportationSavingsArr)
-   console.log("Food", FoodDrinkSavingsArr)
-   console.log("hotel", LodgingSavingsArr)
-   console.log("Air", AirfareSavingsArr)
-   console.groupEnd()
+
+   const fullStoreSavingsArr = useSelector(state=> state.firestore.ordered.SavingsData)
+   console.log("Full Savings Full Savings Full Savings Full Savings ")
+    console.log(fullStoreSavingsArr)
+    console.log("Full Savings Full Savings Full Savings Full Savings")
+   
   
 
     const [open, setOpen] = useState(false)
@@ -150,7 +98,90 @@ const Savings = props =>{
 
     }
 
-    
+  
+if(isEmpty(fullStoreSavingsArr)){
+    <View style={styles.screen}>
+        <Overlay 
+        isVisible={open}
+        onBackdropPress={() => setOpen(false)}
+        >
+        <View style={styles.overlayView}>
+            <View style={styles.overlayHeader}>
+                <Text>Add Your Savings!</Text>
+            </View>
+            <View style={styles.categoryHeader}>
+                <Text>Savings Category</Text>
+            </View>
+            <View style={styles.pickerContainer}>
+                <Picker
+                    selectedValue={pickedCategory}
+                    onValueChange={(itemValue) =>
+                    setPickedCategory(itemValue)}
+                >
+                    <Picker.Item label="Airfare" value="Airfare" />
+                    <Picker.Item label="Transportation" value="Transportation" />
+                    <Picker.Item label="Lodging" value="Lodging" />
+                    <Picker.Item label="Food/Drink" value="Food & Drink" />
+                    <Picker.Item label="Activities" value="Activities" />
+                    <Picker.Item label="Emergency" value="Emergency" />
+                    <Picker.Item label="Misc." value="Misc" />
+                </Picker>
+            </View>
+            <View style={styles.inputContainer}>
+                <Input
+                    style={styles.input}
+                    label='Description :'
+                    placeholder='ex. Uber Ride'
+                    blurOnSubmit
+                    autoCorrect={true}
+                    keyboardType="default"
+                    maxLength={30}
+                    onChangeText={(text)=> setDescriptionText(text)}
+                    value={DescriptionText}  
+                    returnKeyType='next' 
+                /> 
+            </View>
+            <View style={styles.inputContainer}>
+                <Input
+                    style={styles.input}
+                    label='Amount ($):'
+                    blurOnSubmit
+                    autoCorrect={false}
+                    keyboardType="number-pad"
+                    maxLength={10}
+                    onChangeText={(text)=> setAmountText(text)}
+                    value={AmountText}  
+                    returnKeyType='next' 
+                /> 
+            </View>
+            <View style={styles.buttonContainer}>
+                <Button 
+                    type="outline"
+                    title="Log Savings"
+                    onPress={addSavings}
+                />
+            </View>
+        </View>
+     </Overlay>
+    <View>
+                
+                <Button 
+                type="outline"
+                title="Add Savings"
+                onPress={()=>setOpen(true)}
+                />
+            </View>
+        </View>
+}    
+
+if(!isLoaded(fullStoreSavingsArr)){
+    return (<View style={styles.screen}>
+        <ActivityIndicator  
+            size="large"
+        /> 
+    </View>)
+}
+
     return(
         <View style={styles.screen}>
         <Overlay 
@@ -223,7 +254,10 @@ const Savings = props =>{
                 onPress={()=>setOpen(true)}
                 />
             </View>
-        </View>
+            <Text>
+                NOT EMPTYY NOT EMPTYY THER IS LOGGED SAVINGS CHART GOES HERE
+            </Text>
+        </View>   
     )
 }
 
