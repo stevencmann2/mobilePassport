@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView} from 'react-native';
-import { VictoryPie  } from 'victory-native';
+import { VictoryPie, VictoryAnimation, VictoryLabel, VictoryLegend, VictoryChart  } from 'victory-native';
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
+import _ from 'lodash'
 
 
 const SavingsCharts = () =>{
@@ -76,19 +77,41 @@ const SavingsCharts = () =>{
         const LodgingSavingsArr = useSelector(state=> state.firestore.ordered.LodgingSavings)
         const AirfareSavingsArr = useSelector(state=> state.firestore.ordered.AirfareSavings)
  
-   
-   console.group("Savings Arrays")
+   const FoodValArr = _.map(FoodDrinkSavingsArr, 'Amount')
+   const EmergencyValArr = _.map(EmergencySavingsArr, 'Amount')
+   const MiscValArr = _.map(MiscSavingsArr, 'Amount')
+   const ActivitiesValArr = _.map(ActivitiesSavingsArr, 'Amount')
+   const TransportationValArr = _.map(TransportationSavingsArr, 'Amount')
+   const LodgingValArr = _.map(LodgingSavingsArr, 'Amount')
+   const AirfareValArr = _.map(AirfareSavingsArr, 'Amount')
+
+   const Foodtotal = _.sum(FoodValArr)
+   const Emergencytotal = _.sum(EmergencyValArr)
+   const Misctotal = _.sum(MiscValArr)
+   const Activitiestotal = _.sum(ActivitiesValArr)
+   const Transportationtotal = _.sum(TransportationValArr)
+   const Lodgingtotal = _.sum(LodgingValArr)
+   const Airfaretotal = _.sum(AirfareValArr)
+
+
+   console.group("Savings Sum Arrays")
    console.log("Savings Store",fullStoreSavingsArr)
    console.log("Budget Data", BudgetData)
-   console.log("Emergency", EmergencySavingsArr)
-   console.log("Misc", MiscSavingsArr)
-   console.log("Act", ActivitiesSavingsArr)
-   console.log("Trans", TransportationSavingsArr)
-   console.log("Food", FoodDrinkSavingsArr)
-   console.log("hotel", LodgingSavingsArr)
-   console.log("Air", AirfareSavingsArr)
+   console.log("Emergency", Emergencytotal)
+   console.log("Misc", Misctotal)
+   console.log("Act", Activitiestotal)
+   console.log("Trans", Transportationtotal)
+   console.log("Food", Foodtotal)
+   console.log("hotel", Lodgingtotal)
+   console.log("Air", Airfaretotal)
    console.groupEnd()
 
+
+   const expenseTotal = 3220
+   const CategoryTotal = 5000
+   const ExpPercent  = (expenseTotal/CategoryTotal)
+   const PercentasText = (ExpPercent.toFixed(2))*100
+   console.log(ExpPercent)
 
 
 if(!isLoaded(fullStoreSavingsArr)){
@@ -106,14 +129,42 @@ if(!isLoaded(fullStoreSavingsArr)){
 
 return(
     <View style={styles.screen}>
-        <Text>
-            Charts Will Go here
-        </Text>
+        <View style={styles.chartContainer}>
+            <VictoryPie 
+                data={[{ x: 1, y: ExpPercent}, {x: 2, y: (1-ExpPercent)} ]}  
+                width={200}  
+                innerRadius={40}
+                labels={() => null}
+                animate={{ duration: 1000 }}
+                cornerRadius={25}
+                style={{
+                    data: { fill: ({ datum }) => {
+                    const color = datum.y >= 1 ? "red" : "green";
+                    return datum.x === 1 ? color : "transparent"; //tranparent instead of blue
+                    }
+                    }
+                }}
+            /> 
+        </View>
     </View>
 
 )
 
-        
+//MY HEADER MY HEADER 
+// <View>
+//     <Text>EXPENSE CATEGORY</Text>
+//     <Text>{`${PercentasText}%`}</Text>
+// </View>
+
+
+//LEGEND HEADER LEGEND HEADER
+// <VictoryLegend 
+// title="Legend"
+// centerTitle
+// gutter={20}
+// data={[{ name: PercentasText }]}
+// // orientation="horizontal"
+// />
   
 
    }
@@ -123,6 +174,10 @@ return(
         alignItems: 'center',
         justifyContent: 'center',
       },
+      chartContainer: {
+          flexDirection: 'column',
+          justifyContent:'space-between'
+      }
     })
 
    export default SavingsCharts;
