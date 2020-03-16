@@ -8,76 +8,92 @@ import {
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
 import { ListItem } from 'react-native-elements'
+import _ from 'lodash'
 
 
 
 
 const RecentActivity = () => {
-    const list = [
-        {
-          category: 'Airfare',
-          description: "United Airlines",
-          Amount: 300,
-          icon: 'airplanemode-active'
-        },
-        {
-            category: 'Lodging',
-            description: "AirBnB",
-            Amount: 300,
-            icon: 'hotel'
-          },
-          {
-            category: 'Transportation',
-            description: "Uber",
-            Amount: 300,
-            icon: 'local-taxi'
-          },
-          {
-            category: 'Food and Drink',
-            description: "Chipotle",
-            Amount: 300,
-            icon: 'local-cafe'
-          },
-          {
-            category: 'Misc.',
-            description: "Gas",
-            Amount: 300,
-            icon: 'palette'
-          },
-          {
-            category: 'Emergency',
-            description: "hospital visit",
-            Amount: 300,
-            icon: 'local-hospital'
-          },
-          {
-            category: 'Activities',
-            description: "Hiking",
-            Amount: 300,
-            icon: 'landscape'
-          },
-          
-          
-    ]
    
+  const firestore = useFirestore();
+  const selectedTrip = useSelector(state=> state.tripID.id)
+  useFirestoreConnect([
+    { collection: 'Trips', doc: `${selectedTrip}`},
+    { collection: 'Trips', 
+      doc: `${selectedTrip}`, 
+      subcollections: [{ collection: "Savings" }],
+      storeAs: 'SavingsData'
+   },
+   { collection: 'Trips', 
+     doc: `${selectedTrip}`, 
+    subcollections: [{ collection: "Expenses" }],
+    storeAs: 'ExpensesData'
+   }
+  ])
+
+  const fullStoreSavingsArr = useSelector(state=> state.firestore.ordered.SavingsData)
+  const fullStoreExpensesArr = useSelector(state=> state.firestore.ordered.ExpensesData)
+
+  // console.group()
+    console.log("Savings ==============")
+    console.log(fullStoreSavingsArr)
+    console.log("Savings ==============")
+    // console.log("Expenses =============", fullStoreExpensesArr)
+  // console.groupEnd()
+
+  const iconArray = [
+    {Category: 'Airfare',
+      Icon: 'airplanemode-active'},
+    {Category: 'Lodging',
+     Icon: 'hotel'},
+    {Category: "Transportation",
+      Icon: 'local-taxi'},
+    {Category: "Food and Drink",
+      Icon: 'local-cafe'},
+    {Category: "Misc",
+      Icon: 'palette'},
+    {Category: "Emergency",
+      Icon: 'local-hospital'},
+    {Category: "Activities",
+      Icon: 'landscape'},
+  ]
+
+  const SavingsResultsArr = _.intersectionWith(_.cloneDeep(fullStoreSavingsArr), iconArray, function(x, y) {
+    return x.Category === y.Category && _.assign(x, y);
+  });
+
+  console.log('%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%')
+  console.log(SavingsResultsArr)
+  console.log('%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%')
+
+
+  const list = [
+    {
+      category: 'Airfare',
+      description: "United Airlines",
+      Amount: 300,
+      icon: 'airplanemode-active'
+    },
+  ]
+
 
   return (
       
-      <View style={styles.screen}>
+      <View stlye={styles.screen}>
         <View>
         <Text>Recent Activity Page</Text>
         </View>
-    <View stlye={styles.list}>
+    <View style={styles.list}>
   
   {
-    list.map((l, i) => (
+    SavingsResultsArr.map((item, index) => (
       <ListItem
-        key={i}
-        leftAvatar={{ source: { uri: l.avatar_url } }}
-        title={l.description}
-        rightTitle={l.category}
-        subtitle={`$${l.Amount}`}
-        leftIcon={{ name: l.icon}}
+        key={index}
+        // leftAvatar={{ source: { uri: item.avatar_url } }}
+        title={item.Description}
+        rightTitle={item.Category}
+        subtitle={`$${item.Amount}`}
+        leftIcon={{ name: item.Icon}}
         bottomDivider
       />
     ))
@@ -92,10 +108,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 40,
       },
-      list: {
-          width: 50,
-          maxWidth: '50%'
-      }
+      
 })
 
 export default RecentActivity;
