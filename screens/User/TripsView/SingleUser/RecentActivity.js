@@ -3,14 +3,13 @@ import {
     Text, 
     View, 
     StyleSheet,
-    ScrollView
+    ScrollView,
+    ActivityIndicator
 } from 'react-native'
 import { useSelector } from 'react-redux'
-import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
+import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import { ListItem } from 'react-native-elements'
 import _ from 'lodash'
-
-
 
 
 const RecentActivity = () => {
@@ -34,21 +33,30 @@ const RecentActivity = () => {
   const fullStoreSavingsArr = useSelector(state=> state.firestore.ordered.SavingsData)
   const fullStoreExpensesArr = useSelector(state=> state.firestore.ordered.ExpensesData)
 
-  // console.group()
-    console.log("Savings ==============")
-    console.log(fullStoreSavingsArr)
-    console.log("Savings ==============")
-    // console.log("Expenses =============", fullStoreExpensesArr)
-  // console.groupEnd()
-
-  const iconArray = [
+  const SavingsiconArray = [
     {Category: 'Airfare',
       Icon: 'airplanemode-active'},
     {Category: 'Lodging',
      Icon: 'hotel'},
     {Category: "Transportation",
       Icon: 'local-taxi'},
-    {Category: "Food and Drink",
+    {Category: "Food & Drink",
+      Icon: 'local-cafe'},
+    {Category: "Misc",
+      Icon: 'palette'},
+    {Category: "Emergency",
+      Icon: 'local-hospital'},
+    {Category: "Activities",
+      Icon: 'landscape'},
+  ]
+  const ExpensesiconArray = [
+    {Category: 'Airfare',
+      Icon: 'airplanemode-active'},
+    {Category: 'Lodging',
+     Icon: 'hotel'},
+    {Category: "Transportation",
+      Icon: 'local-taxi'},
+    {Category: "Food & Drink",
       Icon: 'local-cafe'},
     {Category: "Misc",
       Icon: 'palette'},
@@ -58,17 +66,33 @@ const RecentActivity = () => {
       Icon: 'landscape'},
   ]
 
-  const SavingsResultsArr = _.intersectionWith(_.cloneDeep(fullStoreSavingsArr), iconArray, function(x, y) {
-    return x.Category === y.Category && _.assign(x, y);
-  });
 
- const ExpensesResultsArr = _.intersectionWith(_.cloneDeep(fullStoreExpensesArr), iconArray, function(x, y) {
-  return x.Category === y.Category && _.assign(x, y);
+const SavingsResultsArr = _.map(fullStoreSavingsArr, function(item){
+  return _.extend(item, _.find(SavingsiconArray, { Category: item.Category }));
+});
+const ExpensesResultsArr = _.map(fullStoreExpensesArr, function(item){
+  return _.extend(item, _.find(ExpensesiconArray, { Category: item.Category }));
 });
 
 
-  
 
+
+if(!isLoaded(fullStoreExpensesArr&& fullStoreSavingsArr)){
+  return(
+    <View style={styles.loadContainer}>
+        <ActivityIndicator  
+            size="large"
+        /> 
+    </View>
+  )
+}
+if(fullStoreSavingsArr.length < 1 && fullStoreExpensesArr < 1){
+  return(
+    <View style={styles.loadContainer}>
+        <Text> No recent actions to report</Text>
+    </View>
+  )
+}
 
   return (
     <ScrollView>
@@ -76,15 +100,6 @@ const RecentActivity = () => {
         <View style={styles.screenHeader}>
           <Text>Recent Actions </Text>
         </View>
-
-        {ExpensesResultsArr.length > 0 && SavingsResultsArr.length > 0 ? 
-          (null) : (
-          <View style={styles.emptyContainer}>
-              <Text> No recent acitons to report</Text>
-          </View>
-        )}
-
-
 
       
       {SavingsResultsArr.length > 0 ? (
@@ -97,7 +112,6 @@ const RecentActivity = () => {
               SavingsResultsArr.map((item, index) => (
                 <ListItem
                   key={index}
-                  // leftAvatar={{ source: { uri: item.avatar_url } }}
                   title={item.Description}
                   rightTitle={item.Category}
                   subtitle={`$${item.Amount}`}
@@ -121,7 +135,6 @@ const RecentActivity = () => {
         ExpensesResultsArr.map((item, index) => (
           <ListItem
             key={index}
-            // leftAvatar={{ source: { uri: item.avatar_url } }}
             title={item.Description}
             rightTitle={item.Category}
             subtitle={`$${item.Amount}`}
@@ -166,6 +179,11 @@ const styles = StyleSheet.create({
       emptyContainer:{
         alignItems: 'center',
         justifyContent: 'center'
+      },
+      loadContainer:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
       }
       
 })
