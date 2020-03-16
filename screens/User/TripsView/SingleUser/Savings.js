@@ -25,11 +25,69 @@ const Savings = props =>{
     doc: `${selectedTrip}`, 
     subcollections: [{ collection: "Savings" }],
     storeAs: 'SavingsData'
-   }
+   },
+   { collection: 'Trips', 
+    doc: `${selectedTrip}`, 
+    subcollections: [{ collection: "Savings" }],
+    where:['Category', '==', 'Emergency'],
+    storeAs: 'EmergencySavings'
+   },
+   { collection: 'Trips', 
+    doc: `${selectedTrip}`, 
+    subcollections: [{ collection: "Savings" }],
+    where:['Category', '==', 'Misc'],
+    storeAs: 'MiscSavings'
+   },
+   { collection: 'Trips', 
+    doc: `${selectedTrip}`, 
+    subcollections: [{ collection: "Savings" }],
+    where:['Category', '==', 'Activities'],
+    storeAs: 'ActivitiesSavings'
+  },
+  { collection: 'Trips', 
+    doc: `${selectedTrip}`, 
+    subcollections: [{ collection: "Savings" }],
+    where:['Category', '==', 'Food & Drink'],
+    storeAs: 'FoodDrinkSavings'
+ },
+ { collection: 'Trips', 
+    doc: `${selectedTrip}`, 
+    subcollections: [{ collection: "Savings" }],
+    where:['Category', '==', 'Lodging'],
+    storeAs: 'LodgingSavings'
+},
+{ collection: 'Trips', 
+    doc: `${selectedTrip}`, 
+    subcollections: [{ collection: "Savings" }],
+    where:['Category', '==', 'Transportation'],
+    storeAs: 'TransportationSavings'
+},
+{ collection: 'Trips', 
+    doc: `${selectedTrip}`, 
+    subcollections: [{ collection: "Savings" }],
+    where:['Category', '==', 'Airfare'],
+    storeAs: 'AirfareSavings'
+},
    ]);
+   const EmergencySavingsArr = useSelector(state=> state.firestore.ordered.EmergencySavings)
+   const MiscSavingsArr = useSelector(state=> state.firestore.ordered.MiscSavings)
+   const ActivitiesSavingsArr = useSelector(state=> state.firestore.ordered.ActivitiesSavings)
+   const TransportationSavingsArr = useSelector(state=> state.firestore.ordered.TransportationSavings)
+   const FoodDrinkSavingsArr = useSelector(state=> state.firestore.ordered.FoodDrinkSavings)
+   const LodgingSavingsArr = useSelector(state=> state.firestore.ordered.LodgingSavings)
+   const AirfareSavingsArr = useSelector(state=> state.firestore.ordered.AirfareSavings)
+   const storeSavingsArr = useSelector(state=> state.firestore.ordered.SavingsData)
+   console.group("Savings Arrays")
+   console.log("Emergency", EmergencySavingsArr)
+   console.log("Misc", MiscSavingsArr)
+   console.log("Act", ActivitiesSavingsArr)
+   console.log("Trans", TransportationSavingsArr)
+   console.log("Food", FoodDrinkSavingsArr)
+   console.log("hotel", LodgingSavingsArr)
+   console.log("Air", AirfareSavingsArr)
+   console.groupEnd()
+  
 
-   const storeSavings = useSelector(state=> state.firestore.ordered.SavingsData)
-   console.log(storeSavings)
     const [open, setOpen] = useState(false)
     const[AmountText, setAmountText] = useState()
     const[pickedCategory, setPickedCategory] = useState('Misc');

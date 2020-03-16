@@ -10,6 +10,8 @@ import { Tooltip, Text } from 'react-native-elements';
 const BudgetBreakdownChart = () =>{
     const firestore = useFirestore();
     const selectedTrip = useSelector(state=> state.tripID.id)
+
+    
     useFirestoreConnect([{ collection: 'Trips', doc: `${selectedTrip}`},
     { collection: 'Trips', 
     doc: `${selectedTrip}`, 
@@ -17,16 +19,21 @@ const BudgetBreakdownChart = () =>{
     storeAs: 'BudgetBreakdownData'
    }
    ]);
-   const BudgetData = useSelector(state =>state.firestore.data.BudgetBreakdownData)
-
+   let BudgetData = useSelector(state =>state.firestore.data.BudgetBreakdownData)
+   console.log('CHARTS CHARTS CHARTS CHARTS CHARTS CHARTS ')
+   console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+   console.log('TRIP ID TRIP ID TRIP ID')
+   console.log(selectedTrip)
+   console.log('TRIP ID TRIP ID TRIP ID')
     console.log('Budget Data Budget Data Budget Data')
     console.log('Budget Data Budget Data Budget Data')
    console.log(BudgetData)
    console.log('Budget Data Budget Data Budget Data')
    console.log('Budget Data Budget Data Budget Data')
    console.log('selected trip selected trip selecte tripd')
-   console.log(BudgetData[selectedTrip])
+    console.log(BudgetData[selectedTrip])
    console.log('selected trip selected trip selecte tripd')
+   console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
    
         Object.keys(BudgetData[selectedTrip]).forEach(key => {
             if (BudgetData[selectedTrip][key]=== 0) delete BudgetData[selectedTrip][key];
