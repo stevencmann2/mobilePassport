@@ -13,7 +13,7 @@ import SavingsScreen from '../screens/User/TripsView/SingleUser/Savings'
 import ExpensesScreen from '../screens/User/TripsView/SingleUser/Expenses'
 import ItineraryScreen from '../screens/User/TripsView/SingleUser/Itinerary'
 import MapsScreen from '../screens/User/MapScreen'
-import AddItemScreen from '../screens/User/TripsView/SingleUser/AddItem'
+import RecentActivityScreen from '../screens/User/TripsView/SingleUser/RecentActivity'
 import { Ionicons } from '@expo/vector-icons';
 
 import  HeaderButton  from '../components/HeaderButton';
@@ -92,6 +92,8 @@ const DashboardNavigator = () => {
           iconName = focused ? 'ios-calendar' :'ios-calendar'
         }else if(route.name === 'Add'){
           iconName = focused ? 'md-arrow-round-up' :'md-arrow-round-up'
+        }else if(route.name === 'Actions'){
+          iconName = focused ? 'ios-clipboard' : 'ios-clipboard'
         }
         // console.log('inside tab navigator ', route)
         // You can return any component that you like here!
@@ -109,9 +111,9 @@ const DashboardNavigator = () => {
 
       <Tab.Screen name="Dashboard" component={IndividualDashboardScreen} />
       <Tab.Screen name="Expenses" component={ExpensesScreen} />
-      <Tab.Screen name="Add" component={AddItemScreen} />
       <Tab.Screen name="Savings" component={SavingsScreen} />
       <Tab.Screen name="Itinerary" component={ItineraryScreen} />
+      <Tab.Screen name="Actions" component={RecentActivityScreen} />
     </Tab.Navigator>
   )
 }

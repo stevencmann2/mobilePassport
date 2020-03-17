@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-elements';
 
+
 // const {width, height} = Dimensions.get('window')
 
 // class Home extends Component {
@@ -59,7 +60,7 @@ import { Button } from 'react-native-elements';
 const Home = props => {
 
     const { navigation } = props
-   
+    
     return(
     <ImageBackground 
          source={require('../../assets/images/HomeScreenBackground.jpg')}
