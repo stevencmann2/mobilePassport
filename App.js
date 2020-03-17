@@ -29,6 +29,7 @@ const getFonts = () => Font.loadAsync({
     'comfortaa-regular': require('./assets/fonts/Comfortaa-Regular.ttf'),
     'comfortaa-bold': require('./assets/fonts/Comfortaa-Bold.ttf'), 
     'abel-regular': require('./assets/fonts/Abel-Regular.ttf')
+    
   }
 
 );

@@ -1,10 +1,26 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
+import { Button } from 'react-native-elements'
 import { Avatar } from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+import {  useSelector } from 'react-redux';
+
 
 const TakePhoto = props => {
+
+  const firestore = useFirestore();
+    const UserId = useSelector(state=> state.auth.userId)
+    
+    useFirestoreConnect([
+        { collection: 'Users', doc: UserId}
+      ]);
+
+   
+    const UserData = useSelector(({ firestore: { data } }) => data.Users && data.Users[UserId])
+    console.log(UserData)
+
 
 const [chosenPhoto, setChosenPhoto] = useState();
 
@@ -36,14 +52,53 @@ const [chosenPhoto, setChosenPhoto] = useState();
         quality: 0.9      // value 0-1 1 is highest quality
       });
 
+     
       console.log( image)
+      
       setChosenPhoto(image.uri)
       props.onPhotoTaken(image.uri)
     };
   
+    const updateProfileHandler = async() => {
+      try {
+        await firestore.update({ collection: 'Users', doc: UserId }, {ProfilePicture: chosenPhoto} )
+        succesAlert();
+          
+      } catch (err) {
+        console.log(err)
+        errorAlert();
+
+      }
+  
+     }
+
+
+     const errorAlert = () => {
+      Alert.alert(
+          'Internal Catch Error',
+          'Something went wrong, please let us know an issue occured while submitting your profile picture',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+          )
+        }
+
+    const succesAlert = () => {
+      Alert.alert(
+          'Account Update',
+          'A profile picture has been added to your account',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+          )
+        }
 
     return (
-
+    <View>
       <Avatar
       source={!chosenPhoto ? ( {uri:
         'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg'}): ({uri: chosenPhoto})}
@@ -52,8 +107,13 @@ const [chosenPhoto, setChosenPhoto] = useState();
       showEditButton
       onEditPress={takeImageHandler}
     />
-  
-      
+      <View>
+        <Button
+          title='Save Photo'
+          onPress={updateProfileHandler}
+        />
+      </View>
+      </View>
     );
   };
   

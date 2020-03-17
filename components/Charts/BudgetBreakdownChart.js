@@ -7,46 +7,48 @@ import { Tooltip, Text } from 'react-native-elements';
 
 
 
+
 const BudgetBreakdownChart = () =>{
     const firestore = useFirestore();
     const selectedTrip = useSelector(state=> state.tripID.id)
 
-    
+    const BudgetBreakdownData = `BudgetBreakdownData${selectedTrip}`
+
     useFirestoreConnect([{ collection: 'Trips', doc: `${selectedTrip}`},
     { collection: 'Trips', 
     doc: `${selectedTrip}`, 
     subcollections: [{ collection: "BudgetBreakdown" }],
-    storeAs: 'BudgetBreakdownData'
+    storeAs: BudgetBreakdownData
    }
    ]);
-   let BudgetData = useSelector(state =>state.firestore.data.BudgetBreakdownData)
-   console.log('CHARTS CHARTS CHARTS CHARTS CHARTS CHARTS ')
-   console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-   console.log('TRIP ID TRIP ID TRIP ID')
-   console.log(selectedTrip)
-   console.log('TRIP ID TRIP ID TRIP ID')
-    console.log('Budget Data Budget Data Budget Data')
-    console.log('Budget Data Budget Data Budget Data')
+   const BudgetData = useSelector(state =>state.firestore.ordered[BudgetBreakdownData])
+  const TripBudgetObj = BudgetData[0]
+  
+   console.log('Budget Data Budget Data Budget Data')
    console.log(BudgetData)
    console.log('Budget Data Budget Data Budget Data')
-   console.log('Budget Data Budget Data Budget Data')
-   console.log('selected trip selected trip selecte tripd')
-    console.log(BudgetData[selectedTrip])
-   console.log('selected trip selected trip selecte tripd')
    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+    console.log(TripBudgetObj)
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
    
-        Object.keys(BudgetData[selectedTrip]).forEach(key => {
-            if (BudgetData[selectedTrip][key]=== 0) delete BudgetData[selectedTrip][key];
+   
+
+
+        Object.keys(TripBudgetObj).forEach(key => {
+            if (TripBudgetObj[key]=== 0) delete TripBudgetObj[key];
+            if (TripBudgetObj[key]=== selectedTrip) delete TripBudgetObj[key]
           });
 
-        const xkeys = Object.keys(BudgetData[selectedTrip]);
+        const xkeys = Object.keys(TripBudgetObj);
         const BudgetDataArr = xkeys.map(key => {
-        return {x: key, y: BudgetData[selectedTrip][key]};
+        return {x: key, y: TripBudgetObj[key]};
         })
         console.log("NEW ARRAY FOR CHART DATA NEW ARRAY FOR DATA NEW ARRAY FOR DATA  ")
         console.log(BudgetDataArr) 
         console.log("NEW ARRAY FOR CHART DATA NEW ARRAY FOR DATA NEW ARRAY FOR DATA  ")
-   
+
+
+        
 
 if(!isLoaded(BudgetData)){
     return(
@@ -61,54 +63,55 @@ if(isEmpty(BudgetData)){
 }
 return(
     <View>
-        <View style={styles.PiechartContainer} >
-            <Tooltip 
-                popover={<Text>This is a breakdown of your set budget by category</Text>}
-                backgroundColor="#aeced1"
-                width={200}
-                height={100}
-                >
-                    <VictoryPie
-                    width={300}
-                        data={BudgetDataArr}
-                        colorScale={[ "tomato", "orange", "gold", "cyan", "navy", "green", "red" ]}
-                        innerRadius={50}
-                        // PAD ANDLE FOR SPACING BETWEEN SEGMENTS
-                        padAngle={2}
-                        
-                        
-                    />
-            </Tooltip>
-        </View>
-        <View style={styles.chartContainer}>
-        <Tooltip 
-            popover={<Text>This a breakdown by cateogry of your budget, expenses and savings </Text>}
-            backgroundColor="#aeced1"
-            width={200}
-            height={100}
+    <View style={styles.PiechartContainer} >
+    <Tooltip 
+        popover={<Text>This is a breakdown of your set budget by category</Text>}
+        backgroundColor="#aeced1"
+        width={200}
+        height={100}
+        >
+            <VictoryPie
+            width={300}
+                data={BudgetDataArr}
+                colorScale={[ "tomato", "orange", "gold", "cyan", "navy", "green", "red" ]}
+                innerRadius={50}
+                // PAD ANDLE FOR SPACING BETWEEN SEGMENTS
+                padAngle={2}
+                
+                
+            />
+    </Tooltip>
+    </View>
+    <View style={styles.chartContainer}>
+    <Tooltip 
+    popover={<Text>This a breakdown by cateogry of your budget, expenses and savings </Text>}
+    backgroundColor="#aeced1"
+    width={200}
+    height={100}
+    >
+        <VictoryChart>
+            <VictoryGroup offset={20}
+                colorScale={"qualitative"}
+                
             >
-                <VictoryChart>
-                    <VictoryGroup offset={20}
-                        colorScale={"qualitative"}
-                        
-                    >
-                        <VictoryBar
-                            data={BudgetDataArr}
-                        />
-                        <VictoryBar
-                            data={[{ x: 1, y: 2 }, { x: 2, y: 1 }, { x: 3, y: 7 }]}
-                        />
-                        <VictoryBar
-                            data={[{ x: 1, y: 3 }, { x: 2, y: 4 }, { x: 3, y: 9 }]}
-                        />
-                    </VictoryGroup>
-                </VictoryChart>
-            </Tooltip>
-        </View>
+                <VictoryBar
+                    data={BudgetDataArr}
+                />
+                <VictoryBar
+                    data={[{ x: 1, y: 2 }, { x: 2, y: 1 }, { x: 3, y: 7 }]}
+                />
+                <VictoryBar
+                    data={[{ x: 1, y: 3 }, { x: 2, y: 4 }, { x: 3, y: 9 }]}
+                />
+            </VictoryGroup>
+        </VictoryChart>
+    </Tooltip>
+    </View>
     </View>
 
 )
 }
+
 
 const styles = StyleSheet.create({
    

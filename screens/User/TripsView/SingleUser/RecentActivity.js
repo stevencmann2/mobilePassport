@@ -16,22 +16,25 @@ const RecentActivity = () => {
    
   const firestore = useFirestore();
   const selectedTrip = useSelector(state=> state.tripID.id)
+  const SavingsData = `SavingsData${selectedTrip}`
+  const ExpensesData = `ExpensesData${selectedTrip}`
+
   useFirestoreConnect([
     { collection: 'Trips', doc: `${selectedTrip}`},
     { collection: 'Trips', 
       doc: `${selectedTrip}`, 
       subcollections: [{ collection: "Savings" }],
-      storeAs: 'SavingsData'
+      storeAs: SavingsData
    },
    { collection: 'Trips', 
      doc: `${selectedTrip}`, 
     subcollections: [{ collection: "Expenses" }],
-    storeAs: 'ExpensesData'
+    storeAs: ExpensesData
    }
   ])
 
-  const fullStoreSavingsArr = useSelector(state=> state.firestore.ordered.SavingsData)
-  const fullStoreExpensesArr = useSelector(state=> state.firestore.ordered.ExpensesData)
+  const fullStoreSavingsArr = useSelector(state=> state.firestore.ordered[SavingsData])
+  const fullStoreExpensesArr = useSelector(state=> state.firestore.ordered[ExpensesData])
 
   const SavingsiconArray = [
     {Category: 'Airfare',
@@ -67,6 +70,7 @@ const RecentActivity = () => {
   ]
 
 
+
 const SavingsResultsArr = _.map(fullStoreSavingsArr, function(item){
   return _.extend(item, _.find(SavingsiconArray, { Category: item.Category }));
 });
@@ -77,7 +81,7 @@ const ExpensesResultsArr = _.map(fullStoreExpensesArr, function(item){
 
 
 
-if(!isLoaded(fullStoreExpensesArr&& fullStoreSavingsArr)){
+if(!isLoaded(fullStoreExpensesArr && fullStoreSavingsArr)){
   return(
     <View style={styles.loadContainer}>
         <ActivityIndicator  
@@ -94,6 +98,7 @@ if(fullStoreSavingsArr.length < 1 && fullStoreExpensesArr < 1){
   )
 }
 
+if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr)){
   return (
     <ScrollView>
       <View stlye={styles.screen}>
@@ -116,6 +121,8 @@ if(fullStoreSavingsArr.length < 1 && fullStoreExpensesArr < 1){
                   rightTitle={item.Category}
                   subtitle={`$${item.Amount}`}
                   leftIcon={{ name: item.Icon}}
+                  rightContentContainerStyle={{marginRight:10}}
+        
                   bottomDivider
                 />
               ))
@@ -139,6 +146,7 @@ if(fullStoreSavingsArr.length < 1 && fullStoreExpensesArr < 1){
             rightTitle={item.Category}
             subtitle={`$${item.Amount}`}
             leftIcon={{ name: item.Icon}}
+            rightContentContainerStyle={{marginRight:10}}
             bottomDivider
           />
         ))
@@ -153,6 +161,7 @@ if(fullStoreSavingsArr.length < 1 && fullStoreExpensesArr < 1){
 </ScrollView>
   )
 
+    }
 }
 const styles = StyleSheet.create({
     screen: {
@@ -184,7 +193,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
-      }
+      },
       
 })
 

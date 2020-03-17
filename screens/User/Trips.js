@@ -28,7 +28,8 @@ const Trips = ({ navigation }) =>{
     // FIRESTORE STUFF
     const firestore = useFirestore();
     const UserId = useSelector(state=> state.auth.userId)
-    
+    const Profile = `Profile${UserId}`
+
     useFirestoreConnect([
         {
             collection: 'Trips',
@@ -36,14 +37,16 @@ const Trips = ({ navigation }) =>{
               ['users', '==', `${UserId}`]
             ],
             storeAs: userTrips
-          },{ collection: 'Users', doc: UserId}
+          },
+          { collection: 'Users', doc: UserId},
+          {collection: 'Users', doc: UserId, storeAs: Profile}
       ]);
 
-   
+    const UserProfile = useSelector(state =>state.firestore.ordered[Profile])
     const TripsData = useSelector(state =>state.firestore.ordered[userTrips])
     const UserData = useSelector(({ firestore: { data } }) => data.Users && data.Users[UserId])
    
-     
+    
     const [firstNameText, setFirstNameText] = useState("");
     const [lastNameText, setLastNameText] = useState("");
     const [usernameText, setUsernameText] = useState("");
@@ -121,7 +124,14 @@ const Trips = ({ navigation }) =>{
         
     }
    
-    
+    if(!isLoaded(UserData)){
+
+        return( 
+            <View style={styles.screen}>
+                <ActivityIndicator  size="large"/> 
+            </View>)
+        
+    }
 
 
     if(isEmpty(UserData)){
@@ -200,15 +210,6 @@ const Trips = ({ navigation }) =>{
         </TouchableWithoutFeedback>
         )
 
-    }
-    
-    if(!isLoaded(UserData)){
-
-        return( 
-            <View style={styles.screen}>
-                <ActivityIndicator  size="large"/> 
-            </View>)
-        
     }
             
         return(

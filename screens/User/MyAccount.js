@@ -13,11 +13,14 @@ import TakePhoto from '../../components/TakePhoto'
 
 
 
-
 const MyAccount = props =>{
     
     const { navigation } = props
     const dispatch = useDispatch();
+
+    
+
+
     
     const logOutHandler = () => {
         dispatch(authActions.logout());
@@ -26,8 +29,10 @@ const MyAccount = props =>{
 
     const ProfilePhotoHandler = imagePath => {
         setProfileImage(imagePath)
+       
     }
-   
+
+
 
     return(
      <View style={styles.screen}>
@@ -50,12 +55,12 @@ const MyAccount = props =>{
                     </View>
                 </Card>   
         </Card>
-
         <View style={styles.buttonContainer}>
-             <Button 
-                type="outline"
-                title="Log Out"
-                onPress={logOutHandler}
+            <Button 
+            type="outline"
+            title="Log Out"
+            onPress={logOutHandler}
+            
             />
         </View>
 

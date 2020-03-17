@@ -6,19 +6,19 @@ import { useSelector } from 'react-redux'
 import _ from 'lodash'
 
 
-const SavingsCharts = () =>{
+const ExpensesCharts = () =>{
     const firestore = useFirestore();
     const selectedTrip = useSelector(state=> state.tripID.id)
 
     const BudgetBreakdownData = `BudgetBreakdownData${selectedTrip}`
-    const SavingsData = `SavingsData${selectedTrip}`
-    const EmergencySavings = `EmergencySavings${selectedTrip}`
-    const MiscSavings = `MiscSavings${selectedTrip}`
-    const ActivitiesSavings = `ActivitiesSavings${selectedTrip}`
-    const FoodDrinkSavings = `FoodDrinkSavings${selectedTrip}`
-    const LodgingSavings = `LodgingSavings${selectedTrip}`
-    const TransportationSavings = `TransportationSavings${selectedTrip}`
-    const AirfareSavings = `AirfareSavings${selectedTrip}`
+    const ExpensesData = `ExpensesData${selectedTrip}`
+    const EmergencyExpenses = `EmergencyExpenses${selectedTrip}`
+    const MiscExpenses = `MiscExpenses${selectedTrip}`
+    const ActivitiesExpenses = `ActivitiesExpenses${selectedTrip}`
+    const FoodDrinkExpenses = `FoodDrinkExpenses${selectedTrip}`
+    const LodgingExpenses = `LodgingExpenses${selectedTrip}`
+    const TransportationExpenses = `TransportationExpenses${selectedTrip}`
+    const AirfareExpenses = `AirfareExpenses${selectedTrip}`
 
     useFirestoreConnect([
         { collection: 'Trips', doc: `${selectedTrip}`},
@@ -29,84 +29,84 @@ const SavingsCharts = () =>{
         },
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
-            subcollections: [{ collection: "Savings" }],
-            storeAs: SavingsData
+            subcollections: [{ collection: "Expenses" }],
+            storeAs: ExpensesData
         },
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
-            subcollections: [{ collection: "Savings" }],
+            subcollections: [{ collection: "Expenses" }],
             where:['Category', '==', 'Emergency'],
-            storeAs: EmergencySavings
+            storeAs: EmergencyExpenses
         },
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
-            subcollections: [{ collection: "Savings" }],
+            subcollections: [{ collection: "Expenses" }],
             where:['Category', '==', 'Misc'],
-            storeAs: MiscSavings
+            storeAs: MiscExpenses
         },
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
-            subcollections: [{ collection: "Savings" }],
+            subcollections: [{ collection: "Expenses" }],
             where:['Category', '==', 'Activities'],
-            storeAs: ActivitiesSavings
+            storeAs: ActivitiesExpenses
         },
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
-            subcollections: [{ collection: "Savings" }],
+            subcollections: [{ collection: "Expenses" }],
             where:['Category', '==', 'Food & Drink'],
-            storeAs: FoodDrinkSavings
+            storeAs: FoodDrinkExpenses
         },
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
-            subcollections: [{ collection: "Savings" }],
+            subcollections: [{ collection: "Expenses" }],
             where:['Category', '==', 'Lodging'],
-            storeAs: LodgingSavings
+            storeAs: LodgingExpenses
         },
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
-            subcollections: [{ collection: "Savings" }],
+            subcollections: [{ collection: "Expenses" }],
             where:['Category', '==', 'Transportation'],
-            storeAs: TransportationSavings
+            storeAs: TransportationExpenses
         },
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
-            subcollections: [{ collection: "Savings" }],
+            subcollections: [{ collection: "Expenses" }],
             where:['Category', '==', 'Airfare'],
-            storeAs: AirfareSavings
+            storeAs: AirfareExpenses
         },
    ]);
    // REDUX STORE
    const BudgetData = useSelector(state =>state.firestore.ordered[BudgetBreakdownData])
-   const fullStoreSavingsArr = useSelector(state=> state.firestore.ordered[SavingsData])
-        const EmergencySavingsArr = useSelector(state=> state.firestore.ordered[EmergencySavings])
-        const MiscSavingsArr = useSelector(state=> state.firestore.ordered[MiscSavings])
-        const ActivitiesSavingsArr = useSelector(state=> state.firestore.ordered[ActivitiesSavings])
-        const TransportationSavingsArr = useSelector(state=> state.firestore.ordered[TransportationSavings])
-        const FoodDrinkSavingsArr = useSelector(state=> state.firestore.ordered[FoodDrinkSavings])
-        const LodgingSavingsArr = useSelector(state=> state.firestore.ordered[LodgingSavings])
-        const AirfareSavingsArr = useSelector(state=> state.firestore.ordered[AirfareSavings])
+   const fullStoreExpensesArr = useSelector(state=> state.firestore.ordered[ExpensesData])
+        const EmergencyExpensesArr = useSelector(state=> state.firestore.ordered[EmergencyExpenses])
+        const MiscExpensesArr = useSelector(state=> state.firestore.ordered[MiscExpenses])
+        const ActivitiesExpensesArr = useSelector(state=> state.firestore.ordered[ActivitiesExpenses])
+        const TransportationExpensesArr = useSelector(state=> state.firestore.ordered[TransportationExpenses])
+        const FoodDrinkExpensesArr = useSelector(state=> state.firestore.ordered[FoodDrinkExpenses])
+        const LodgingExpensesArr = useSelector(state=> state.firestore.ordered[LodgingExpenses])
+        const AirfareExpensesArr = useSelector(state=> state.firestore.ordered[AirfareExpenses])
         console.log("==============================")
         console.log(BudgetData)
         console.log(BudgetData[0])
         console.log("==============================")
         console.group()
-        console.log(FoodDrinkSavingsArr, "food")
-        console.log(EmergencySavingsArr, "emerg")
-        console.log(MiscSavingsArr, "misc")
-        console.log(ActivitiesSavingsArr, "act")
-        console.log(TransportationSavingsArr, "transpo")
-        console.log(LodgingSavingsArr, "lodge")
-        console.log(AirfareSavingsArr, "airfare")
+        console.log(FoodDrinkExpensesArr, "food")
+        console.log(EmergencyExpensesArr, "emerg")
+        console.log(MiscExpensesArr, "misc")
+        console.log(ActivitiesExpensesArr, "act")
+        console.log(TransportationExpensesArr, "transpo")
+        console.log(LodgingExpensesArr, "lodge")
+        console.log(AirfareExpensesArr, "airfare")
         console.groupEnd()
      
    // NEW ARRAY OF ONLY AMOUNTS DONE BY CATEGORY
-//    const FoodValArr = _.map(FoodDrinkSavingsArr, 'Amount')
-//    const EmergencyValArr = _.map(EmergencySavingsArr, 'Amount')
-//    const MiscValArr = _.map(MiscSavingsArr, 'Amount')
-//    const ActivitiesValArr = _.map(ActivitiesSavingsArr, 'Amount')
-//    const TransportationValArr = _.map(TransportationSavingsArr, 'Amount')
-//    const LodgingValArr = _.map(LodgingSavingsArr, 'Amount')
-//    const AirfareValArr = _.map(AirfareSavingsArr, 'Amount')
+//    const FoodValArr = _.map(FoodDrinkExpensesArr, 'Amount')
+//    const EmergencyValArr = _.map(EmergencyExpensesArr, 'Amount')
+//    const MiscValArr = _.map(MiscExpensesArr, 'Amount')
+//    const ActivitiesValArr = _.map(ActivitiesExpensesArr, 'Amount')
+//    const TransportationValArr = _.map(TransportationExpensesArr, 'Amount')
+//    const LodgingValArr = _.map(LodgingExpensesArr, 'Amount')
+//    const AirfareValArr = _.map(AirfareExpensesArr, 'Amount')
 
 //    //TOTAL ABOVE ARRAYS
 //    const Foodtotal = _.sum(FoodValArr)
@@ -167,7 +167,7 @@ const SavingsCharts = () =>{
 
 
 
-if(!isLoaded(fullStoreSavingsArr)){
+if(!isLoaded(fullStoreExpensesArr)){
    
         return (
             <View style={styles.screen}>
@@ -177,14 +177,16 @@ if(!isLoaded(fullStoreSavingsArr)){
             </View>    
             )
     }
-if(isEmpty(fullStoreSavingsArr)){
+
+if(isEmpty(fullStoreExpensesArr)){
     return(null)
 }
+
 
 return(
     <View style={styles.screen}>
         <Text> 
-            Savings CHARTS GO HERE
+            Expenses CHARTS GO HERE
         </Text>
         
     </View>
@@ -236,8 +238,8 @@ return(
 
 
 
-//    console.group("Savings Sum Arrays")
-//    console.log("Savings Store",fullStoreSavingsArr)
+//    console.group("Expenses Sum Arrays")
+//    console.log("Expenses Store",fullStoreExpensesArr)
 //    console.log("Budget Data", BudgetData)
 //    console.log("Emergency", Emergencytotal)
 //    console.log("Misc", Misctotal)
@@ -262,4 +264,4 @@ return(
       }
     })
 
-   export default SavingsCharts;
+   export default ExpensesCharts;

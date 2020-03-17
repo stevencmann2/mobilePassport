@@ -5,7 +5,10 @@ import {
     StyleSheet,
     Picker,
     Alert,
-    ActivityIndicator
+    ActivityIndicator,
+    Keyboard,
+    KeyboardAvoidingView,
+    TouchableWithoutFeedback
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button, Overlay } from 'react-native-elements'
@@ -21,16 +24,24 @@ const Savings = props =>{
 
     const selectedTrip = useSelector(state=> state.tripID.id)
     const SavingsLocation = firestore.collection('Trips').doc(selectedTrip)
+    const SavingsData = `SavingsData${selectedTrip}`
+    const BudgetBreakdownData = `BudgetBreakdownData${selectedTrip}`
 
     useFirestoreConnect([{ collection: 'Trips', doc: `${selectedTrip}`},
     { collection: 'Trips', 
-    doc: `${selectedTrip}`, 
-    subcollections: [{ collection: "Savings" }],
-    storeAs: 'SavingsData'
-   }
+        doc: `${selectedTrip}`, 
+        subcollections: [{ collection: "Savings" }],
+        storeAs: SavingsData
+   },
+   { collection: 'Trips', 
+        doc: `${selectedTrip}`, 
+        subcollections: [{ collection: "BudgetBreakdown" }],
+        storeAs: BudgetBreakdownData
+    },
    ]);
 
-   const fullStoreSavingsArr = useSelector(state=> state.firestore.ordered.SavingsData)
+   const BudgetData = useSelector(state =>state.firestore.ordered[BudgetBreakdownData])
+   const fullStoreSavingsArr = useSelector(state=> state.firestore.ordered[SavingsData])
    console.log("Full Savings Full Savings Full Savings Full Savings ")
     console.log(fullStoreSavingsArr)
     console.log("Full Savings Full Savings Full Savings Full Savings")
@@ -99,12 +110,40 @@ const Savings = props =>{
 
     }
 
-  
+
+
+if(!isLoaded(fullStoreSavingsArr && BudgetData)){
+    return (<View style={styles.screen}>
+        <ActivityIndicator  
+            size="large"
+        /> 
+    </View>)
+}
+if(isEmpty(BudgetData)){
+    return(
+        <View style={styles.screen}>
+            <Text>Complete the budget form in your trip dashboard to use this feature</Text>
+        </View>
+    )
+}
+
 if(isEmpty(fullStoreSavingsArr)){
+    return(
+    <TouchableWithoutFeedback 
+        onPress={()=> 
+        Keyboard.dismiss()}>
+
+    <KeyboardAvoidingView 
+        style={{flex:1}}
+        behavior="padding"
+        keyboardVerticalOffset={15}
+        >
     <View style={styles.screen}>
         <Overlay 
         isVisible={open}
         onBackdropPress={() => setOpen(false)}
+        height='95%'
+        
         >
         <View style={styles.overlayView}>
             <View style={styles.overlayHeader}>
@@ -113,7 +152,7 @@ if(isEmpty(fullStoreSavingsArr)){
             <View style={styles.categoryHeader}>
                 <Text>Savings Category</Text>
             </View>
-            <View style={styles.pickerContainer}>
+            <View>
                 <Picker
                     selectedValue={pickedCategory}
                     onValueChange={(itemValue) =>
@@ -161,11 +200,17 @@ if(isEmpty(fullStoreSavingsArr)){
                     title="Log Savings"
                     onPress={addSavings}
                 />
+                <Button 
+                    type="outline"
+                    title="Cancel"
+                    onPress={()=>setOpen(false)}
+                />
             </View>
         </View>
      </Overlay>
-    <View>
-                
+    
+            
+            <View style={styles.screen}> 
                 <Button 
                 type="outline"
                 title="Add Savings"
@@ -173,21 +218,29 @@ if(isEmpty(fullStoreSavingsArr)){
                 />
             </View>
         </View>
+        
+        </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+    )
 }    
 
-if(!isLoaded(fullStoreSavingsArr)){
-    return (<View style={styles.screen}>
-        <ActivityIndicator  
-            size="large"
-        /> 
-    </View>)
-}
+if(isLoaded(fullStoreSavingsArr && <SavingsCharts/>&& BudgetData)){
 
 return(
+    <TouchableWithoutFeedback 
+            onPress={()=> 
+                Keyboard.dismiss()}>
+
+    <KeyboardAvoidingView 
+        style={{flex:1}}
+        behavior="padding"
+        keyboardVerticalOffset={15}
+        >
     <View style={styles.screen}>
         <Overlay 
         isVisible={open}
         onBackdropPress={() => setOpen(false)}
+        height="90%"
         >
         <View style={styles.overlayView}>
             <View style={styles.overlayHeader}>
@@ -243,6 +296,11 @@ return(
                     type="outline"
                     title="Log Savings"
                     onPress={addSavings}
+                />
+                <Button 
+                    type="outline"
+                    title="Cancel"
+                    onPress={()=>setOpen(false)}
                 />
             </View>
         </View>
@@ -250,17 +308,23 @@ return(
             
             <View style={styles.buttonContainer}>   
                 <Button 
-                type="outline"
-                title="Add Savings"
-                onPress={()=>setOpen(true)}
+                    type="outline"
+                    title="Add Savings"
+                    onPress={()=>setOpen(true)}
                 />
+                
             </View>
             <View style={styles.chartsContainer}>
                  <SavingsCharts/>       
             </View>
             
-    </View>   
+    </View> 
+    </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
+   
+      
 )
+}
 }
 
 const styles = StyleSheet.create({
@@ -282,24 +346,27 @@ const styles = StyleSheet.create({
           alignItems: 'center',
           marginBottom: 10
       },
-      pickerContainer:{
-          marginBottom: 10
-      },
       input: {
           width: '100%',
           textAlign: 'center'
       },
       inputContainer: {
-          marginTop: 10,
-          marginBottom: 10,
+          marginTop: 5,
+          marginBottom: 5,
           width: '100%',
           textAlign: 'center',   
       },
       buttonContainer: {
-          marginTop: 30,
+        flexDirection: 'row',
+        justifyContent:'space-around',
+        marginTop: 5,
       },
       chartsContainer:{
           alignItems: 'center',
+          justifyContent: 'center'
+      },
+      initialButtonContainer:{
+          alignContent: 'center',
           justifyContent: 'center'
       }
     
