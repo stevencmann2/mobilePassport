@@ -4,6 +4,7 @@ import {
     View, 
     StyleSheet, 
     TouchableWithoutFeedback,
+    TouchableOpacity,
     Keyboard, 
     KeyboardAvoidingView,
     ScrollView,
@@ -18,34 +19,35 @@ import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redu
 import BudgetBreakdownChart from '../../../../components/Charts/BudgetBreakdownChart'
 
 
+
 const Dashboard = props =>{
- ///// TIME EQUATIONS
+
  
-
-
-
     const firestore = useFirestore();
     const selectedTrip = useSelector(state=> state.tripID.id)
     const UserId = useSelector(state=> state.auth.userId)
     const bbLocation = firestore.collection('Trips').doc(selectedTrip)
 
-
-     useFirestoreConnect([{ collection: 'Trips', doc: `${selectedTrip}`},
-     { collection: 'Trips', 
-     doc: `${selectedTrip}`, 
-     subcollections: [{ collection: "BudgetBreakdown" }],
-     storeAs: 'BudgetBreakdownData'
-    }
+    const BudgetBreakdownData = `BudgetBreakdownData${selectedTrip}`
+    const Profile = `Profile${UserId}`
+     useFirestoreConnect([
+        { collection: 'Trips', doc: `${selectedTrip}`},
+        { collection: 'Trips', 
+            doc: `${selectedTrip}`, 
+            subcollections: [{ collection: "BudgetBreakdown" }],
+            storeAs: BudgetBreakdownData
+        },
+        {collection: 'Users', doc: UserId, storeAs: Profile}
     ]);
 
-    const BudgetData = useSelector(state =>state.firestore.data.BudgetBreakdownData)
-    const UserProfileUsername = useSelector(state =>state.firestore.ordered.Users[0].username)
-    console.log('))))))))))))))))))))))))))))))))))')
-    console.log(UserProfileUsername)
-    console.log('))))))))))))))))))))))))))))))))))')
+    
+   
+
+    const BudgetData = useSelector(state =>state.firestore.ordered[BudgetBreakdownData])
+    const UserProfile = useSelector(state =>state.firestore.ordered[Profile])
     const getTrip  = useSelector(state =>state.firestore.data.userTrips[selectedTrip])
-    // const getBBData  = useSelector(state =>state.firestore.data.Trips[selectedTrip].BudgetBreakown[BudgetBreakdownData])
-    // console.log(getBBData)
+   
+   const username = UserProfile[0].username
 
     const [airfareText, setAirfareText]= useState();
     const [transportationText, setTranportationText]= useState();
@@ -108,7 +110,6 @@ const Dashboard = props =>{
         )
     }
 
-  
     if(!isLoaded(BudgetData)){
         return (<View style={styles.Loadingscreen}>
                     <ActivityIndicator  
@@ -116,6 +117,7 @@ const Dashboard = props =>{
                     /> 
                 </View>)
     }
+  
     if(isEmpty(BudgetData)){
         return(
             
@@ -257,26 +259,29 @@ const Dashboard = props =>{
     </TouchableWithoutFeedback>
         
      )}
-   
-    return(
+     
+   if(isLoaded(BudgetData && <BudgetBreakdownChart/> && UserProfile)) {
+   return(
     
     
+
 <ScrollView>
     <View style={styles.screen}>  
+    
         <View style={styles.banner}>
-            <Text>Welcome {`${UserProfileUsername}`}</Text>
+            <Text>Welcome {username} </Text>
         </View>  
+    
+       
         <View style={styles.chartContainer}>
             <BudgetBreakdownChart/>
         </View>
-            <View>
-                <Text>
-                    What else should go here
-                </Text>
-            </View>
+        
+           
     </View>
 </ScrollView>
 )
+   }
 
 }
 
@@ -288,6 +293,7 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         marginTop: 20,
+       
       }, 
       Loadingscreen: {
         flex: 1,
@@ -330,7 +336,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     chartContainer: {
-        justifyContent: 'center'
+        justifyContent: 'center',
+        width:'100%',
     },
     banner:{
         marginTop: 30
