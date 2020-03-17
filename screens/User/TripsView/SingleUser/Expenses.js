@@ -31,7 +31,7 @@ const Expenses = props =>{
    }
    ]);
 
-//    const getTrip  = useSelector(state =>state.firestore.data.userTrips[selectedTrip])
+   const storeExpensesArr = useSelector(state=> state.firestore.ordered.ExpensesData)
 
     const [open, setOpen] = useState(false)
     const[AmountText, setAmountText] = useState()
@@ -52,11 +52,13 @@ const Expenses = props =>{
             await ExpenseLocation.collection("Expenses").add(expenseObj)
              console.log(`posting Expense to Firestore ${expenseObj}`)
              setOpen(false)
+             clearValues()
 
           } catch (err) {
               console.log(err)
               errorAlert();
               setOpen(false)
+              clearValues()
           }
        }else{
         incompleteAlert();
@@ -86,6 +88,11 @@ const Expenses = props =>{
                 }
             ]
      )
+    }
+    const clearValues = ()=> {
+        setAmountText();
+        setDescriptionText("")
+
     }
 
     

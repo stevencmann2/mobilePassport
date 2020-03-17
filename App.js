@@ -12,7 +12,7 @@ import '@firebase/firestore';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
-// import SavingsCharts from './SavingsCharts'
+
 
 
 
@@ -92,7 +92,6 @@ const App = () => {
       />
     )
   }
-
 
 }
 
