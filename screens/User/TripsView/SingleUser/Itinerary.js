@@ -69,7 +69,7 @@ export default class AgendaScreen extends Component {
     return (
         <TouchableOpacity 
         style={styles.emptyDate} 
-        onPress={() => console.log("aksjdsa")}
+        onPress={() => console.log("conasdasas")}
       >
         <Text>Enter an event here!</Text>
       </TouchableOpacity>
