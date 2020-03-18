@@ -232,8 +232,7 @@ if(isEmpty(fullStoreSavingsArr)){
 if(isLoaded(fullStoreSavingsArr && <SavingsCharts/>&& BudgetData)){
 
 return(
-    
-        <ScrollView>
+ <ScrollView>
     <View style={styles.screen}>
         <Overlay 
         isVisible={open}
@@ -303,7 +302,9 @@ return(
             </View>
         </View>
      </Overlay>
-            
+        <View style={styles.screenHeader}>
+            <Text>Your Savings</Text>
+        </View>
             <View style={styles.buttonContainer}>   
                 <Button 
                     type="outline"
@@ -331,6 +332,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: 40,
       },
+      screenHeader: {
+        marginTop: 100,
+        marginBottom: 30
+    },
       overlayView: {
           justifyContent: 'center',
           paddingHorizontal: 30,
@@ -365,7 +370,10 @@ const styles = StyleSheet.create({
       initialButtonContainer:{
           alignContent: 'center',
           justifyContent: 'center'
-      }
+      },
+      chartsContainer: {
+        marginTop: 30
+    }
     
 })
 

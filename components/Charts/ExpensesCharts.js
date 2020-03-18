@@ -155,53 +155,48 @@ if(isEmpty(fullStoreExpensesArr)){
 
 return(
     <View style={styles.screen}>
-        <Text> 
-            Expenses CHARTS GO HERE
-        </Text>
-  
-    <View style={styles.chartContainer}>
+      
+        
+        {ChartsArr.map((item, index) => (
+            (item[0].y!==0 && item[0].y!==1) ? (
+            <View key={index}>
+                <Tooltip 
 
-    </View>
-    {ChartsArr.map((item, index) => (
-        (item[0].y!==0 && item[0].y!==1) ? (
-        <View style={styles.eachChart} key={index}>
-            <Tooltip 
+                    popover={
+                        <View style={styles.tooltipTextContainer}>
+                            <Text style={styles.toolTipTextHeader}>{item[2].name}:</Text>
+                            <Text style={styles.toolTipText}>You've spent ${item[2].currentTotal}</Text>
+                            <Text style={styles.toolTipText}>of your ${item[2].budget} budget</Text>
+                        </View>
+                    }
+                    backgroundColor="#aeced1"
+                    width={200}
+                    height={100}
+                    >
 
-                popover={
-                    <View style={styles.tooltipTextContainer}>
-                        <Text style={styles.toolTipTextHeader}>{item[2].name}:</Text>
-                        <Text style={styles.toolTipText}>You've spent ${item[2].currentTotal}</Text>
-                        <Text style={styles.toolTipText}>of your ${item[2].budget} budget</Text>
-                    </View>
-                }
-                backgroundColor="#aeced1"
-                width={200}
-                height={100}
-                >
-
-                <VictoryPie 
-                    
-                    data={item}  
-                    width={300}  
-                    height={200}
-                    innerRadius={40}
-                    labels={[item[2].name, `${(item[0].y*100).toFixed(0)}%`]}
-                    animate={{ 
-                        duration: 10000,
-                        onLoad: { duration: 8000 },
-                        easing: "bounce"
-                    }}
-                    cornerRadius={25}
-                    style={{
-                        data: { fill: ({ datum }) => {
-                        const color = datum.y >= 1 ? "red" : "green";
-                        return datum.x === 1 ? color : "transparent"; //tranparent instead of blue
-                        }
-                        }
-                    }}
-                /> 
-               </Tooltip>
-           </View>
+                    <VictoryPie 
+                        
+                        data={item}  
+                        width={300}  
+                        height={200}
+                        innerRadius={40}
+                        labels={[item[2].name, `${(item[0].y*100).toFixed(0)}%`]}
+                        animate={{ 
+                            duration: 10000,
+                            onLoad: { duration: 8000 },
+                            easing: "bounce"
+                        }}
+                        cornerRadius={25}
+                        style={{
+                            data: { fill: ({ datum }) => {
+                            const color = datum.y >= 1 ? "red" : "green";
+                            return datum.x === 1 ? color : "transparent"; //tranparent instead of blue
+                            }
+                            }
+                        }}
+                    /> 
+                </Tooltip>
+            </View>
 
        
         ) : 
@@ -217,21 +212,14 @@ return(
    const styles = StyleSheet.create({
     screen: {
         flex: 1,
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
         width: 400,
-        padding:5,
-        marginBottom: 50
+        marginBottom: 50,
+        marginTop: 0
       },
       overallChart: {
           alignItems: 'center',
-      },
-      chartContainer: {
-          alignItems: 'center',
-          flexDirection: 'column',
-          justifyContent:'space-around',
-      },
-      eachChart:{
       },
       tooltipTextContainer:{
           alignItems: 'center',  

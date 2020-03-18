@@ -8,10 +8,7 @@ import _ from 'lodash'
 
 
 const SavingsCharts = () =>{
-    const [progress, setProgress] = useState(100) // this is the width == 0% , width 400 = 100%
     
-//    const prog = (100 *3) + 100 
-//    console.log(prog , " SHOULD BE 400")
     const firestore = useFirestore();
     const selectedTrip = useSelector(state=> state.tripID.id)
 
@@ -101,10 +98,6 @@ const SavingsCharts = () =>{
    const LodgingValArr = _.map(LodgingSavingsArr, 'Amount')
    const AirfareValArr = _.map(AirfareSavingsArr, 'Amount')
 
-   console.group('MAP FUNCTION')
-   console.log(AirfareValArr)
-   console.log(LodgingValArr)
-   console.groupEnd()
 
    //TOTAL Sum of Categories ARRAYS
    const Foodtotal = _.sum(FoodValArr)
@@ -115,10 +108,6 @@ const SavingsCharts = () =>{
    const Lodgingtotal = _.sum(LodgingValArr)
    const Airfaretotal = _.sum(AirfareValArr)
    
-   console.group('Sum FUNCTION')
-   console.log(Airfaretotal)
-   console.log(Lodgingtotal)
-   console.groupEnd()
 
 //    // BUDGET BREAKDOWN BY CATEGORY
    const FoodBudget = _.get(BudgetData[0], 'Food & Drink')
@@ -129,10 +118,6 @@ const SavingsCharts = () =>{
    const LodgingBudget = _.get(BudgetData[0], 'Lodging')
    const AirfareBudget = _.get(BudgetData[0], 'Airfare')
 
-   console.group('Sum FUNCTION')
-   console.log(Airfaretotal)
-   console.log(Lodgingtotal)
-   console.groupEnd()
 
 //    //Make Arrays of Data
 //    // RESULT IS y:NaN IF UNDEFINED
@@ -157,11 +142,6 @@ const SavingsCharts = () =>{
      const ChartsArr = [FoodData, EmergencyData, MiscData, ActivitiesData, 
                 TransportationData, LodgingData, AirfareData];
 
-    // console.group("THIS IS THE ARRAY')
-    // console.log(ChartsArr)
-    // console.groupEnd()
-
-  
 
 if(!isLoaded(fullStoreSavingsArr)){
    
@@ -180,16 +160,12 @@ if(isEmpty(fullStoreSavingsArr)){
 return(
     
     <View style={styles.screen}>
-        <Text> 
-            Savings CHARTS GO HERE
-        </Text>
-      
-        <View style={styles.chartContainer}>
+       
   
-        </View>
+        
         {ChartsArr.map((item, index) => (
             (item[0].y!==0 && item[0].y!==1) ? (
-            <View style={styles.eachChart} key={index}>
+            <View  key={index}>
                 <Tooltip 
                     popover={
                         <View style={styles.tooltipTextContainer}>
@@ -254,19 +230,16 @@ return(
     screen: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        flexDirection: 'column',
         width: 400,
         padding:5,
-        marginBottom: 50
+        marginBottom: 50,
+        marginTop: 0
       },
       overallChart: {
           alignItems: 'center',
       },
-      chartContainer: {
-          alignItems: 'center',
-          flexDirection: 'column',
-          justifyContent:'space-around',
-      },
+  
       eachChart:{
       },
       tooltipTextContainer:{

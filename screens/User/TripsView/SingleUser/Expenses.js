@@ -9,7 +9,7 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     ActivityIndicator,
-    Keyboard
+    Keyboard,
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button, Overlay} from 'react-native-elements'
@@ -301,9 +301,13 @@ const Expenses = props =>{
                         </View>
                         
                      </Overlay>
-                    <View style={styles.initialButtonContainer}>
+                    
+                    
+                     <View style={styles.screenHeader}>
+                        <Text>Your Expenses</Text>
+                     </View>
+                     <View style={styles.initialButtonContainer}>
         
-                        
                         <Button 
                         type="outline"
                         title="Add Expense"
@@ -334,6 +338,10 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       marginTop: 40,
     },
+    screenHeader: {
+        marginTop: 100,
+        marginBottom: 30
+    },
     overlayView: {
         justifyContent: 'center',
         paddingHorizontal: 30,
@@ -363,8 +371,12 @@ const styles = StyleSheet.create({
     },
     initialButtonContainer:{
         alignContent: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+    },
+    chartsContainer: {
+        marginTop: 30
     }
+    
 
 })
 
