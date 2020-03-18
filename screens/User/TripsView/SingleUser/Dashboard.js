@@ -57,6 +57,7 @@ const Dashboard = props =>{
     const [emergencyText, setEmergencyText]= useState();
     const [miscText, setMiscText]= useState();
     const [total, setTotal] = useState()
+    const[textColor, setTextColor] = useState('black')
 
       const currentFormTotal = () =>{
          
@@ -70,6 +71,8 @@ const Dashboard = props =>{
           }
 
          setTotal(parseInt(currentTotal)) 
+
+         getTrip.totalBudget === currentTotal ? (setTextColor('green')):(console.log(setTextColor('red')))
       }
 
 
@@ -138,7 +141,7 @@ const Dashboard = props =>{
     
                                  <View style={styles.totalContainer}>
                                     <View style={styles.formTotal}>
-                                        <Text>Category Total: {total}</Text>
+                                        <Text style={{color: textColor}}>Category Total: {total}</Text>
                                     </View>
                                     <View style={styles.databaseTotal}>
                                         <Text>Total Budget: {getTrip.totalBudget} </Text>
@@ -247,7 +250,7 @@ const Dashboard = props =>{
                                     />
                                     <Button 
                                     type="outline"
-                                    title="Show Total"
+                                    title="Calculate"
                                     onPress = {currentFormTotal}
                                 />
                                 </View>
@@ -292,8 +295,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         alignItems: 'center',
-        marginTop: 20,
-       
+        marginTop: 40,
       }, 
       Loadingscreen: {
         flex: 1,
