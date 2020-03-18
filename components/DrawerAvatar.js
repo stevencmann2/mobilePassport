@@ -1,15 +1,31 @@
 import React from 'react'
 import { Avatar } from 'react-native-elements';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem} from '@react-navigation/drawer'
-import { View, Text, StyleSheet } from 'react-native';
-
-
-
-//customDrawerContent
-
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+import { useSelector } from 'react-redux'
 
 const DrawerAvatar = props => {
 
+    const firestore = useFirestore();
+    const UserId = useSelector(state=> state.auth.userId)
+    const Profile = `Profile${UserId}`
+    useFirestoreConnect([
+        {collection: 'Users', doc: UserId, storeAs: Profile}
+    ]);
+  
+    const UserProfile = useSelector(state =>state.firestore.ordered[Profile])
+  
+if(!isLoaded(UserProfile)){
+
+    <View style={styles.Loadingscreen}>
+                    <ActivityIndicator  
+                        size="large"
+                    /> 
+    </View>
+}
+
+if(isLoaded(UserProfile)){
 return (
 
 <DrawerContentScrollView {...props}>
@@ -33,7 +49,7 @@ return (
  </DrawerContentScrollView>
     )
 }
-
+}
 const styles = StyleSheet.create({
     Avatarcontainer: {
       flex: 1,
