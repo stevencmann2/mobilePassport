@@ -17,7 +17,8 @@ import MapsScreen from '../screens/User/MapScreen'
 import RecentActivityScreen from '../screens/User/TripsView/SingleUser/RecentActivity'
 import { Ionicons } from '@expo/vector-icons';
 import  HeaderButton  from '../components/HeaderButton';
-
+import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+import { useSelector } from 'react-redux'
 
 
 const Drawer = createDrawerNavigator();
@@ -33,7 +34,19 @@ const MyTheme = {
 };
 
 const UserNavigation = () => {
+  // const UserId = useSelector(state=> state.auth.userId)
+  // const Profile = `Profile${UserId}`
+  // useFirestoreConnect([
+  //     {collection: 'Users', doc: UserId, storeAs: 'Profile'}
+  // ]);
 
+  // const UserProfile = useSelector(state =>state.firestore.ordered[Profile])
+  // console.log(UserProfile)
+  // const Username = UserProfile
+  
+  // if(!isLoaded(UserProfile)){
+  //   return(null)
+  // }
 
   return (
     <NavigationContainer theme={MyTheme}>

@@ -1,17 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, StyleSheet, ScrollView, ActivityIndicator} from 'react-native';
 import { VictoryPie, VictoryBar, VictoryGroup, VictoryChart, VictoryLabel} from 'victory-native';
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty  } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
-import { Tooltip, Text } from 'react-native-elements';
+import { Tooltip, Text, Button, Overlay, ListItem } from 'react-native-elements';
+import _ from 'lodash'
 
 
 
 
 const BudgetBreakdownChart = () =>{
+
+    const [openBudget, setOpenBudget] = useState(false)
     const firestore = useFirestore();
     const selectedTrip = useSelector(state=> state.tripID.id)
-
     const BudgetBreakdownData = `BudgetBreakdownData${selectedTrip}`
 
     useFirestoreConnect([{ collection: 'Trips', doc: `${selectedTrip}`},
@@ -21,6 +23,8 @@ const BudgetBreakdownChart = () =>{
     storeAs: BudgetBreakdownData
    }
    ]);
+   const TripData = useSelector(state=> state.firestore.ordered.Trips[0])
+   const TripBudget = TripData.totalBudget
    const BudgetData = useSelector(state =>state.firestore.ordered[BudgetBreakdownData])
   const TripBudgetObj = BudgetData[0]
   
@@ -44,11 +48,11 @@ const BudgetBreakdownChart = () =>{
         return {x: key, y: TripBudgetObj[key]};
         })
      
+ console.log("OISDINSIDMoajsdoasmdoanmsodinamsodn")
+ console.log(BudgetDataArr)
+          
 
-
-        
-
-if(!isLoaded(BudgetData)){
+if(!isLoaded(BudgetData && TripData)){
     return(
         <View style={styles.screen}>
             <ActivityIndicator  size="large"/> 
@@ -61,53 +65,71 @@ if(isEmpty(BudgetData)){
 }
 return(
     <View>
-
-    <View style={styles.PiechartContainer} >
-    <Tooltip 
-        popover={<Text>This is a breakdown of your set budget by category</Text>}
-        backgroundColor="#aeced1"
-        width={200}
-        height={100}
+        <Overlay 
+            isVisible={openBudget}
+            onBackdropPress={() => setOpenBudget(false)}
+            borderRadius={20}
+            height="95%"
         >
-            <VictoryPie
-            width={380}
-                data={BudgetDataArr}
-                colorScale={colorsArray}
-                innerRadius={50}
-                // PAD ANDLE FOR SPACING BETWEEN SEGMENTS
-                padAngle={2}
-                padding={100}
-                
-                
+            <View style={styles.overlayView}>
+                <View style={styles.overlayHeader}>
+                    <Text>Budget by Category</Text>
+                </View>
+                <View style={styles.overlaySubheading}>
+                    <Text>Expected budget as % </Text>
+                </View>
+                <View style={styles.overlayBody}>
+                {
+                    BudgetDataArr.map((item, index) => (
+                      <ListItem
+                        key={index}
+                        title={item.x}
+                        rightTitle={`${((item.y/TripBudget)*100).toFixed(1)} %`}
+                        subtitle={`$${item.y}`}
+                        bottomDivider
+                      />
+                    ))
+                  }
+                </View>
+                <View style={styles.buttonContainer}>
+                    <Button 
+                    type="outline"
+                    title="Close"
+                    onPress={()=>setOpenBudget(false)}
+                    />
+                </View>
+            </View>
+        </Overlay>
+
+        <View style={styles.PiechartContainer} >
+            <Tooltip 
+                popover={<Text>This is a breakdown of trip budget goals by category</Text>}
+                backgroundColor="#aeced1"
+                width={300}
+                height={100}
+                >
+                    <VictoryPie
+                    width={380}
+                        data={BudgetDataArr}
+                        colorScale={colorsArray}
+                        innerRadius={50}
+                        // PAD ANDLE FOR SPACING BETWEEN SEGMENTS
+                        padAngle={2}
+                        padding={100} 
+                    />
+            </Tooltip>
+        </View>
+    
+        <View style={styles.buttonContainer}>
+            <Button 
+                type="outline"
+                title="More Info"
+                onPress={()=>setOpenBudget(true)}
             />
-    </Tooltip>
-    </View>
-    <View style={styles.chartContainer}>
-    <Tooltip 
-    popover={<Text>This a breakdown by cateogry of your budget, expenses and savings </Text>}
-    backgroundColor="#aeced1"
-    width={200}
-    height={100}
-    >
-        <VictoryChart
-        padding={80}>
-            <VictoryGroup offset={20}
-                colorScale={"qualitative"}
-                
-            >
-                <VictoryBar
-                    data={BudgetDataArr}
-                />
-                <VictoryBar
-                    data={[{ x: 1, y: 2 }, { x: 2, y: 1 }, { x: 3, y: 7 }]}
-                />
-                <VictoryBar
-                    data={[{ x: 1, y: 3 }, { x: 2, y: 4 }, { x: 3, y: 9 }]}
-                />
-            </VictoryGroup>
-        </VictoryChart>
-    </Tooltip>
-    </View>
+        </View>
+
+       
+
     </View>
 
 )
@@ -125,8 +147,30 @@ const styles = StyleSheet.create({
           alignItems: 'center',
           padding: 0,
           margin: 0
-      }
-      
+      },
+      buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
+    overlayHeader: {
+        marginTop: 10,
+        alignItems: 'center'
+    },
+    overlaySubheading: {
+        marginTop: 22,
+        alignItems: 'center'
+
+    },
+    overlayBody: {  
+        marginTop: 20,
+        marginBottom: 20
+    },
+    overlayText: {
+        marginBottom: 15
+    },
+    overlayButton:{
+        justifyContent: 'flex-end',
+    }
 })
 
 export default BudgetBreakdownChart;

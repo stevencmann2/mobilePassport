@@ -14,7 +14,7 @@ import {
 import { useSelector } from 'react-redux'
 import Input from '../../../../components/Input'
 import Card from '../../../../components/Card'
-import { Button } from 'react-native-elements'
+import { Button, Overlay, Icon} from 'react-native-elements'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import BudgetBreakdownChart from '../../../../components/Charts/BudgetBreakdownChart'
 
@@ -58,6 +58,8 @@ const Dashboard = props =>{
     const [miscText, setMiscText]= useState();
     const [total, setTotal] = useState()
     const[textColor, setTextColor] = useState('black')
+    const [welcome, setWelcome]= useState(true)
+    const [screenInfo, setScreenInfo] = useState(false)
 
       const currentFormTotal = () =>{
          
@@ -91,7 +93,7 @@ const Dashboard = props =>{
                 Emergency: parseInt(emergencyText),
                 Misc: parseInt(miscText)
             })
-            console.log('after post to DB')
+            
          } catch (err) {
              console.log(err)
          }
@@ -122,6 +124,7 @@ const Dashboard = props =>{
     }
   
     if(isEmpty(BudgetData)){
+        
         return(
             
             <TouchableWithoutFeedback 
@@ -133,7 +136,46 @@ const Dashboard = props =>{
                     keyboardVerticalOffset={15}
                     >
                     <ScrollView>
-                        <View style={styles.screen}>    
+                        <View style={styles.initialscreen}> 
+                        <Overlay 
+                            isVisible={welcome}
+                            onBackdropPress={() => setWelcome(false)}
+                            windowBackgroundColor='#cd7ff5'
+                            borderRadius={20}
+                         >
+                         <View style={styles.overlayView}>
+                            <View style={styles.overlayHeader}>
+                                <Text>Welcome to your Trip Dashboard!</Text>
+                            </View>
+                            <View style={styles.overlayBody}>
+                                <Text style={styles.overlayText}>
+                                    Now that you've created a trip, you'll need to decide 
+                                    what your budget looks like. 
+                                </Text>
+                                <Text style={styles.overlayText}>
+                                    To start, let's define your budget by category. 
+                                </Text>
+                                <Text style={styles.overlayText}>
+                                    The next form will help us do just that! Make sure to match your 
+                                    Category Budget to your Total Budget. 
+                                </Text>
+                                <Text style={styles.overlayText}>
+                                    Take advantage of the calulate button
+                                    to help match your budgets.
+                                </Text>
+                            </View>
+                            
+
+                            <View style={styles.overlayButton}>
+                                <Button 
+                                    type="outline"
+                                    title="Get Started!"
+                                    onPress={()=>setWelcome(false)}
+                                />
+                            </View>
+                         </View>
+                         </Overlay>
+
                             <Card stlye={styles.card}>
                                 <View style={styles.center}>
                                     <Text style={styles.cardHeader}>Budget by Category</Text>
@@ -274,8 +316,47 @@ const Dashboard = props =>{
         <View style={styles.banner}>
             <Text>Welcome {username} </Text>
         </View>  
-    
-       
+
+        <View style={styles.iconContainer}>
+            <Icon
+                name='ios-information-circle-outline'
+                type='ionicon'
+                size ={18}
+                color='black'
+                onPress={()=>setScreenInfo(true)}
+            />
+        </View>
+        <Overlay
+                isVisible={screenInfo}
+                onBackdropPress={() => setScreenInfo(false)}
+                borderRadius={20}
+                >
+            <View style={styles.overlayView}>
+                <View style={styles.overlayHeader}>
+                    <Text>This is your Dashboard!</Text>
+                </View>
+                <View style={styles.overlayBody}>
+                    <Text style={styles.overlayText}>
+                       The purpose of this screen is to help you understand how you've decided to allocate your budget. 
+                    </Text>
+                    <Text style={styles.overlayText}>
+                       Need more info? Try pressing the charts to better understand their meaning! 
+                    </Text>
+                    <Text style={styles.overlayText}>
+                       Or, press the info button to get a more detailed breakdown of your budgeting goals.
+                    </Text>
+                </View>
+                
+
+                <View style={styles.overlayButton}>
+                    <Button 
+                        type="outline"
+                        title="Got It"
+                        onPress={()=>setScreenInfo(false)}
+                    />
+                </View>
+            </View>
+     </Overlay>
         <View style={styles.chartContainer}>
             <BudgetBreakdownChart/>
         </View>
@@ -291,11 +372,17 @@ const Dashboard = props =>{
 
 
 const styles = StyleSheet.create({
-    screen: {
+    initialscreen: {
         flex: 1,
         padding: 10,
         alignItems: 'center',
         marginTop: 40,
+      }, 
+      screen: {
+        flex: 1,
+        padding: 10,
+        alignItems: 'center',
+        marginTop: 60,
       }, 
       Loadingscreen: {
         flex: 1,
@@ -343,6 +430,28 @@ const styles = StyleSheet.create({
     },
     banner:{
         marginTop: 30
+    },
+    overlayView: {
+        alignItems: 'center',
+    },
+    overlayHeader: {
+        marginTop: 10
+    },
+    overlayBody: {  
+        
+        justifyContent: 'center',
+        marginTop: 50,
+        marginBottom: 20
+    },
+    overlayText: {
+        marginBottom: 15,
+        lineHeight: 25
+    },
+    overlayButton:{
+        justifyContent: 'flex-end',
+    },
+    iconContainer: {
+        marginLeft: 300
     }
 })
 

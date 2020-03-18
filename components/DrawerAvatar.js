@@ -7,25 +7,25 @@ import { useSelector } from 'react-redux'
 
 const DrawerAvatar = props => {
 
-    const firestore = useFirestore();
-    const UserId = useSelector(state=> state.auth.userId)
-    const Profile = `Profile${UserId}`
-    useFirestoreConnect([
-        {collection: 'Users', doc: UserId, storeAs: Profile}
-    ]);
+    // const firestore = useFirestore();
+    // const UserId = useSelector(state=> state.auth.userId)
+    // const Profile = `Profile${UserId}`
+    // useFirestoreConnect([
+    //     {collection: 'Users', doc: UserId, storeAs: 'Profile'}
+    // ]);
   
-    const UserProfile = useSelector(state =>state.firestore.ordered[Profile])
+    // const UserProfile = useSelector(state =>state.firestore.ordered[Profile])
   
-if(!isLoaded(UserProfile)){
+// if(!isLoaded(UserProfile)){
 
-    <View style={styles.Loadingscreen}>
-                    <ActivityIndicator  
-                        size="large"
-                    /> 
-    </View>
-}
+//     <View style={styles.Loadingscreen}>
+//                     <ActivityIndicator  
+//                         size="large"
+//                     /> 
+//     </View>
+// }
 
-if(isLoaded(UserProfile)){
+
 return (
 
 <DrawerContentScrollView {...props}>
@@ -34,7 +34,7 @@ return (
         <Avatar
             rounded
             size='xlarge'
-            title='username'
+            title='usersnamessss'
             source={{
                  uri:
                 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
@@ -48,7 +48,7 @@ return (
 
  </DrawerContentScrollView>
     )
-}
+
 }
 const styles = StyleSheet.create({
     Avatarcontainer: {

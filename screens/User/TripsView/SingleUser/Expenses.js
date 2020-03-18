@@ -121,8 +121,8 @@ const Expenses = props =>{
     }
     if(isEmpty(BudgetData)){
         return(
-            <View style={styles.screen}>
-                <Text>Complete the budget form in your trip dashboard to use this feature</Text>
+            <View style={styles.noBudget}>
+                <Text style={styles.noBudgetText}>Can not use this feature yet</Text>
             </View>
         )
     }
@@ -143,6 +143,7 @@ const Expenses = props =>{
                         isVisible={open}
                         onBackdropPress={() => setOpen(false)}
                         height='95%'
+                        borderRadius={20}
                         >
                         
                         <View style={styles.overlayView}>
@@ -235,6 +236,7 @@ const Expenses = props =>{
                         isVisible={open}
                         onBackdropPress={() => setOpen(false)}
                         height='95%'
+                        borderRadius={20}
                         >
                         
                         <View style={styles.overlayView}>
@@ -338,6 +340,17 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       marginTop: 40,
     },
+    noBudget: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: 20,
+        marginTop: 40,
+        
+      },
+      noBudgetText:{
+        lineHeight: 25,
+      },
     screenHeader: {
         marginTop: 100,
         marginBottom: 30

@@ -43,11 +43,7 @@ const Savings = props =>{
 
    const BudgetData = useSelector(state =>state.firestore.ordered[BudgetBreakdownData])
    const fullStoreSavingsArr = useSelector(state=> state.firestore.ordered[SavingsData])
-//    console.log("Full Savings Full Savings Full Savings Full Savings ")
-//     console.log(fullStoreSavingsArr)
-//     console.log("Full Savings Full Savings Full Savings Full Savings")
-   
-  
+
 
     const [open, setOpen] = useState(false)
     const[AmountText, setAmountText] = useState()
@@ -126,8 +122,8 @@ if(!isLoaded(fullStoreSavingsArr && BudgetData)){
 }
 if(isEmpty(BudgetData)){
     return(
-        <View style={styles.screen}>
-            <Text>Complete the budget form in your trip dashboard to use this feature</Text>
+        <View style={styles.noBudget}>
+            <Text style={styles.noBudgetText}>Can not use this feature yet</Text>
         </View>
     )
 }
@@ -148,6 +144,7 @@ if(isEmpty(fullStoreSavingsArr)){
         isVisible={open}
         onBackdropPress={() => setOpen(false)}
         height='95%'
+        borderRadius={20}
         
         >
         <View style={styles.overlayView}>
@@ -238,6 +235,7 @@ return(
         isVisible={open}
         onBackdropPress={() => setOpen(false)}
         height="90%"
+        borderRadius={20}
         >
         <View style={styles.overlayView}>
             <View style={styles.overlayHeader}>
@@ -321,8 +319,7 @@ return(
     </ScrollView>
     
    
-)
-}
+)}
 }
 
 const styles = StyleSheet.create({
@@ -331,6 +328,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 40,
+      },
+      noBudget: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: 20,
+        marginTop: 40,
+        
+      },
+      noBudgetText:{
+        lineHeight: 25,
       },
       screenHeader: {
         marginTop: 100,
