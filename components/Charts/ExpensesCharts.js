@@ -164,8 +164,9 @@ return(
     </View>
     {ChartsArr.map((item, index) => (
         (item[0].y!==0 && item[0].y!==1) ? (
-        <View style={styles.eachChart}>
+        <View style={styles.eachChart} key={index}>
             <Tooltip 
+
                 popover={
                     <View style={styles.tooltipTextContainer}>
                         <Text style={styles.toolTipTextHeader}>{item[2].name}:</Text>
@@ -179,13 +180,17 @@ return(
                 >
 
                 <VictoryPie 
-                    key={item.name}
+                    
                     data={item}  
                     width={300}  
                     height={200}
                     innerRadius={40}
                     labels={[item[2].name, `${(item[0].y*100).toFixed(0)}%`]}
-                    animate={{ duration: 1000 }}
+                    animate={{ 
+                        duration: 10000,
+                        onLoad: { duration: 8000 },
+                        easing: "bounce"
+                    }}
                     cornerRadius={25}
                     style={{
                         data: { fill: ({ datum }) => {

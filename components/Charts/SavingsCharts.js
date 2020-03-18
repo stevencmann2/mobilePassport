@@ -189,7 +189,7 @@ return(
         </View>
         {ChartsArr.map((item, index) => (
             (item[0].y!==0 && item[0].y!==1) ? (
-            <View style={styles.eachChart}>
+            <View style={styles.eachChart} key={index}>
                 <Tooltip 
                     popover={
                         <View style={styles.tooltipTextContainer}>
@@ -204,7 +204,6 @@ return(
                     >
 
                     <VictoryPie 
-                        key={item.name}
                         data={item}  
                         width={300}  
                         height={200}
