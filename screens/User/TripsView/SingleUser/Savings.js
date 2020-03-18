@@ -42,9 +42,9 @@ const Savings = props =>{
 
    const BudgetData = useSelector(state =>state.firestore.ordered[BudgetBreakdownData])
    const fullStoreSavingsArr = useSelector(state=> state.firestore.ordered[SavingsData])
-   console.log("Full Savings Full Savings Full Savings Full Savings ")
-    console.log(fullStoreSavingsArr)
-    console.log("Full Savings Full Savings Full Savings Full Savings")
+//    console.log("Full Savings Full Savings Full Savings Full Savings ")
+//     console.log(fullStoreSavingsArr)
+//     console.log("Full Savings Full Savings Full Savings Full Savings")
    
   
 
@@ -108,6 +108,10 @@ const Savings = props =>{
         setAmountText();
         setDescriptionText("")
 
+    }
+    const cancelHandler = () => {
+        setOpen(false)
+        clearValues()
     }
 
 
@@ -203,7 +207,7 @@ if(isEmpty(fullStoreSavingsArr)){
                 <Button 
                     type="outline"
                     title="Cancel"
-                    onPress={()=>setOpen(false)}
+                    onPress={cancelHandler}
                 />
             </View>
         </View>
@@ -300,7 +304,7 @@ return(
                 <Button 
                     type="outline"
                     title="Cancel"
-                    onPress={()=>setOpen(false)}
+                    onPress={cancelHandler}
                 />
             </View>
         </View>

@@ -106,6 +106,11 @@ const Expenses = props =>{
 
     }
 
+    const cancelHandler = () => {
+        setOpen(false)
+        clearValues()
+    }
+
 
     if(!isLoaded(fullStoreExpensesArr && BudgetData)){
         return (<View style={styles.screen}>
@@ -198,7 +203,7 @@ const Expenses = props =>{
                                 <Button 
                                     type="outline"
                                     title="Cancel"
-                                    onPress={()=>setOpen(false)}
+                                    onPress={cancelHandler}
                                 />
                             </View>
                         </View>
@@ -299,7 +304,7 @@ const Expenses = props =>{
                                 <Button 
                                     type="outline"
                                     title="Cancel"
-                                    onPress={()=>setOpen(false)}
+                                    onPress={cancelHandler}
                                 />
                             </View>
                         </View>
