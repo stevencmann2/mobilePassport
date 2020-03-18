@@ -31,7 +31,7 @@ const BudgetBreakdownChart = () =>{
     console.log(TripBudgetObj)
     console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
    
-   
+   const colorsArray = [ "tomato", "orange", "gold", "cyan", "navy", "green", "red" ]
 
 
         Object.keys(TripBudgetObj).forEach(key => {
@@ -43,9 +43,7 @@ const BudgetBreakdownChart = () =>{
         const BudgetDataArr = xkeys.map(key => {
         return {x: key, y: TripBudgetObj[key]};
         })
-        console.log("NEW ARRAY FOR CHART DATA NEW ARRAY FOR DATA NEW ARRAY FOR DATA  ")
-        console.log(BudgetDataArr) 
-        console.log("NEW ARRAY FOR CHART DATA NEW ARRAY FOR DATA NEW ARRAY FOR DATA  ")
+     
 
 
         
@@ -63,6 +61,7 @@ if(isEmpty(BudgetData)){
 }
 return(
     <View>
+
     <View style={styles.PiechartContainer} >
     <Tooltip 
         popover={<Text>This is a breakdown of your set budget by category</Text>}
@@ -71,12 +70,13 @@ return(
         height={100}
         >
             <VictoryPie
-            width={300}
+            width={380}
                 data={BudgetDataArr}
-                colorScale={[ "tomato", "orange", "gold", "cyan", "navy", "green", "red" ]}
+                colorScale={colorsArray}
                 innerRadius={50}
                 // PAD ANDLE FOR SPACING BETWEEN SEGMENTS
                 padAngle={2}
+                padding={100}
                 
                 
             />
@@ -89,7 +89,8 @@ return(
     width={200}
     height={100}
     >
-        <VictoryChart>
+        <VictoryChart
+        padding={80}>
             <VictoryGroup offset={20}
                 colorScale={"qualitative"}
                 
@@ -120,6 +121,11 @@ const styles = StyleSheet.create({
           justifyContent: 'center'
           
       },
+      legendContainer:{
+          alignItems: 'center',
+          padding: 0,
+          margin: 0
+      }
       
 })
 

@@ -68,8 +68,8 @@ const Home = props => {
     >
      <View style={styles.screen}>
             
-        <View style= {styles.welcome}>  
-            <Text>
+        <View style={styles.welcome}>  
+            <Text style={styles.welcome}>
                 Welcome To Passport
             </Text>
         </View>  
@@ -105,7 +105,7 @@ const Home = props => {
       }, 
       welcome: {
         marginTop: 200,
-        fontFamily: 'Comfortaa-Bold',
+        fontFamily: 'comfortaa-bold',
         fontSize: 50,
         alignItems: 'center'
       },
