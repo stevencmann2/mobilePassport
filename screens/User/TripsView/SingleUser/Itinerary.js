@@ -1,42 +1,7 @@
-// import React from 'react';
-// import {
-//     Text, 
-//     View, 
-//     StyleSheet
-// } from 'react-native'
-
-
-
-// const Itinerary = props =>{
-    
-//     const { navigation } = props
-
-    
-//     return(
-//         <View style={styles.screen}>
-//             <View>
-//                 <Text style={{color: 'black'}}>
-//                        ITINERARY  HOMEPAGE
-//                 </Text>
-//             </View>
-//         </View>
-//     )
-// }
-
-// const styles = StyleSheet.create({
-//     screen: {
-//       flex: 1,
-//       alignItems: 'center',
-//       justifyContent: 'center',
-//       marginTop: 40,
-//     }
-    
-// })
-
-// export default Itinerary;
-
 import React, {Component} from 'react';
 import {Alert, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import Input from '../../../../components/Input';
+import SafeAreaView from 'react-native-safe-area-view';
 import {Agenda} from 'react-native-calendars';
 
 
@@ -51,15 +16,17 @@ export default class AgendaScreen extends Component {
 
   render() {
     return (
-      <Agenda
+        <SafeAreaView style={{ flex: 1 }}>   
+           <Agenda
         items={this.state.items}
         loadItemsForMonth={this.loadItems.bind(this)}
-        selected={'2020-03-01'}
+        selected={'2020-02-02'}
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
-     
+    
       />
+      </SafeAreaView>
     );
   }
 
@@ -101,7 +68,14 @@ export default class AgendaScreen extends Component {
   renderEmptyDate() {
     return (
       <View style={styles.emptyDate}>
+          
         <Text>This is empty date!</Text>
+        <Input
+                    style={styles.emptyDate}
+                    placeholder='ex. Uber Ride'
+                    keyboardType="default"
+                    maxLength={30}
+                /> 
       </View>
     );
   }
