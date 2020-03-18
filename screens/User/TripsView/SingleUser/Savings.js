@@ -7,6 +7,7 @@ import {
     Alert,
     ActivityIndicator,
     Keyboard,
+    ScrollView,
     KeyboardAvoidingView,
     TouchableWithoutFeedback
 } from 'react-native'
@@ -231,15 +232,8 @@ if(isEmpty(fullStoreSavingsArr)){
 if(isLoaded(fullStoreSavingsArr && <SavingsCharts/>&& BudgetData)){
 
 return(
-    <TouchableWithoutFeedback 
-            onPress={()=> 
-                Keyboard.dismiss()}>
-
-    <KeyboardAvoidingView 
-        style={{flex:1}}
-        behavior="padding"
-        keyboardVerticalOffset={15}
-        >
+    
+        <ScrollView>
     <View style={styles.screen}>
         <Overlay 
         isVisible={open}
@@ -323,10 +317,9 @@ return(
             </View>
             
     </View> 
-    </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+    </ScrollView>
+    
    
-      
 )
 }
 }

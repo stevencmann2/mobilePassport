@@ -229,16 +229,7 @@ const Expenses = props =>{
       
     if(isLoaded(fullStoreExpensesArr && <ExpensesCharts/> && BudgetData)){
         return(
-            <TouchableWithoutFeedback 
-                        onPress={()=> 
-                        Keyboard.dismiss()}>
-        
-                <KeyboardAvoidingView 
-                    style={{flex:1}}
-                    behavior="padding"
-                    keyboardVerticalOffset={15}
-                    >
-                
+            <ScrollView>
                 <View style={styles.screen}>
                     <Overlay 
                         isVisible={open}
@@ -327,8 +318,7 @@ const Expenses = props =>{
 
                 </View>
                 
-                </KeyboardAvoidingView>
-            </TouchableWithoutFeedback>
+         </ScrollView>
                 
             )
     
