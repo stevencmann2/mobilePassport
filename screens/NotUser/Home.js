@@ -104,9 +104,9 @@ const Home = props => {
         justifyContent: 'space-between'
       }, 
       welcome: {
-        marginTop: 200,
-        fontFamily: 'comfortaa-bold',
-        fontSize: 50,
+        marginTop: 87,
+        // fontFamily: 'comfortaa-bold',
+        fontSize: 30,
         alignItems: 'center'
       },
       buttonContainer: {
