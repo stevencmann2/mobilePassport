@@ -7,6 +7,7 @@ import {
     Alert,
     ActivityIndicator,
     Keyboard,
+    ScrollView,
     KeyboardAvoidingView,
     TouchableWithoutFeedback
 } from 'react-native'
@@ -42,11 +43,7 @@ const Savings = props =>{
 
    const BudgetData = useSelector(state =>state.firestore.ordered[BudgetBreakdownData])
    const fullStoreSavingsArr = useSelector(state=> state.firestore.ordered[SavingsData])
-//    console.log("Full Savings Full Savings Full Savings Full Savings ")
-//     console.log(fullStoreSavingsArr)
-//     console.log("Full Savings Full Savings Full Savings Full Savings")
-   
-  
+
 
     const [open, setOpen] = useState(false)
     const[AmountText, setAmountText] = useState()
@@ -125,8 +122,8 @@ if(!isLoaded(fullStoreSavingsArr && BudgetData)){
 }
 if(isEmpty(BudgetData)){
     return(
-        <View style={styles.screen}>
-            <Text>Complete the budget form in your trip dashboard to use this feature</Text>
+        <View style={styles.noBudget}>
+            <Text style={styles.noBudgetText}>Can not use this feature yet</Text>
         </View>
     )
 }
@@ -147,6 +144,7 @@ if(isEmpty(fullStoreSavingsArr)){
         isVisible={open}
         onBackdropPress={() => setOpen(false)}
         height='95%'
+        borderRadius={20}
         
         >
         <View style={styles.overlayView}>
@@ -165,7 +163,7 @@ if(isEmpty(fullStoreSavingsArr)){
                     <Picker.Item label="Airfare" value="Airfare" />
                     <Picker.Item label="Transportation" value="Transportation" />
                     <Picker.Item label="Lodging" value="Lodging" />
-                    <Picker.Item label="Food/Drink" value="Food & Drink" />
+                    <Picker.Item label="Food" value="Food" />
                     <Picker.Item label="Activities" value="Activities" />
                     <Picker.Item label="Emergency" value="Emergency" />
                     <Picker.Item label="Misc." value="Misc" />
@@ -231,20 +229,13 @@ if(isEmpty(fullStoreSavingsArr)){
 if(isLoaded(fullStoreSavingsArr && <SavingsCharts/>&& BudgetData)){
 
 return(
-    <TouchableWithoutFeedback 
-            onPress={()=> 
-                Keyboard.dismiss()}>
-
-    <KeyboardAvoidingView 
-        style={{flex:1}}
-        behavior="padding"
-        keyboardVerticalOffset={15}
-        >
+ <ScrollView>
     <View style={styles.screen}>
         <Overlay 
         isVisible={open}
         onBackdropPress={() => setOpen(false)}
         height="90%"
+        borderRadius={20}
         >
         <View style={styles.overlayView}>
             <View style={styles.overlayHeader}>
@@ -262,7 +253,7 @@ return(
                     <Picker.Item label="Airfare" value="Airfare" />
                     <Picker.Item label="Transportation" value="Transportation" />
                     <Picker.Item label="Lodging" value="Lodging" />
-                    <Picker.Item label="Food/Drink" value="Food & Drink" />
+                    <Picker.Item label="Food" value="Food" />
                     <Picker.Item label="Activities" value="Activities" />
                     <Picker.Item label="Emergency" value="Emergency" />
                     <Picker.Item label="Misc." value="Misc" />
@@ -309,7 +300,9 @@ return(
             </View>
         </View>
      </Overlay>
-            
+        <View style={styles.screenHeader}>
+            <Text>Your Savings</Text>
+        </View>
             <View style={styles.buttonContainer}>   
                 <Button 
                     type="outline"
@@ -323,12 +316,10 @@ return(
             </View>
             
     </View> 
-    </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+    </ScrollView>
+    
    
-      
-)
-}
+)}
 }
 
 const styles = StyleSheet.create({
@@ -338,6 +329,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: 40,
       },
+      noBudget: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: 20,
+        marginTop: 40,
+        
+      },
+      noBudgetText:{
+        lineHeight: 25,
+      },
+      screenHeader: {
+        marginTop: 100,
+        marginBottom: 30
+    },
       overlayView: {
           justifyContent: 'center',
           paddingHorizontal: 30,
@@ -372,7 +378,10 @@ const styles = StyleSheet.create({
       initialButtonContainer:{
           alignContent: 'center',
           justifyContent: 'center'
-      }
+      },
+      chartsContainer: {
+        marginTop: 30
+    }
     
 })
 

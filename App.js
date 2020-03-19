@@ -18,6 +18,19 @@ import {decode, encode} from 'base-64'
 if (!global.btoa) { global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+
+
+>>>>>>> cbe521f6b9879a936d26b878113cebc659491027
 const initialState = {
   firebase: {
     authError: null,
@@ -45,15 +58,22 @@ function DetermineView({ children }) {
 }
 
 
-const App = () => {
-  useEffect(() => {
+
+
+async function loadResourcesAsync() {
+  await Promise.all([
     Font.loadAsync({
-     'comfortaa-regular': require('./assets/fonts/Comfortaa-Regular.ttf'),
+      'comfortaa-regular': require('./assets/fonts/Comfortaa-Regular.ttf'),
      'comfortaa-bold': require('./assets/fonts/Comfortaa-Bold.ttf'), 
      'abel-regular': require('./assets/fonts/Abel-Regular.ttf')
-     
-   })
- }, []);
+    }),
+  ]);
+}
+
+
+const App = () => {
+  const [LoadingComplete, setLoadingComplete] = useState(false)
+ 
 
   const rrfProps = {
     firebase: firebase,
@@ -63,7 +83,7 @@ const App = () => {
   };
 
 
-  if(isLoaded){
+  if(LoadingComplete){
 
     return (
       
@@ -77,6 +97,8 @@ const App = () => {
   } else {
     return (
       <AppLoading
+        startAsync={loadResourcesAsync}
+        onFinish={()=>setLoadingComplete(true)}
         
       />
     )

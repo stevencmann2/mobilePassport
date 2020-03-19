@@ -71,6 +71,7 @@ const FormSubmit = ()=>{
     const retArray = retString.split('"')
     const returningText = retArray[1]
     
+   
     
     if(destinationText.length >0 && tripName.length >0 && totalBudgetTest){
 
@@ -85,7 +86,7 @@ const FormSubmit = ()=>{
      //// NEED TO ADD A CATCH STATEMTNT IF NOT POSTED
     firestoreTrips.add(TripData)
         .then(()=> navigation.navigate("My Trips") )
-        .catch(error=> console.log(error))
+        .catch(()=> errorAlert())
     }else{
         incompleteFields();
     }
@@ -94,13 +95,13 @@ const FormSubmit = ()=>{
 const onChangeDeparting = (event, selectedDate) => {
     const DepartingDate = selectedDate || date
     setDateDep(DepartingDate);
-    console.log('this is the departing date ', dateDep)
+   
   };
   
 const onChangeReturning = (event, selectedDate) => {
     const ReturningDate = selectedDate || date
     setDateRet(ReturningDate);
-    console.log('this is the returning date ', dateRet)
+    
   };
 
   const showDeparting=()=>{
@@ -112,6 +113,20 @@ const onChangeReturning = (event, selectedDate) => {
     setShowRet(true)
     
 }
+
+
+const errorAlert = () => {
+    Alert.alert(
+        'Internal Catch Error',
+        'Something went wrong, please let us know an issue occured while building your trip',
+          [
+              {text: 'Ok',
+              onPress: ()=>console.log('Ok Pressed, Alert Closed')
+              }
+          ]
+        )
+      }
+
 
   return (
     <KeyboardAvoidingView 
@@ -243,10 +258,6 @@ const onChangeReturning = (event, selectedDate) => {
                  />
             </View>
         
-            <View>
-            <ChooseLocation navigation={navigation}/>
-           </View>
-
         <Button
            
             title="Next"

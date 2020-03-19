@@ -5,6 +5,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SettingsScreen from '../screens/User/Settings'
 import TripsScreen from '../screens/User/Trips';
+import LocationServicesScreen from '../screens/User/LocationServices'
 import AddTripScreen from '../screens/User/AddTrip';
 import MyAccountScreen from '../screens/User/MyAccount'
 import DrawerAvatar from '../components/DrawerAvatar'
@@ -15,8 +16,10 @@ import ItineraryScreen from '../screens/User/TripsView/SingleUser/Itinerary'
 import MapsScreen from '../screens/User/MapScreen'
 import RecentActivityScreen from '../screens/User/TripsView/SingleUser/RecentActivity'
 import { Ionicons } from '@expo/vector-icons';
-
 import  HeaderButton  from '../components/HeaderButton';
+import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+import { useSelector } from 'react-redux'
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -31,6 +34,19 @@ const MyTheme = {
 };
 
 const UserNavigation = () => {
+  // const UserId = useSelector(state=> state.auth.userId)
+  // const Profile = `Profile${UserId}`
+  // useFirestoreConnect([
+  //     {collection: 'Users', doc: UserId, storeAs: 'Profile'}
+  // ]);
+
+  // const UserProfile = useSelector(state =>state.firestore.ordered[Profile])
+  // console.log(UserProfile)
+  // const Username = UserProfile
+  
+  // if(!isLoaded(UserProfile)){
+  //   return(null)
+  // }
 
   return (
     <NavigationContainer theme={MyTheme}>
@@ -42,6 +58,7 @@ const UserNavigation = () => {
             <Drawer.Screen name="My Account" component={MyAccountScreen} />
             <Drawer.Screen name="Trips" component={TripsPageNavigator} />
             <Drawer.Screen name="Settings" component={SettingsScreen} />
+            <Drawer.Screen name="Location Services" component={LocationServicesScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   

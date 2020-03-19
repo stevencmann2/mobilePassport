@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView} from 'react-native';
-import { VictoryPie, VictoryAnimation, VictoryLabel, VictoryLegend, VictoryChart  } from 'victory-native';
+import { Tooltip } from 'react-native-elements'
+import { VictoryPie,  VictoryBar, VictoryAnimation, VictoryChart  } from 'victory-native';
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 import _ from 'lodash'
+
 
 
 const ExpensesCharts = () =>{
@@ -15,7 +17,7 @@ const ExpensesCharts = () =>{
     const EmergencyExpenses = `EmergencyExpenses${selectedTrip}`
     const MiscExpenses = `MiscExpenses${selectedTrip}`
     const ActivitiesExpenses = `ActivitiesExpenses${selectedTrip}`
-    const FoodDrinkExpenses = `FoodDrinkExpenses${selectedTrip}`
+    const FoodExpenses = `FoodExpenses${selectedTrip}`
     const LodgingExpenses = `LodgingExpenses${selectedTrip}`
     const TransportationExpenses = `TransportationExpenses${selectedTrip}`
     const AirfareExpenses = `AirfareExpenses${selectedTrip}`
@@ -53,8 +55,8 @@ const ExpensesCharts = () =>{
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
             subcollections: [{ collection: "Expenses" }],
-            where:['Category', '==', 'Food & Drink'],
-            storeAs: FoodDrinkExpenses
+            where:['Category', '==', 'Food'],
+            storeAs: FoodExpenses
         },
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
@@ -82,88 +84,67 @@ const ExpensesCharts = () =>{
         const MiscExpensesArr = useSelector(state=> state.firestore.ordered[MiscExpenses])
         const ActivitiesExpensesArr = useSelector(state=> state.firestore.ordered[ActivitiesExpenses])
         const TransportationExpensesArr = useSelector(state=> state.firestore.ordered[TransportationExpenses])
-        const FoodDrinkExpensesArr = useSelector(state=> state.firestore.ordered[FoodDrinkExpenses])
+        const FoodExpensesArr = useSelector(state=> state.firestore.ordered[FoodExpenses])
         const LodgingExpensesArr = useSelector(state=> state.firestore.ordered[LodgingExpenses])
         const AirfareExpensesArr = useSelector(state=> state.firestore.ordered[AirfareExpenses])
-        console.log("==============================")
-        console.log(BudgetData)
-        console.log(BudgetData[0])
-        console.log("==============================")
-        console.group()
-        console.log(FoodDrinkExpensesArr, "food")
-        console.log(EmergencyExpensesArr, "emerg")
-        console.log(MiscExpensesArr, "misc")
-        console.log(ActivitiesExpensesArr, "act")
-        console.log(TransportationExpensesArr, "transpo")
-        console.log(LodgingExpensesArr, "lodge")
-        console.log(AirfareExpensesArr, "airfare")
-        console.groupEnd()
-     
-   // NEW ARRAY OF ONLY AMOUNTS DONE BY CATEGORY
-//    const FoodValArr = _.map(FoodDrinkExpensesArr, 'Amount')
-//    const EmergencyValArr = _.map(EmergencyExpensesArr, 'Amount')
-//    const MiscValArr = _.map(MiscExpensesArr, 'Amount')
-//    const ActivitiesValArr = _.map(ActivitiesExpensesArr, 'Amount')
-//    const TransportationValArr = _.map(TransportationExpensesArr, 'Amount')
-//    const LodgingValArr = _.map(LodgingExpensesArr, 'Amount')
-//    const AirfareValArr = _.map(AirfareExpensesArr, 'Amount')
+        
 
-//    //TOTAL ABOVE ARRAYS
-//    const Foodtotal = _.sum(FoodValArr)
-//    const Emergencytotal = _.sum(EmergencyValArr)
-//    const Misctotal = _.sum(MiscValArr)
-//    const Activitiestotal = _.sum(ActivitiesValArr)
-//    const Transportationtotal = _.sum(TransportationValArr)
-//    const Lodgingtotal = _.sum(LodgingValArr)
-//    const Airfaretotal = _.sum(AirfareValArr)
+     console.group("&&&&&&&&&&& FOOD DRINK ARRAY &&&&&&&&&&&&&&&&")
+     console.log(FoodExpensesArr)
+   
+   const FoodValArr = _.map(FoodExpensesArr, 'Amount')
+   const EmergencyValArr = _.map(EmergencyExpensesArr, 'Amount')
+   const MiscValArr = _.map(MiscExpensesArr, 'Amount')
+   const ActivitiesValArr = _.map(ActivitiesExpensesArr, 'Amount')
+   const TransportationValArr = _.map(TransportationExpensesArr, 'Amount')
+   const LodgingValArr = _.map(LodgingExpensesArr, 'Amount')
+   const AirfareValArr = _.map(AirfareExpensesArr, 'Amount')
+
+   const Foodtotal = _.sum(FoodValArr)
+   const Emergencytotal = _.sum(EmergencyValArr)
+   const Misctotal = _.sum(MiscValArr)
+   const Activitiestotal = _.sum(ActivitiesValArr)
+   const Transportationtotal = _.sum(TransportationValArr)
+   const Lodgingtotal = _.sum(LodgingValArr)
+   const Airfaretotal = _.sum(AirfareValArr)
+
+   console.group("total type check===================")
+   console.log(typeof(FoodTotal))
+//    console.log(typeof(Emergencytotal))
+//    console.log(typeof(Misctotal))
+//    console.log(typeof(Activitiestotal))
+//    console.log(typeof(Transportationtotal))
+//    console.log(typeof(Lodgingtotal))
+//    console.log(typeof(Airfaretotal))
+
 
 //    // BUDGET BREAKDOWN BY CATEGORY
-//    const FoodBudget = _.get(BudgetData[selectedTrip], 'Food & Drink')
-//    const EmergencyBudget = _.get(BudgetData[selectedTrip], 'Emergency')
-//    const MiscBudget = _.get(BudgetData[selectedTrip], 'Misc')
-//    const ActivitiesBudget = _.get(BudgetData[selectedTrip], 'Activities')
-//    const TransportationBudget = _.get(BudgetData[selectedTrip], 'Tranportation')
-//    const LodgingBudget = _.get(BudgetData[selectedTrip], 'Lodging')
-//    const AirfareBudget = _.get(BudgetData[selectedTrip], 'Airfare')
+   const FoodBudget = _.get(BudgetData[0], 'Food')
+   const EmergencyBudget = _.get(BudgetData[0], 'Emergency')
+   const MiscBudget = _.get(BudgetData[0], 'Misc')
+   const ActivitiesBudget = _.get(BudgetData[0], 'Activities')
+   const TransportationBudget = _.get(BudgetData[0], 'Tranportation')
+   const LodgingBudget = _.get(BudgetData[0], 'Lodging')
+   const AirfareBudget = _.get(BudgetData[0], 'Airfare')
 
-//    console.group()
-//    console.log(FoodBudget, "food")
-//    console.log(EmergencyBudget, "emerg")
-//    console.log(MiscBudget, "misc")
-//    console.log(ActivitiesBudget, "act")
-//    console.log(TransportationBudget, "transpo")
-//    console.log(LodgingBudget, "lodge")
-//    console.log(AirfareBudget, "airfare")
-//    console.groupEnd()
-
-//    const expenseTotal = 3220
-//    const CategoryTotal = 5000
-//    const ExpPercent  = (expenseTotal/CategoryTotal)
-//    const PercentasText = (ExpPercent.toFixed(2))*100
-//    console.log(ExpPercent)
-
-//    //Make Arrays of Data
-//    // RESULT IS y:NaN IF UNDEFINED
-
-//     const FoodData = [{x: 1, y:(Foodtotal/FoodBudget)},{x:2, y:1-(Foodtotal/FoodBudget)}]
-//     const EmergencyData = [{x:1, y:(Emergencytotal/EmergencyBudget)}, {x:2, y:1-(Emergencytotal/EmergencyBudget)}]
-//     const MiscData = [{x:1, y:(Misctotal/MiscBudget)}, {x:2, y:1-(Misctotal/MiscBudget)}]
-//     const ActivitiesData = [{x:1, y:(Activitiestotal/ActivitiesBudget)}, {x:2, y:1-(Activitiestotal/ActivitiesBudget)}]
-//     const TranportationData = [{x:1, y:(Transportationtotal/TransportationBudget)}, {x:2, y:1-(Transportationtotal/TransportationBudget)}]
-//     const LodgingData = [{x:1, y:(Lodgingtotal/LodgingBudget)}, {x:2, y:1-(Lodgingtotal/LodgingBudget)}]
-//     const AirfareData = [{x:1, y:(Airfaretotal/AirfareBudget)}, {x:2, y:1-(Airfaretotal/AirfareBudget)}]
-    
-//     console.group()
-//     console.log(FoodData, "food obj")
-//     console.log(EmergencyData, "emerg obj")
-//     console.log(MiscData, "Miscobj")
-//     console.log(ActivitiesData, "Activities obj")
-//     console.log(TranportationData, "Transport obj")
-//     console.log(LodgingData, "Lodging obj")
-//     console.log(AirfareData, "Air obj")
-//     console.groupEnd()
+   const FoodData = [{x: 1, y:(Foodtotal/FoodBudget)},{x:2, y:((1)-(Foodtotal/FoodBudget))}, 
+    {name: "Food", currentTotal: Foodtotal, budget: FoodBudget } ]
+const EmergencyData = [{x:1, y:(Emergencytotal/EmergencyBudget)}, {x:2, y:((1)-(Emergencytotal/EmergencyBudget))}, 
+            {name: "Emergency", currentTotal: Emergencytotal, budget: EmergencyBudget}]
+const MiscData = [{x:1, y:(Misctotal/MiscBudget)}, {x:2, y:((1)-(Misctotal/MiscBudget))}, 
+        {name: "Misc", currentTotal: Misctotal, budget: MiscBudget}]
+const ActivitiesData = [{x:1, y:(Activitiestotal/ActivitiesBudget)}, {x:2, y:((1)-(Activitiestotal/ActivitiesBudget))}, 
+                {name: "Activities", currentTotal: Activitiestotal, budget: ActivitiesBudget}]
+const TransportationData = [{x:1, y:(Transportationtotal/TransportationBudget)}, {x:2, y:((1)-(Transportationtotal/TransportationBudget))}, 
+                {name: "Transportation", currentTotal: Transportationtotal, budget: TransportationBudget}]
+const LodgingData = [{x:1, y:(Lodgingtotal/LodgingBudget)}, {x:2, y:((1)-(Lodgingtotal/LodgingBudget))}, 
+            {name: "Lodging", currentTotal: Lodgingtotal, budget: LodgingBudget} ]
+const AirfareData = [{x:1, y:(Airfaretotal/AirfareBudget)}, {x:2, y:((1)-(Airfaretotal/AirfareBudget))}, 
+            {name: "Airfare", currentTotal: Airfaretotal, budget: AirfareBudget} ]
 
 
+const ChartsArr = [FoodData, EmergencyData, MiscData, ActivitiesData, 
+                    TransportationData, LodgingData, AirfareData];
 
 
 
@@ -185,82 +166,80 @@ if(isEmpty(fullStoreExpensesArr)){
 
 return(
     <View style={styles.screen}>
-        <Text> 
-            Expenses CHARTS GO HERE
-        </Text>
+      
+        
+        {ChartsArr.map((item, index) => (
+            (item[0].y!==0 && item[0].y!==1) ? (
+            <View key={index}>
+                <Tooltip 
+
+                    popover={
+                        <View style={styles.tooltipTextContainer}>
+                            <Text style={styles.toolTipTextHeader}>{item[2].name}:</Text>
+                            <Text style={styles.toolTipText}>You've spent ${item[2].currentTotal}</Text>
+                            <Text style={styles.toolTipText}>of your ${item[2].budget} budget</Text>
+                        </View>
+                    }
+                    backgroundColor="#aeced1"
+                    width={200}
+                    height={100}
+                    >
+
+                    <VictoryPie 
+                        
+                        data={item}  
+                        width={300}  
+                        height={200}
+                        innerRadius={40}
+                        labels={[item[2].name, `${(item[0].y*100).toFixed(0)}%`]}
+                        animate={{ 
+                            duration: 10000,
+                            onLoad: { duration: 8000 },
+                            easing: "bounce"
+                        }}
+                        cornerRadius={25}
+                        style={{
+                            data: { fill: ({ datum }) => {
+                            const color = datum.y >= 1 ? "red" : "green";
+                            return datum.x === 1 ? color : "transparent"; //tranparent instead of blue
+                            }
+                            }
+                        }}
+                    /> 
+                </Tooltip>
+            </View>
+
+       
+        ) : 
+        (null)
+        ))}
         
     </View>
+    
+
 
 )
-
-
-// <View style={styles.chartContainer}>
-//             <VictoryPie 
-//                 data={EmergencyData}  
-//                 width={200}  
-//                 innerRadius={40}
-//                 labels={() => null}
-//                 animate={{ duration: 1000 }}
-//                 cornerRadius={25}
-//                 style={{
-//                     data: { fill: ({ datum }) => {
-//                     const color = datum.y >= 1 ? "red" : "green";
-//                     return datum.x === 1 ? color : "transparent"; //tranparent instead of blue
-//                     }
-//                     }
-//                 }}
-//             /> 
-//         </View>
-
-
-
-
-
-
-
-
-
-//MY HEADER MY HEADER 
-// <View>
-//     <Text>EXPENSE CATEGORY</Text>
-//     <Text>{`${PercentasText}%`}</Text>
-// </View>
-
-
-//LEGEND HEADER LEGEND HEADER
-// <VictoryLegend 
-// title="Legend"
-// centerTitle
-// gutter={20}
-// data={[{ name: PercentasText }]}
-// // orientation="horizontal"
-// />
-
-
-
-//    console.group("Expenses Sum Arrays")
-//    console.log("Expenses Store",fullStoreExpensesArr)
-//    console.log("Budget Data", BudgetData)
-//    console.log("Emergency", Emergencytotal)
-//    console.log("Misc", Misctotal)
-//    console.log("Act", Activitiestotal)
-//    console.log("Trans", Transportationtotal)
-//    console.log("Food", Foodtotal)
-//    console.log("hotel", Lodgingtotal)
-//    console.log("Air", Airfaretotal)
-//    console.groupEnd()
-  
-
-   }
+}
    const styles = StyleSheet.create({
     screen: {
         flex: 1,
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        width: 400,
+        marginBottom: 50,
+        marginTop: 0
       },
-      chartContainer: {
-          flexDirection: 'column',
-          justifyContent:'space-between'
+      overallChart: {
+          alignItems: 'center',
+      },
+      tooltipTextContainer:{
+          alignItems: 'center',  
+      },
+      toolTipTextHeader: {
+        padding: 2
+      },
+      toolTipText: {
+        padding: 2
       }
     })
 

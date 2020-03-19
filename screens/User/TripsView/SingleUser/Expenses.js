@@ -9,7 +9,7 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     ActivityIndicator,
-    Keyboard
+    Keyboard,
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button, Overlay} from 'react-native-elements'
@@ -121,8 +121,8 @@ const Expenses = props =>{
     }
     if(isEmpty(BudgetData)){
         return(
-            <View style={styles.screen}>
-                <Text>Complete the budget form in your trip dashboard to use this feature</Text>
+            <View style={styles.noBudget}>
+                <Text style={styles.noBudgetText}>Can not use this feature yet</Text>
             </View>
         )
     }
@@ -143,6 +143,7 @@ const Expenses = props =>{
                         isVisible={open}
                         onBackdropPress={() => setOpen(false)}
                         height='95%'
+                        borderRadius={20}
                         >
                         
                         <View style={styles.overlayView}>
@@ -161,7 +162,7 @@ const Expenses = props =>{
                                     <Picker.Item label="Airfare" value="Airfare" />
                                     <Picker.Item label="Transportation" value="Transportation" />
                                     <Picker.Item label="Lodging" value="Lodging" />
-                                    <Picker.Item label="Food/Drink" value="Food & Drink" />
+                                    <Picker.Item label="Food" value="Food" />
                                     <Picker.Item label="Activities" value="Activities" />
                                     <Picker.Item label="Emergency" value="Emergency" />
                                     <Picker.Item label="Misc." value="Misc" />
@@ -229,21 +230,13 @@ const Expenses = props =>{
       
     if(isLoaded(fullStoreExpensesArr && <ExpensesCharts/> && BudgetData)){
         return(
-            <TouchableWithoutFeedback 
-                        onPress={()=> 
-                        Keyboard.dismiss()}>
-        
-                <KeyboardAvoidingView 
-                    style={{flex:1}}
-                    behavior="padding"
-                    keyboardVerticalOffset={15}
-                    >
-                
+            <ScrollView>
                 <View style={styles.screen}>
                     <Overlay 
                         isVisible={open}
                         onBackdropPress={() => setOpen(false)}
                         height='95%'
+                        borderRadius={20}
                         >
                         
                         <View style={styles.overlayView}>
@@ -262,7 +255,7 @@ const Expenses = props =>{
                                     <Picker.Item label="Airfare" value="Airfare" />
                                     <Picker.Item label="Transportation" value="Transportation" />
                                     <Picker.Item label="Lodging" value="Lodging" />
-                                    <Picker.Item label="Food/Drink" value="Food & Drink" />
+                                    <Picker.Item label="Food" value="Food" />
                                     <Picker.Item label="Activities" value="Activities" />
                                     <Picker.Item label="Emergency" value="Emergency" />
                                     <Picker.Item label="Misc." value="Misc" />
@@ -310,9 +303,13 @@ const Expenses = props =>{
                         </View>
                         
                      </Overlay>
-                    <View style={styles.initialButtonContainer}>
+                    
+                    
+                     <View style={styles.screenHeader}>
+                        <Text>Your Expenses</Text>
+                     </View>
+                     <View style={styles.initialButtonContainer}>
         
-                        
                         <Button 
                         type="outline"
                         title="Add Expense"
@@ -327,8 +324,7 @@ const Expenses = props =>{
 
                 </View>
                 
-                </KeyboardAvoidingView>
-            </TouchableWithoutFeedback>
+         </ScrollView>
                 
             )
     
@@ -343,6 +339,21 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 40,
+    },
+    noBudget: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: 20,
+        marginTop: 40,
+        
+      },
+      noBudgetText:{
+        lineHeight: 25,
+      },
+    screenHeader: {
+        marginTop: 100,
+        marginBottom: 30
     },
     overlayView: {
         justifyContent: 'center',
@@ -373,8 +384,12 @@ const styles = StyleSheet.create({
     },
     initialButtonContainer:{
         alignContent: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+    },
+    chartsContainer: {
+        marginTop: 30
     }
+    
 
 })
 
