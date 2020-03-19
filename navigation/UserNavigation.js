@@ -29,7 +29,7 @@ const MyTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#00ff00',
+    primary: '#cb81e6',
   },
 };
 
@@ -138,7 +138,7 @@ const DashboardNavigator = () => {
 // STYLING FOR THE DRAWER
 
 const DrawerColor = {
-    backgroundColor: '#f08080',  
+    backgroundColor: '#cb81e6',  
 };
 // PROPERTY NAMES DEFINED BY THE API, PER ITEM LISTED
 ///https://reactnavigation.org/docs/drawer-navigator/#props
