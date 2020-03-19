@@ -28,7 +28,7 @@ if (!global.atob) { global.atob = decode }
 
 
 
-  
+
 
 
 
@@ -60,15 +60,22 @@ function DetermineView({ children }) {
 }
 
 
-const App = () => {
-  useEffect(() => {
+
+
+async function loadResourcesAsync() {
+  await Promise.all([
     Font.loadAsync({
-     'comfortaa-regular': require('./assets/fonts/Comfortaa-Regular.ttf'),
+      'comfortaa-regular': require('./assets/fonts/Comfortaa-Regular.ttf'),
      'comfortaa-bold': require('./assets/fonts/Comfortaa-Bold.ttf'), 
      'abel-regular': require('./assets/fonts/Abel-Regular.ttf')
-     
-   })
- }, []);
+    }),
+  ]);
+}
+
+
+const App = () => {
+  const [LoadingComplete, setLoadingComplete] = useState(false)
+ 
 
   const rrfProps = {
     firebase: firebase,
@@ -78,7 +85,7 @@ const App = () => {
   };
 
 
-  if(isLoaded){
+  if(LoadingComplete){
 
     return (
       
@@ -92,6 +99,8 @@ const App = () => {
   } else {
     return (
       <AppLoading
+        startAsync={loadResourcesAsync}
+        onFinish={()=>setLoadingComplete(true)}
         
       />
     )
