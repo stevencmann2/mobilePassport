@@ -145,12 +145,11 @@ const Dashboard = props =>{
                          >
                          <View style={styles.overlayView}>
                             <View style={styles.overlayHeader}>
-                                <Text>Welcome to your Trip Dashboard!</Text>
+                                <Text style={styles.overlayHeaderText}>Welcome to your Trip Dashboard</Text>
                             </View>
                             <View style={styles.overlayBody}>
                                 <Text style={styles.overlayText}>
-                                    Now that you've created a trip, you'll need to decide 
-                                    what your budget looks like. 
+                                    You created a trip, let's keep going and help you track your progress.
                                 </Text>
                                 <Text style={styles.overlayText}>
                                     To start, let's define your budget by categories. 
@@ -160,7 +159,7 @@ const Dashboard = props =>{
                                     Category Budget to your Total Budget. 
                                 </Text>
                                 <Text style={styles.overlayText}>
-                                    Take advantage of the calulate button
+                                    Hint: Take advantage of the calulate button
                                     to help match your budgets.
                                 </Text>
                             </View>
@@ -333,7 +332,7 @@ const Dashboard = props =>{
                 >
             <View style={styles.overlayView}>
                 <View style={styles.overlayHeader}>
-                    <Text>This is your Dashboard!</Text>
+                    <Text style={styles.overlayHeaderText}>This is your Dashboard!</Text>
                 </View>
                 <View style={styles.overlayBody}>
                     <Text style={styles.overlayText}>
@@ -433,12 +432,13 @@ const styles = StyleSheet.create({
     },
     overlayView: {
         alignItems: 'center',
+        padding: 10
     },
     overlayHeader: {
-        marginTop: 10
+        marginTop: 10,
+        fontSize: 18
     },
     overlayBody: {  
-        
         justifyContent: 'center',
         marginTop: 50,
         marginBottom: 20
@@ -447,6 +447,9 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         lineHeight: 25
     },
+   overlayHeaderText: {
+       fontSize: 20
+   },
     overlayButton:{
         justifyContent: 'flex-end',
     },

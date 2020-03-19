@@ -124,6 +124,7 @@ if(isEmpty(BudgetData)){
     return(
         <View style={styles.noBudget}>
             <Text style={styles.noBudgetText}>Can not use this feature yet</Text>
+            <Text style={styles.noBudgetText}>Complete budget form to use</Text>
         </View>
     )
 }
