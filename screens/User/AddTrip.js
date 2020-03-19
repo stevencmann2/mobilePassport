@@ -129,6 +129,8 @@ const errorAlert = () => {
 
 
   return (
+
+
     <KeyboardAvoidingView 
     style={{flex:1}}
     behavior="padding"
