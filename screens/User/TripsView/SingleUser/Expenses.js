@@ -162,7 +162,7 @@ const Expenses = props =>{
                                     <Picker.Item label="Airfare" value="Airfare" />
                                     <Picker.Item label="Transportation" value="Transportation" />
                                     <Picker.Item label="Lodging" value="Lodging" />
-                                    <Picker.Item label="Food/Drink" value="Food & Drink" />
+                                    <Picker.Item label="Food" value="Food" />
                                     <Picker.Item label="Activities" value="Activities" />
                                     <Picker.Item label="Emergency" value="Emergency" />
                                     <Picker.Item label="Misc." value="Misc" />
@@ -255,7 +255,7 @@ const Expenses = props =>{
                                     <Picker.Item label="Airfare" value="Airfare" />
                                     <Picker.Item label="Transportation" value="Transportation" />
                                     <Picker.Item label="Lodging" value="Lodging" />
-                                    <Picker.Item label="Food/Drink" value="Food & Drink" />
+                                    <Picker.Item label="Food" value="Food" />
                                     <Picker.Item label="Activities" value="Activities" />
                                     <Picker.Item label="Emergency" value="Emergency" />
                                     <Picker.Item label="Misc." value="Misc" />

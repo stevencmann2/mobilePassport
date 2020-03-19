@@ -17,7 +17,7 @@ const SavingsCharts = () =>{
     const EmergencySavings = `EmergencySavings${selectedTrip}`
     const MiscSavings = `MiscSavings${selectedTrip}`
     const ActivitiesSavings = `ActivitiesSavings${selectedTrip}`
-    const FoodDrinkSavings = `FoodDrinkSavings${selectedTrip}`
+    const FoodSavings = `FoodSavings${selectedTrip}`
     const LodgingSavings = `LodgingSavings${selectedTrip}`
     const TransportationSavings = `TransportationSavings${selectedTrip}`
     const AirfareSavings = `AirfareSavings${selectedTrip}`
@@ -55,8 +55,8 @@ const SavingsCharts = () =>{
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
             subcollections: [{ collection: "Savings" }],
-            where:['Category', '==', 'Food & Drink'],
-            storeAs: FoodDrinkSavings
+            where:['Category', '==', 'Food'],
+            storeAs: FoodSavings
         },
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
@@ -84,13 +84,13 @@ const SavingsCharts = () =>{
         const MiscSavingsArr = useSelector(state=> state.firestore.ordered[MiscSavings])
         const ActivitiesSavingsArr = useSelector(state=> state.firestore.ordered[ActivitiesSavings])
         const TransportationSavingsArr = useSelector(state=> state.firestore.ordered[TransportationSavings])
-        const FoodDrinkSavingsArr = useSelector(state=> state.firestore.ordered[FoodDrinkSavings])
+        const FoodSavingsArr = useSelector(state=> state.firestore.ordered[FoodSavings])
         const LodgingSavingsArr = useSelector(state=> state.firestore.ordered[LodgingSavings])
         const AirfareSavingsArr = useSelector(state=> state.firestore.ordered[AirfareSavings])
   
      
    //NEW ARRAY OF ONLY AMOUNTS DONE BY CATEGORY
-   const FoodValArr = _.map(FoodDrinkSavingsArr, 'Amount')
+   const FoodValArr = _.map(FoodSavingsArr, 'Amount')
    const EmergencyValArr = _.map(EmergencySavingsArr, 'Amount')
    const MiscValArr = _.map(MiscSavingsArr, 'Amount')
    const ActivitiesValArr = _.map(ActivitiesSavingsArr, 'Amount')
@@ -110,7 +110,7 @@ const SavingsCharts = () =>{
    
 
 //    // BUDGET BREAKDOWN BY CATEGORY
-   const FoodBudget = _.get(BudgetData[0], 'Food & Drink')
+   const FoodBudget = _.get(BudgetData[0], 'Food')
    const EmergencyBudget = _.get(BudgetData[0], 'Emergency')
    const MiscBudget = _.get(BudgetData[0], 'Misc')
    const ActivitiesBudget = _.get(BudgetData[0], 'Activities')
@@ -124,7 +124,7 @@ const SavingsCharts = () =>{
 
   
     const FoodData = [{x: 1, y:(Foodtotal/FoodBudget)},{x:2, y:((1)-(Foodtotal/FoodBudget))}, 
-                        {name: "Food & Drink", currentTotal: Foodtotal, budget: FoodBudget } ]
+                        {name: "Food", currentTotal: Foodtotal, budget: FoodBudget } ]
     const EmergencyData = [{x:1, y:(Emergencytotal/EmergencyBudget)}, {x:2, y:((1)-(Emergencytotal/EmergencyBudget))}, 
                                 {name: "Emergency", currentTotal: Emergencytotal, budget: EmergencyBudget}]
     const MiscData = [{x:1, y:(Misctotal/MiscBudget)}, {x:2, y:((1)-(Misctotal/MiscBudget))}, 

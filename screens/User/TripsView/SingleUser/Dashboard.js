@@ -88,7 +88,7 @@ const Dashboard = props =>{
                 Airfare: parseInt(airfareText),
                 Tranportation: parseInt(transportationText),
                 Lodging: parseInt(lodgingText),
-                "Food & Drink": parseInt(foodText),
+                Food: parseInt(foodText),
                 Activities: parseInt(activitiesText),
                 Emergency: parseInt(emergencyText),
                 Misc: parseInt(miscText)
@@ -153,7 +153,7 @@ const Dashboard = props =>{
                                     what your budget looks like. 
                                 </Text>
                                 <Text style={styles.overlayText}>
-                                    To start, let's define your budget by category. 
+                                    To start, let's define your budget by categories. 
                                 </Text>
                                 <Text style={styles.overlayText}>
                                     The next form will help us do just that! Make sure to match your 
@@ -234,7 +234,7 @@ const Dashboard = props =>{
                             
                                     <View style={styles.inputContainer}>
                                         <Input
-                                            label="Food and Drink ($)"
+                                            label="Food ($)"
                                             placeholder=''
                                             blurOnSubmit
                                             autoCorrect={true}

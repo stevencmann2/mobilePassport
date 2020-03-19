@@ -17,7 +17,7 @@ const ExpensesCharts = () =>{
     const EmergencyExpenses = `EmergencyExpenses${selectedTrip}`
     const MiscExpenses = `MiscExpenses${selectedTrip}`
     const ActivitiesExpenses = `ActivitiesExpenses${selectedTrip}`
-    const FoodDrinkExpenses = `FoodDrinkExpenses${selectedTrip}`
+    const FoodExpenses = `FoodExpenses${selectedTrip}`
     const LodgingExpenses = `LodgingExpenses${selectedTrip}`
     const TransportationExpenses = `TransportationExpenses${selectedTrip}`
     const AirfareExpenses = `AirfareExpenses${selectedTrip}`
@@ -55,8 +55,8 @@ const ExpensesCharts = () =>{
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
             subcollections: [{ collection: "Expenses" }],
-            where:['Category', '==', 'Food & Drink'],
-            storeAs: FoodDrinkExpenses
+            where:['Category', '==', 'Food'],
+            storeAs: FoodExpenses
         },
         { collection: 'Trips', 
             doc: `${selectedTrip}`, 
@@ -84,14 +84,15 @@ const ExpensesCharts = () =>{
         const MiscExpensesArr = useSelector(state=> state.firestore.ordered[MiscExpenses])
         const ActivitiesExpensesArr = useSelector(state=> state.firestore.ordered[ActivitiesExpenses])
         const TransportationExpensesArr = useSelector(state=> state.firestore.ordered[TransportationExpenses])
-        const FoodDrinkExpensesArr = useSelector(state=> state.firestore.ordered[FoodDrinkExpenses])
+        const FoodExpensesArr = useSelector(state=> state.firestore.ordered[FoodExpenses])
         const LodgingExpensesArr = useSelector(state=> state.firestore.ordered[LodgingExpenses])
         const AirfareExpensesArr = useSelector(state=> state.firestore.ordered[AirfareExpenses])
         
 
-     
+     console.group("&&&&&&&&&&& FOOD DRINK ARRAY &&&&&&&&&&&&&&&&")
+     console.log(FoodExpensesArr)
    
-   const FoodValArr = _.map(FoodDrinkExpensesArr, 'Amount')
+   const FoodValArr = _.map(FoodExpensesArr, 'Amount')
    const EmergencyValArr = _.map(EmergencyExpensesArr, 'Amount')
    const MiscValArr = _.map(MiscExpensesArr, 'Amount')
    const ActivitiesValArr = _.map(ActivitiesExpensesArr, 'Amount')
@@ -107,8 +108,18 @@ const ExpensesCharts = () =>{
    const Lodgingtotal = _.sum(LodgingValArr)
    const Airfaretotal = _.sum(AirfareValArr)
 
+   console.group("total type check===================")
+   console.log(typeof(FoodTotal))
+//    console.log(typeof(Emergencytotal))
+//    console.log(typeof(Misctotal))
+//    console.log(typeof(Activitiestotal))
+//    console.log(typeof(Transportationtotal))
+//    console.log(typeof(Lodgingtotal))
+//    console.log(typeof(Airfaretotal))
+
+
 //    // BUDGET BREAKDOWN BY CATEGORY
-   const FoodBudget = _.get(BudgetData[0], 'Food & Drink')
+   const FoodBudget = _.get(BudgetData[0], 'Food')
    const EmergencyBudget = _.get(BudgetData[0], 'Emergency')
    const MiscBudget = _.get(BudgetData[0], 'Misc')
    const ActivitiesBudget = _.get(BudgetData[0], 'Activities')
@@ -117,7 +128,7 @@ const ExpensesCharts = () =>{
    const AirfareBudget = _.get(BudgetData[0], 'Airfare')
 
    const FoodData = [{x: 1, y:(Foodtotal/FoodBudget)},{x:2, y:((1)-(Foodtotal/FoodBudget))}, 
-    {name: "Food & Drink", currentTotal: Foodtotal, budget: FoodBudget } ]
+    {name: "Food", currentTotal: Foodtotal, budget: FoodBudget } ]
 const EmergencyData = [{x:1, y:(Emergencytotal/EmergencyBudget)}, {x:2, y:((1)-(Emergencytotal/EmergencyBudget))}, 
             {name: "Emergency", currentTotal: Emergencytotal, budget: EmergencyBudget}]
 const MiscData = [{x:1, y:(Misctotal/MiscBudget)}, {x:2, y:((1)-(Misctotal/MiscBudget))}, 
