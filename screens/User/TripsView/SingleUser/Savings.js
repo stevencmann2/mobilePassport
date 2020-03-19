@@ -82,7 +82,7 @@ const Savings = props =>{
     const incompleteAlert = () => {
         Alert.alert(
             'Cannot Log Savings',
-            'Please verify all fields are filled out completley and there is a dollar amount',
+            'Please verify all fields are filled out completely and there is a dollar amount',
             [
                 {text: 'Ok',
                 onPress: ()=>console.log('Ok Pressed, Alert Closed')

@@ -14,10 +14,9 @@ import { useSelector } from 'react-redux'
 
 const Itinerary =()=> {
 
-  
-
   const firestore = useFirestore();
   const selectedTrip = useSelector(state=> state.tripID.id)
+  const ItineraryLocation = firestore.collection('Trips').doc(selectedTrip)
 
   const ItineraryData = `ItineraryData${selectedTrip}`
 
@@ -38,31 +37,126 @@ console.groupEnd('END of ITINERARY DATA')
 
 const [isOpen, setIsOpen] = useState(false)
 const [chosenDay, setChosenDay] = useState(new Date())
-const [titleText, setTitleText] = useState()
-const [descriptionText, setDescriptionText] = useState()
+const [titleText, setTitleText] = useState("")
+const [descriptionText, setDescriptionText] = useState("")
 const [hoursText, setHoursText] = useState();
 const [minText, setMinText] = useState();
 const [isAM, setIsAM] = useState(false)
 const [isPM, setIsPM]= useState(false)
+const [AMPMText, setAMPMText] = useState()
+
+ 
 
 const ToggleAM = isAM =>{
  if (isPM){
     setIsPM(false)
+    setAMPMText('AM')
  }
   setIsAM(isAM)
+  setAMPMText('AM')
 }
-
 
 const TogglePM = isPM =>{
   if (isAM){
-    setIsAM(false)  
+    setIsAM(false) 
+    setAMPMText('PM') 
  }
   setIsPM(isPM)
+  setAMPMText('PM')
+}
+
+const eventSubmit = async() => {
+  
+   if(!isPM && !isAM){
+     return toggleAlert()
+   }
+  const HoursTest =  /^0[1-9]|1[0-2]$/.test(hoursText)
+  const MinTest = /^0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]$/.test(minText)
+  
+  
+if(HoursTest && MinTest && titleText.length > 0 && descriptionText.length > 0 
+    && chosenDay.day && chosenDay.month && chosenDay.day){
+      
+  const EventObj = {
+                    year: chosenDay.year,
+                    month: chosenDay.month,
+                    day: chosenDay.day,
+                    time: `${hoursText}:${minText} ${AMPMText}`,
+                    title: titleText, 
+                    description: descriptionText
+    }
+  const DocTitle = `${chosenDay.year}-${chosenDay.month}-${chosenDay.day}`
+   
+      try{    
+        await ItineraryLocation.collection("Itinerary").doc(DocTitle).set(EventObj)
+        console.log(`posting Event to Firestore ${EventObj}`)
+        setIsOpen(false)
+        clearValues();
+
+      } catch (err) {
+          console.log(err)
+          errorAlert();
+          setIsOpen(false)
+          clearValues()
+      }
+  }else{
+   incompleteAlert();
+  console.log('failed test')
+ 
+  }
+}
+
+
+const incompleteAlert = () => {
+    Alert.alert(
+        'Cannot Add Event',
+        'Please verify all fields are filled out completely and correctly',
+        [
+            {text: 'Ok',
+            onPress: ()=>console.log('Ok Pressed, Alert Closed')
+            }
+        ]
+  )
+}
+const errorAlert = () => {
+    Alert.alert(
+        'Internal Catch Error',
+        'Something went wrong, please let us know an issue occured while scheduling an event',
+        [
+            {text: 'Ok',
+            onPress: ()=>console.log('Ok Pressed, Alert Closed')
+            }
+        ]
+  )
+}
+const toggleAlert = () => {
+  Alert.alert(
+      'Please Select a Time',
+      'toggle AM or PM to add event',
+      [
+          {text: 'Ok',
+          onPress: ()=>console.log('Ok Pressed, Alert Closed')
+          }
+      ]
+)
+}
+const clearValues = ()=> {
+  setTitleText("");
+  setDescriptionText("")
+  setIsAM(false)
+  setIsPM(false)
+  setHoursText()
+  setMinText()
+}
+
+const cancelHandler = () => {
+  setIsOpen(false)
+  clearValues()
 }
 
 
 return(
-
+ 
       <SafeAreaView style={{flex: 1}}>
             <Overlay 
             isVisible={isOpen}
@@ -77,11 +171,15 @@ return(
                   <Text>
                   {chosenDay.month} / {chosenDay.day} / {chosenDay.year} 
                   </Text>
+                  
                 </View>
                 <View style={styles.overlayBody}>
+                        <View style={styles.subheadingOverlay}>
+                       <Text style={{fontSize: 18}}>Start Time</Text>
+                       </View>
                     <View style={styles.timeInputContainer}>
                         <Input 
-                          label='Hours :'
+                          label='Hours (HH) :'
                           placeholder='ex. 08'
                           blurOnSubmit
                           autoCorrect={true}
@@ -93,7 +191,7 @@ return(
                         
                         />
                         <Input 
-                          label='Min :'
+                          label='Min (MM) :'
                           placeholder='ex.15'
                           blurOnSubmit
                           autoCorrect={true}
@@ -107,14 +205,14 @@ return(
                         <View style={styles.switchContainer}>
                           <View style={styles.AMcontainer}>
                                 <Text> AM </Text>
-                                <Switch 
+                                <Switch style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }}
                                   value={isAM}
                                   onValueChange={ToggleAM}
                                 />
                             </View>
                             <View style={styles.PMcontainer}>
                                 <Text>PM</Text>
-                                <Switch 
+                                <Switch style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }}
                                 value={isPM}
                                 onValueChange={TogglePM}
                               />
@@ -128,7 +226,7 @@ return(
                         blurOnSubmit
                         autoCorrect={true}
                         keyboardType="default"
-                        maxLength={30}
+                        maxLength={20}
                         onChangeText={(text)=> setTitleText(text)}
                         value={titleText}  
                         returnKeyType='next' 
@@ -141,7 +239,7 @@ return(
                           blurOnSubmit
                           autoCorrect={true}
                           keyboardType="default"
-                          maxLength={50}
+                          maxLength={35}
                           onChangeText={(text)=> setDescriptionText(text)}
                           value={descriptionText}  
                           returnKeyType='done' 
@@ -155,14 +253,14 @@ return(
                     <Button 
                         type="outline"
                         title="Cancel"
-                        onPress={()=>setIsOpen(false)}
+                        onPress={cancelHandler}
                     />
                     </View>
                     <View style={styles.overlayButton}>
                     <Button 
                         type="outline"
                         title="Submit"
-                        onPress={()=>console.log('pressed submit event')}
+                        onPress={eventSubmit}
                     />
                     </View>
                 </View>
@@ -252,7 +350,7 @@ return(
         />
             
         </SafeAreaView>
-  
+     
   )
 }
 
@@ -287,6 +385,10 @@ overlayBody: {
     marginTop: 20,
     marginBottom: 20
 },
+subheadingOverlay:{
+  alignItems: 'center',
+  marginBottom: 15,
+},
 overlayText: {
     marginBottom: 15,
     lineHeight: 25
@@ -316,9 +418,11 @@ switchContainer: {
   flexDirection: 'column',
 },
 AMcontainer: {
-  marginTop: 0
+  marginTop: 0,
+  alignItems: 'center'
 },
 PMcontainer: {
+  alignItems: 'center',
   marginTop: 10
 }
 });
