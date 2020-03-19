@@ -55,6 +55,10 @@ const incompleteFields = () => {
  )
 }
 
+console.group("DATES DATES DATES")
+   console.log(dateRet)
+   console.log(dateDep)
+   console.groupEnd('END')
 const FormSubmit = ()=>{
     const totalBudgetTest = /^[0-9]*$/.test(totalBudgetText)
     // DEPARTING STRINGIFY
@@ -73,6 +77,7 @@ const FormSubmit = ()=>{
     
    
     
+    
     if(destinationText.length >0 && tripName.length >0 && totalBudgetTest){
 
     const TripData = {
@@ -83,6 +88,10 @@ const FormSubmit = ()=>{
         departing: departingText,
         users: UserId
      }
+     console.group("DATBASE DATES!!!!!!!")
+     console.log(departingText)
+    console.log(returningText)
+    console.log("")
      //// NEED TO ADD A CATCH STATEMTNT IF NOT POSTED
     firestoreTrips.add(TripData)
         .then(()=> navigation.navigate("My Trips") )
