@@ -77,7 +77,7 @@ const LogIn = props => {
  
     return(
     <ImageBackground 
-            source={require('../../assets/images/LogInBackground.jpg')}
+            source={require('../../assets/images/sample4.jpg')}
             style={styles.backgroundImage}>
 
         <TouchableWithoutFeedback 
