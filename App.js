@@ -18,19 +18,7 @@ import {decode, encode} from 'base-64'
 if (!global.btoa) { global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
-<<<<<<< HEAD
-=======
 
-
-
-
-
-
-
-
-
-
->>>>>>> cbe521f6b9879a936d26b878113cebc659491027
 const initialState = {
   firebase: {
     authError: null,
