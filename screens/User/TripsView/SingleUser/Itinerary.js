@@ -67,16 +67,12 @@ export default class AgendaScreen extends Component {
 
   renderEmptyDate() {
     return (
-      <View style={styles.emptyDate}>
-          
-        <Text>This is empty date!</Text>
-        <Input
-                    style={styles.emptyDate}
-                    placeholder='ex. Uber Ride'
-                    keyboardType="default"
-                    maxLength={30}
-                /> 
-      </View>
+        <TouchableOpacity 
+        style={styles.emptyDate} 
+        onPress={() => console.log("aksjdsa")}
+      >
+        <Text>Enter an event here!</Text>
+      </TouchableOpacity>
     );
   }
 
