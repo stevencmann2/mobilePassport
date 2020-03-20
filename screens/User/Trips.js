@@ -16,11 +16,14 @@ import Card from '../../components/Card';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFirestoreConnect, useFirestore, withFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import * as tripActions from '../../store/actions/trips'
-
+import * as Animatable from 'react-native-animatable';
 
 
 
 const Trips = ({ navigation }) =>{
+   
+    const [animationType, setAnimationType]=useState("bounceIn")
+    const [animationTime, setAnimationTime] = useState(1)
     
     
     const dispatch = useDispatch();
@@ -45,7 +48,7 @@ const Trips = ({ navigation }) =>{
     const UserProfile = useSelector(state =>state.firestore.ordered[Profile])
     const TripsData = useSelector(state =>state.firestore.ordered[userTrips])
     const UserData = useSelector(({ firestore: { data } }) => data.Users && data.Users[UserId])
-   
+    const TripDel = useSelector(state=> state.firestore.data[userTrips])
     
     const [firstNameText, setFirstNameText] = useState("");
     const [lastNameText, setLastNameText] = useState("");
@@ -123,6 +126,60 @@ const Trips = ({ navigation }) =>{
         }
         
     }
+
+    const deleteTripConfirm = (id) => {
+        setAnimationTime('infinite')
+        setAnimationType("shake")
+        Alert.alert(
+            
+            'Trip Delete Warning!',
+            'You are about to delete a trip. Are you sure you want to do that?',
+            [
+                {text: 'Delete',
+                onPress: ()=> deleteTripHandler(id)
+                },
+                {text: 'Cancel',
+                onPress: ()=>console.log('Cancel Pressed, Alert Closed')
+                }
+            ]
+      )
+      }
+
+      const deleteTripHandler = async(id) => {  
+        console.log("from handler delete " + id)
+        try{    
+          await firestore.collection('Trips').doc(id).delete()
+           console.log(`deleting savings ${id}`)
+           setAnimationTime(1)
+            setAnimationType("bounceIn")
+        } catch (err) {
+            console.log(err)
+            setAnimationTime(1)
+            setAnimationType("bounceIn")
+            deleteErrorAlert()    
+        }
+      }
+
+      const deleteErrorAlert = () => {
+        Alert.alert(
+            'Delete Error',
+            'We apologize, an error occured while attempeting to delete a trip. Please let us know this issue occured.',
+            [
+                {text: 'Ok',
+                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                }
+            ]
+     )
+    }
+
+
+
+
+
+
+
+
+
    
     if(!isLoaded(UserData)){
 
@@ -218,13 +275,15 @@ const Trips = ({ navigation }) =>{
         return(
             <ScrollView>
             <View style={styles.screen}>
-            
+          
             {TripsData.length > 0 ? (
                 TripsData.map((trip)=>
-                    
-                    <View style={styles.container} key={trip.id}>
+                <Animatable.View  key={trip.id} animation={animationType} iterationCount={animationTime} duration={2000} direction="normal">
+                    <View style={styles.container}>
                         <TouchableOpacity
-                            onPress={()=>selectTrip(trip.id)}>
+                            onPress={()=>selectTrip(trip.id)}
+                            onLongPress={()=> deleteTripConfirm(trip.id)}>
+                
                             <View style={styles.ImgContainer}>
                                 <Image 
                                     source={require('../../assets/images/PalmTrees.jpg')} 
@@ -239,6 +298,7 @@ const Trips = ({ navigation }) =>{
                             </Text>
                         </View>
                     </View>
+                    </Animatable.View>
                 )
 
             ) : (<Text style={styles.container}>
@@ -255,7 +315,7 @@ const Trips = ({ navigation }) =>{
             />
             </View>
 
-            
+           
          </View>
          </ScrollView>
 
