@@ -4,7 +4,8 @@ import {
     View, 
     StyleSheet,
     ScrollView,
-    ActivityIndicator
+    ActivityIndicator,
+    Alert
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
@@ -14,6 +15,10 @@ import _ from 'lodash'
 
 const RecentActivity = () => {
    
+
+  const [savingsDelete, setSavingsDelete] = useState(false);
+  const [expensesDelete, setExpensesDelete] = useState(false);
+
   const firestore = useFirestore();
   const selectedTrip = useSelector(state=> state.tripID.id)
   const SavingsData = `SavingsData${selectedTrip}`
@@ -33,6 +38,7 @@ const RecentActivity = () => {
    }
   ])
 
+  const TripDoc = firestore.collection('Trips').doc(selectedTrip)
   const fullStoreSavingsArr = useSelector(state=> state.firestore.ordered[SavingsData])
   const fullStoreExpensesArr = useSelector(state=> state.firestore.ordered[ExpensesData])
 
@@ -69,7 +75,70 @@ const RecentActivity = () => {
       Icon: 'landscape'},
   ]
 
+  const deleteSavingsHandler = async(id) => {  
+    console.log(id)
+    try{    
+      await TripDoc.collection("Savings").doc(id).delete();
+       console.log(`deleting savings ${id}`)
+    } catch (err) {
+        console.log(err)
+        deleteErrorAlert()    
+    }
+  }
 
+  const deleteExpensesHandler = async(id) => {  
+    console.log(id)
+    try{    
+      await TripDoc.collection("Expenses").doc(id).delete();
+       console.log(`deleting expenses ${id}`)
+    } catch (err) {
+        console.log(err)
+        deleteErrorAlert()    
+    }
+  }
+  
+
+  const deleteErrorAlert = () => {
+    Alert.alert(
+        'Unable to Delete',
+        'We apologize, an error occured while attempeting to delete an action item. Please let us know this issue occured.',
+        [
+            {text: 'Ok',
+            onPress: ()=>console.log('Ok Pressed, Alert Closed')
+            }
+        ]
+ )
+}
+const deleteSavingsConfirm = (id) => {
+   
+  Alert.alert(
+      'Delete Warning',
+      'You are about to delete an action item. Are you sure you want to do that?',
+      [
+          {text: 'Delete',
+          onPress: ()=>deleteSavingsHandler(id)
+          },
+          {text: 'Cancel',
+          onPress: ()=>console.log('Cancel Pressed, Alert Closed')
+          }
+      ]
+)
+}
+const deleteExpensesConfirm = (id) => {
+   
+  Alert.alert(
+      'Delete Warning',
+      'You are about to delete an expensed item. Are you sure you want to do that?',
+      [
+          {text: 'Delete',
+          onPress: ()=>deleteExpensesHandler(id)
+          },
+          {text: 'Cancel',
+          onPress: ()=>console.log('Cancel Pressed, Alert Closed')
+          }
+      ]
+)
+}
 
 const SavingsResultsArr = _.map(fullStoreSavingsArr, function(item){
   return _.extend(item, _.find(SavingsiconArray, { Category: item.Category }));
@@ -122,8 +191,8 @@ if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr)){
                   subtitle={`$${item.Amount}`}
                   leftIcon={{ name: item.Icon}}
                   rightContentContainerStyle={{marginRight:10}}
-        
                   bottomDivider
+                  onLongPress={()=>deleteSavingsConfirm(item.id)}
                 />
               ))
             }
@@ -148,6 +217,7 @@ if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr)){
             leftIcon={{ name: item.Icon}}
             rightContentContainerStyle={{marginRight:10}}
             bottomDivider
+            onLongPress={()=>deleteExpensesConfirm(item.id)}
           />
         ))
       }
