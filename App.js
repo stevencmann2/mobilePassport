@@ -58,6 +58,7 @@ async function loadResourcesAsync() {
 
 
 const App = () => {
+
   const [LoadingComplete, setLoadingComplete] = useState(false)
  
 
@@ -72,12 +73,12 @@ const App = () => {
   if(LoadingComplete){
 
     return (
-      
+          
         <Provider store={store}>
-        <ReactReduxFirebaseProvider {...rrfProps}>
-          <DetermineView/>
-        </ReactReduxFirebaseProvider>
-      </Provider>
+          <ReactReduxFirebaseProvider {...rrfProps}>
+            <DetermineView/>
+          </ReactReduxFirebaseProvider>
+        </Provider>
 
     );
   } else {
@@ -91,6 +92,7 @@ const App = () => {
   }
 
 }
+
 
 export default App;
 
