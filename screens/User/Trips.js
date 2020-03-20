@@ -139,10 +139,15 @@ const Trips = ({ navigation }) =>{
                 onPress: ()=> deleteTripHandler(id)
                 },
                 {text: 'Cancel',
-                onPress: ()=>console.log('Cancel Pressed, Alert Closed')
+                onPress: ()=> cancelDelete()
                 }
             ]
       )
+      }
+
+      const cancelDelete = ()=>{
+        setAnimationTime(1)
+        setAnimationType("bounceIn")
       }
 
       const deleteTripHandler = async(id) => {  
