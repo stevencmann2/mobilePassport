@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Alert, StyleSheet, Text, View, 
-         SafeAreaView, TouchableWithoutFeedback,Keyboard, 
-          KeyboardAvoidingView, Switch} from 'react-native';
+         SafeAreaView, ActivityIndicator,Keyboard, Switch} from 'react-native';
 import {Icon, Overlay, Button } from 'react-native-elements'
 import Input from '../../../../components/Input';
 import {Agenda} from 'react-native-calendars';
@@ -16,6 +15,7 @@ const Itinerary =()=> {
 
   const firestore = useFirestore();
   const selectedTrip = useSelector(state=> state.tripID.id)
+  const BudgetBreakdownData = `BudgetBreakdownData${selectedTrip}`
   const ItineraryLocation = firestore.collection('Trips').doc(selectedTrip)
 
   const ItineraryData = `ItineraryData${selectedTrip}`
@@ -24,16 +24,35 @@ const Itinerary =()=> {
     { collection: 'Trips', doc: `${selectedTrip}`},
     { collection: 'Trips', 
       doc: `${selectedTrip}`, 
+      subcollections: [{ collection: "BudgetBreakdown" }],
+      storeAs: BudgetBreakdownData
+    },
+    { collection: 'Trips', 
+      doc: `${selectedTrip}`, 
       subcollections: [{ collection: "Itinerary" }],
       storeAs: ItineraryData
    }
   ])
-  
-  const ItineraryArr = useSelector(state=> state.firestore.ordered[ItineraryData])
 
-console.group("Itinerary DATA")
-console.log(ItineraryArr)
-console.groupEnd('END of ITINERARY DATA')
+  const BudgetData = useSelector(state =>state.firestore.ordered[BudgetBreakdownData])
+  const ItineraryArr = useSelector(state=> state.firestore.ordered[ItineraryData])
+  const scheduledData = useSelector(state=> state.firestore.data[ItineraryData])
+
+
+// let calendarData = {}
+// let dates = [];
+
+// if(ItineraryArr){
+//     ItineraryArr.forEach((obj, idx) => {
+//       dates.push(Object.keys(obj));
+//     });
+//   dates = dates.flat().filter(el => el !== 'id');
+// ItineraryArr.forEach((obj, idx) => {
+//     calendarData[dates[idx]] = obj[dates[idx]];
+//   });
+// }
+
+
 
 const [isOpen, setIsOpen] = useState(false)
 const [chosenDay, setChosenDay] = useState(new Date())
@@ -76,19 +95,36 @@ const eventSubmit = async() => {
   
 if(HoursTest && MinTest && titleText.length > 0 && descriptionText.length > 0 
     && chosenDay.day && chosenDay.month && chosenDay.day){
+        
       
+      if(chosenDay.month.toString().length === 1){
+        chosenDay.month= `0${chosenDay.month}`
+      }
+      if(chosenDay.day.toString().length === 1){
+         chosenDay.day= `0${chosenDay.day}`
+      }
+      console.group("BRANDON")
+      console.log(chosenDay.day, chosenDay.month)
+      
+
+      const dateString = `${chosenDay.year}-${chosenDay.month}-${chosenDay.day}`
+
   const EventObj = {
+        [dateString]:  [{
+                    key: dateString,
                     year: chosenDay.year,
                     month: chosenDay.month,
                     day: chosenDay.day,
                     time: `${hoursText}:${minText} ${AMPMText}`,
                     title: titleText, 
-                    description: descriptionText
-    }
-  const DocTitle = `${chosenDay.year}-${chosenDay.month}-${chosenDay.day}`
+                    description: descriptionText,
+                    date: dateString
+         }]
+        }
+  
    
       try{    
-        await ItineraryLocation.collection("Itinerary").doc(DocTitle).set(EventObj)
+        await ItineraryLocation.collection("Itinerary").add(EventObj)
         console.log(`posting Event to Firestore ${EventObj}`)
         setIsOpen(false)
         clearValues();
@@ -154,6 +190,38 @@ const cancelHandler = () => {
   clearValues()
 }
 
+if(!isLoaded(ItineraryArr&& BudgetData)){
+  return (<View style={styles.screen}>
+              <ActivityIndicator  size="large"/> 
+           </View>)
+
+}
+
+if(isEmpty(BudgetData)){
+  return(
+    <View style={styles.noBudget}>
+        <Text style={styles.noBudgetText}>Can not use this feature yet</Text>
+        <Text style={styles.noBudgetText}>Complete budget form to use</Text>
+    </View>
+  )
+}
+
+if(isLoaded(BudgetData && ItineraryArr)){
+
+  let calendarData = {}
+  let dates = [];
+
+ 
+    ItineraryArr.forEach((obj, idx) => {
+      dates.push(Object.keys(obj));
+    });
+  dates = dates.flat().filter(el => el !== 'id');
+ItineraryArr.forEach((obj, idx) => {
+    calendarData[dates[idx]] = obj[dates[idx]];
+  });
+
+  console.log('CALENDAR DATAAAAAA')
+  console.log(calendarData)
 
 return(
  
@@ -270,43 +338,9 @@ return(
           <Agenda
 
             firstDay={parseInt(moment(new Date()).day().toString(), 1)}
-            ///// DATA GOES HERE 
-            items={{
-              '2020-05-27': [
-                {
-                  key: 2,
-                  year: '2020',
-                  month: '5',
-                  day: '27',
-                  time: '10:00 AM',
-                  title: 'Shave (Customer3)', 
-                  description: "Description goes here"
-                }
-              ],
-
-
-              '2020-05-27': [
-                {
-                  key: 1,
-                  year: '2020',
-                  month: '5',
-                  day: '27',
-                  time: '09:00 PM',
-                  title: 'Shave (Customer1)', 
-                  description: "Description goes here"
-                },
-                {
-                  key: 2,
-                  year: '2020',
-                  month: '5',
-                  day: '27',
-                  time: '10:00 AM',
-                  title: 'Shave (Customer3)'
-                }
-              ],
-              '2020-05-28': []
-
-                }}
+            ///// DATA GOES HERE
+          
+            items={calendarData}
                 renderItem={item => (
                   <View style={styles.item}>
                     <Text
@@ -352,11 +386,28 @@ return(
         </SafeAreaView>
      
   )
+   }
 }
 
 
+
 const styles = StyleSheet.create({
-  
+  screen: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 40,
+  },
+  noBudget: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 20,
+    marginTop: 40, 
+  },
+  noBudgetText:{
+    lineHeight: 25,
+  },
   item: {
     backgroundColor: 'white',
     flex: 1,
