@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Alert, StyleSheet, Text, View, 
          SafeAreaView, ActivityIndicator,Keyboard, Switch} from 'react-native';
-import {Icon, Overlay, Button } from 'react-native-elements'
+import {Avatar, Icon, Overlay, Button } from 'react-native-elements'
 import Input from '../../../../components/Input';
 import {Agenda} from 'react-native-calendars';
 import moment from 'moment';
@@ -346,12 +346,25 @@ return(
                     <Text
                       style={{ color: '#6a6a6a' }}
                     >
-                      {item.time} &mdash; {item.title}
-                    </Text>
-                  </View>
+                      {item.time} 
+            </Text>
+            <Text style={{fontWeight: "bold", marginTop: 5, fontSize: 15}}
+            >
+                {item.title}
+            </Text>
+            <Avatar
+  size="medium"
+  rounded
+  title="MT"
+  onPress={() => console.log("Works!")}
+  activeOpacity={0.7}
+  containerStyle={{flex: 2, marginLeft: 260, marginBottom: 20}}
+/>
+</View>
                 )
               }
-                // renderEmptyData={() => <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}><Text>No appointments</Text></View>}
+    
+    // renderEmptyData={() => <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}><Text>No appointments</Text></View>}
             markedDates={{
               '2020-05-16': {selected: true, marked: true},
               '2020-05-17': {marked: true},
