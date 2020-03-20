@@ -169,7 +169,7 @@ return(
       
         
         {ChartsArr.map((item, index) => (
-            (item[0].y!==0 && item[0].y!==1) ? (
+            (item[0].y!==0 && item[1].y!==1 && !isNaN(item[0].y)) ? (
             <View key={index}>
                 <Tooltip 
 

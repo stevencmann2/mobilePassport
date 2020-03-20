@@ -142,7 +142,9 @@ const SavingsCharts = () =>{
      const ChartsArr = [FoodData, EmergencyData, MiscData, ActivitiesData, 
                 TransportationData, LodgingData, AirfareData];
 
-
+console.group("PETERRR PETTTTER PEEEEEEETER PPPPPPPPPEEEEEETERRRR")
+       console.log(ChartsArr)
+console.groupEnd("END END END END END END END END END END ")
 if(!isLoaded(fullStoreSavingsArr)){
    
         return (
@@ -164,7 +166,7 @@ return(
   
         
         {ChartsArr.map((item, index) => (
-            (item[0].y!==0 && item[0].y!==1) ? (
+            (item[0].y!==0  && item[1].y!==1 && !isNaN(item[0].y)) ? (
             <View  key={index}>
                 <Tooltip 
                     popover={
@@ -185,7 +187,11 @@ return(
                         height={200}
                         innerRadius={40}
                         labels={[item[2].name, `${(item[0].y*100).toFixed(0)}%`]}
-                        animate={{ duration: 1000 }}
+                        animate={{ 
+                            duration: 10000,
+                            onLoad: { duration: 8000 },
+                            easing: "bounce"
+                        }}
                         cornerRadius={25}
                         style={{
                             data: { fill: ({ datum }) => {
