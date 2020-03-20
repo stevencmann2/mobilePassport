@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Alert, StyleSheet, Text, View, SafeAreaView, TouchableOpacity} from 'react-native';
-import {Button} from 'react-native-elements'
+import {Avatar, Button} from 'react-native-elements'
 import Input from '../../../../components/Input';
 import {Agenda} from 'react-native-calendars';
 import moment from 'moment';
@@ -34,10 +34,22 @@ return(
         renderItem={item => (
           <View style={[styles.item]}>
             <Text
-              style={{ color: '#6a6a6a' }}
+              style={{ color: '#6a6a6a'}}
             >
-              {item.time} &mdash; {item.title}
+              {item.time} 
             </Text>
+            <Text style={{fontWeight: "bold", marginTop: 5, fontSize: 15}}
+            >
+                {item.title}
+            </Text>
+            <Avatar
+  size="medium"
+  rounded
+  title="MT"
+  onPress={() => console.log("Works!")}
+  activeOpacity={0.7}
+  containerStyle={{flex: 2, marginLeft: 260, marginBottom: 20}}
+/>
           </View>
         )}
         renderEmptyData={() => <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}><Text>No appointments</Text></View>}
