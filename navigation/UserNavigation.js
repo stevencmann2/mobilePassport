@@ -21,6 +21,7 @@ import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redu
 import { useSelector } from 'react-redux'
 
 
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,7 +30,7 @@ const MyTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#00ff00',
+    primary: '#cb81e6',
   },
 };
 
@@ -41,13 +42,11 @@ const UserNavigation = () => {
   // ]);
 
   // const UserProfile = useSelector(state =>state.firestore.ordered[Profile])
-  // console.log(UserProfile)
-  // const Username = UserProfile
   
-  // if(!isLoaded(UserProfile)){
-  //   return(null)
-  // }
+  // const Username = UserProfile
 
+  // console.log
+ 
   return (
     <NavigationContainer theme={MyTheme}>
       <Drawer.Navigator 
@@ -63,8 +62,8 @@ const UserNavigation = () => {
     </NavigationContainer>
   
   );
-}
 
+ }
 // 
 // For Main Landing page of User -  Select Existing Trip or Add Trip
 const TripsPageNavigator = () =>{
@@ -138,7 +137,7 @@ const DashboardNavigator = () => {
 // STYLING FOR THE DRAWER
 
 const DrawerColor = {
-    backgroundColor: '#f08080',  
+    backgroundColor: '#cb81e6',  
 };
 // PROPERTY NAMES DEFINED BY THE API, PER ITEM LISTED
 ///https://reactnavigation.org/docs/drawer-navigator/#props

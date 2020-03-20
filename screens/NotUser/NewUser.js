@@ -125,7 +125,7 @@ const NewUser = props => {
 
    
     <ImageBackground 
-            source={require('../../assets/images/NewUserBackground.jpg')}
+            source={require('../../assets/images/sample2.jpg')}
             style={styles.backgroundImage}> 
     <TouchableWithoutFeedback 
             onPress={()=> 

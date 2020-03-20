@@ -70,13 +70,13 @@ const Home = props => {
             
         <View style={styles.welcome}>  
             <Text style={styles.welcome}>
-                Welcome To Passport
+                Welcome to Passport
             </Text>
         </View>  
          
         <View style={styles.buttonContainer}>
             <TouchableOpacity>
-                <Button  
+                <Button
                      title="Sign In"
                      type="solid"
                      buttonStyle={styles.logInButton}
@@ -104,12 +104,13 @@ const Home = props => {
         justifyContent: 'space-between'
       }, 
       welcome: {
-        marginTop: 200,
+        marginTop: 87,
         fontFamily: 'comfortaa-bold',
-        fontSize: 50,
+        fontSize: 30,
         alignItems: 'center'
       },
       buttonContainer: {
+        fontFamily: 'comfortaa-bold',
         marginBottom: 50,
         marginHorizontal: 40
       },
