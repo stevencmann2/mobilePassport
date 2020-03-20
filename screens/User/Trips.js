@@ -76,10 +76,10 @@ const Trips = ({ navigation }) =>{
     const errorAlert = () => {
         Alert.alert(
             'Internal Catch Error',
-            'Something went wrong, please let us know an issue occured while submitting your profile',
+            'Something went wrong, please let us know an issue occured while submitting your profile.',
             [
                 {text: 'Ok',
-                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                onPress: ()=>console.log('Ok Pressed, Alert Closed.')
                 }
             ]
      )
@@ -93,7 +93,7 @@ const Trips = ({ navigation }) =>{
             'Only Letters and Numbers Permitted (ex: username123, UserName987)',
             [
                 {text: 'Ok',
-                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                onPress: ()=>console.log('Ok Pressed, Alert Closed.')
                 }
             ]
         )
@@ -105,7 +105,7 @@ const Trips = ({ navigation }) =>{
             'Please verify all fields are filled out correctly',
             [
                 {text: 'Ok',
-                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                onPress: ()=>console.log('Ok Pressed, Alert Closed.')
                 }
             ]
      )
@@ -143,7 +143,7 @@ const Trips = ({ navigation }) =>{
    
                  <View style={styles.banner}>
                      <Text>
-                        Please Create a User Profile to Continue
+                        Please Create a User Profile to Continue.
                     </Text>
                 </View>
        
@@ -241,7 +241,7 @@ const Trips = ({ navigation }) =>{
 
 
             ) : (<Text style={styles.container}>
-                    You have no trips yet, click the button below to add a trip! 
+                    You have no trips yet, please click the button below to add a trip. 
                 </Text>) 
             }
                 
