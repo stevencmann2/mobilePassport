@@ -347,7 +347,6 @@ return(
                       style={{ color: '#6a6a6a' }}
                     >
                       {item.time} 
-                      {item.time} 
             </Text>
             <Text style={{fontWeight: "bold", marginTop: 5, fontSize: 15}}
             >
@@ -361,9 +360,11 @@ return(
   activeOpacity={0.7}
   containerStyle={{flex: 2, marginLeft: 260, marginBottom: 20}}
 />
+</View>
                 )
               }
-                // renderEmptyData={() => <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}><Text>No appointments</Text></View>}
+    
+    // renderEmptyData={() => <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}><Text>No appointments</Text></View>}
             markedDates={{
               '2020-05-16': {selected: true, marked: true},
               '2020-05-17': {marked: true},
