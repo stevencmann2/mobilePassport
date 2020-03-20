@@ -159,7 +159,7 @@ const Dashboard = props =>{
                                     Category Budget to your Total Budget. 
                                 </Text>
                                 <Text style={styles.overlayText}>
-                                    Hint: Take advantage of the calulate button
+                                    Hint: Take advantage of the calculate button
                                     to help match your budgets.
                                 </Text>
                             </View>

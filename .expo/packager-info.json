@@ -3,7 +3,13 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
+<<<<<<< HEAD
   "expoServerNgrokUrl": "https://2t-utt.anonymous.mobilepassport.exp.direct",
   "packagerNgrokUrl": "https://packager.2t-utt.anonymous.mobilepassport.exp.direct",
   "ngrokPid": 90954
+=======
+  "expoServerNgrokUrl": "https://zu-dtz.anonymous.mobilepassport.exp.direct",
+  "packagerNgrokUrl": "https://packager.zu-dtz.anonymous.mobilepassport.exp.direct",
+  "ngrokPid": 90936
+>>>>>>> a5bf0d58faa32536ef9ee41e43d90d7930c080aa
 }
