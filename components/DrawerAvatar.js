@@ -32,13 +32,8 @@ return (
 
     <View style={styles.Avatarcontainer}>
         <Avatar
-            rounded
-            size='xlarge'
-            title='usersnamessss'
-            source={{
-                 uri:
-                'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                }}
+            rounded title="MD"
+            size="xlarge"
         />
         <Text>Username</Text>
     </View>

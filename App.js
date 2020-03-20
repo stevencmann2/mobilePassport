@@ -12,6 +12,9 @@ import '@firebase/firestore';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import {decode, encode} from 'base-64'
+import { Asset } from 'expo-asset'
+
+
 
 if (!global.btoa) { global.btoa = encode }
 if (!global.atob) { global.atob = decode }
@@ -53,8 +56,21 @@ async function loadResourcesAsync() {
      'comfortaa-bold': require('./assets/fonts/Comfortaa-Bold.ttf'), 
      'abel-regular': require('./assets/fonts/Abel-Regular.ttf')
     }),
+    // Asset.loadAsync({
+    //   'home-screen': require('./assets/images/HomeScreenBackground.jpg'),
+    //   'login-screen': require('./assets/images/LogInBackground.jpg'),
+    //   'newUser-screen': require('./assets/images/NewUserBackground.jpg'),
+    //   'default-background': require('./assets/images/defaultBackground.jpg'),
+    //   'sample1': require('./assets/images/sample1.jpg'),
+    //   'sample2': require('./assets/images/sample2.jpg'),
+    //   'sample3': require('./assets/images/sample3.jpg'),
+    //   'sample4': require('./assets/images/sample4.jpg'),
+
+    // })
   ]);
 }
+
+
 
 
 const App = () => {
@@ -70,6 +86,7 @@ const App = () => {
   };
 
 
+<<<<<<< HEAD
   if(LoadingComplete){
 
     return (
@@ -82,6 +99,9 @@ const App = () => {
 
     );
   } else {
+=======
+  if(!LoadingComplete){
+>>>>>>> be6de01e1e5f7ecf396b024e4d297f39f3ed2836
     return (
       <AppLoading
         startAsync={loadResourcesAsync}
@@ -89,7 +109,21 @@ const App = () => {
         
       />
     )
-  }
+    
+  } 
+    
+
+
+    return (
+      
+      <Provider store={store}>
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <DetermineView/>
+      </ReactReduxFirebaseProvider>
+    </Provider>
+
+  )
+  
 
 }
 
