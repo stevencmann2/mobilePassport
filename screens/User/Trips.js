@@ -142,8 +142,11 @@ const Trips = ({ navigation }) =>{
             <View style={styles.firstScreen}>
    
                  <View style={styles.banner}>
-                     <Text>
-                        Please Create a User Profile to Continue
+                     <Text style={styles.bannerHeader}>
+                        Thanks for choosing Passport!  
+                    </Text>
+                    <Text styles={styles.bannerText}>
+                        We need some additional information before proceeding
                     </Text>
                 </View>
        
@@ -238,15 +241,12 @@ const Trips = ({ navigation }) =>{
                     </View>
                 )
 
-
-
             ) : (<Text style={styles.container}>
                     You have no trips yet, click the button below to add a trip! 
                 </Text>) 
             }
                 
-               
-            
+                     
             <View style={styles.buttonContainer}>
             <Button
                 type= 'outline'
@@ -311,7 +311,16 @@ const styles = StyleSheet.create({
     },
     banner: {
         marginTop: 30,
-        marginBottom: 20
+        marginBottom: 30,
+        alignItems: 'center'
+    },
+    bannerHeader:{
+        lineHeight: 25,
+        fontSize: 18,
+        marginBottom: 10
+    },
+    bannerText:{
+        lineHeight: 25,  
     },
     formCard: {
         width: 300,

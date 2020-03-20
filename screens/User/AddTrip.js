@@ -11,7 +11,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 const AddTrip = ({ navigation }) => {
-
+    
  
  const dispatch = useDispatch();
  const firestore = useFirestore();
@@ -67,6 +67,15 @@ const FormSubmit = ()=>{
     const depString = departingArray[0]
     const depArray = depString.split('"')
     const departingText = depArray[1]
+
+    console.group("DEPARTING LOGIC")
+    console.log(departingDateString)
+    console.log(departingArray)
+    console.log(depString)
+    console.log(depArray)
+    console.log("final")
+    console.log(departingText)
+    console.group("thats allllllllllllllllllll")
     
     //RETUNING STRINGIFY
     const returningDateString = JSON.stringify(dateRet)

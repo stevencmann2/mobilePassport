@@ -21,6 +21,7 @@ import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redu
 import { useSelector } from 'react-redux'
 
 
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -41,13 +42,11 @@ const UserNavigation = () => {
   // ]);
 
   // const UserProfile = useSelector(state =>state.firestore.ordered[Profile])
-  // console.log(UserProfile)
-  // const Username = UserProfile
   
-  // if(!isLoaded(UserProfile)){
-  //   return(null)
-  // }
+  // const Username = UserProfile
 
+  // console.log
+ 
   return (
     <NavigationContainer theme={MyTheme}>
       <Drawer.Navigator 
@@ -63,8 +62,8 @@ const UserNavigation = () => {
     </NavigationContainer>
   
   );
-}
 
+ }
 // 
 // For Main Landing page of User -  Select Existing Trip or Add Trip
 const TripsPageNavigator = () =>{
