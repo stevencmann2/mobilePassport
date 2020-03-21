@@ -352,13 +352,17 @@ return(
             >
                 {item.title}
             </Text>
+            <Text style={{ marginTop: 5, fontSize: 15}}
+            >
+                {item.description}
+            </Text>
             <Avatar
   size="medium"
   rounded
   title="MT"
   onPress={() => console.log("Works!")}
   activeOpacity={0.7}
-  containerStyle={{flex: 2, marginLeft: 260, marginBottom: 20}}
+  containerStyle={{flex: 2, marginLeft: 260, marginBottom: 10}}
 />
 </View>
                 )
