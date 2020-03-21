@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFirestoreConnect, useFirestore, withFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import * as tripActions from '../../store/actions/trips'
 import * as Animatable from 'react-native-animatable';
+import Colors from '../../constants/colors';
+
 
 
 
@@ -80,10 +82,10 @@ const Trips = ({ navigation }) =>{
     const errorAlert = () => {
         Alert.alert(
             'Internal Catch Error',
-            'Something went wrong, please let us know an issue occured while submitting your profile',
+            'Something went wrong, please let us know an issue occured while submitting your profile.',
             [
                 {text: 'Ok',
-                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                onPress: ()=>console.log('Ok Pressed, Alert Closed.')
                 }
             ]
      )
@@ -97,7 +99,7 @@ const Trips = ({ navigation }) =>{
             'Only Letters and Numbers Permitted (ex: username123, UserName987)',
             [
                 {text: 'Ok',
-                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                onPress: ()=>console.log('Ok Pressed, Alert Closed.')
                 }
             ]
         )
@@ -106,10 +108,10 @@ const Trips = ({ navigation }) =>{
     const incompleteFields = () => {
         Alert.alert(
             'Profile Error',
-            'Please verify all fields are filled out correctly',
+            'Please verify all fields are filled out correctly.',
             [
                 {text: 'Ok',
-                onPress: ()=>console.log('Ok Pressed, Alert Closed')
+                onPress: ()=>console.log('Ok Pressed, Alert Closed.')
                 }
             ]
      )
@@ -134,7 +136,7 @@ const Trips = ({ navigation }) =>{
         Alert.alert(
             
             'Trip Delete Warning!',
-            'You are about to delete a trip. Are you sure you want to do that?',
+            'You are about to delete your trip. Are you sure you want to delete?',
             [
                 {text: 'Delete',
                 onPress: ()=> deleteTripHandler(id)
@@ -171,7 +173,7 @@ const Trips = ({ navigation }) =>{
       const deleteErrorAlert = () => {
         Alert.alert(
             'Delete Error',
-            'We apologize, an error occured while attempeting to delete a trip. Please let us know this issue occured.',
+            'We apologize, an error occured while attempeting to delete your trip. Please let us know this issue occured.',
             [
                 {text: 'Ok',
                 onPress: ()=>console.log('Ok Pressed, Alert Closed')
@@ -203,7 +205,7 @@ const Trips = ({ navigation }) =>{
                         Thanks for choosing Passport!  
                     </Text>
                     <Text styles={styles.bannerText}>
-                        We need some additional information before proceeding
+                        We need some additional information before we proceed.
                     </Text>
                 </View>
        
@@ -302,19 +304,19 @@ const Trips = ({ navigation }) =>{
                 )
 
             ) : (<Text style={styles.container}>
-                    You have no trips yet, click the button below to add a trip! 
+                    Please click the button below to add a trip. 
                 </Text>) 
             }
-                
-                     
-            <View style={styles.buttonContainer}>
-            <Button
-                type= 'outline'
-                title="Add Trip"
-                onPress={()=> navigation.navigate('AddTrip')}
-            />
-            </View>
-
+                       
+                <View style={styles.buttonContainer}>
+                    <Button
+                        type= 'outline'
+                        title="Add Trip"
+                        //can't get the buttons to change color
+                        color= '#c717fc'
+                        onPress={()=> navigation.navigate('AddTrip')}
+                    />
+                </View>
            
          </View>
          </ScrollView>
@@ -339,7 +341,9 @@ const styles = StyleSheet.create({
         
       },
     container: {
-        marginTop: 20,
+        marginTop: 200,
+        fontSize: 17,
+        fontFamily: 'comfortaa-bold',
         paddingHorizontal: 10
     },
     ImgContainer: {
