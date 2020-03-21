@@ -39,21 +39,6 @@ const Itinerary =()=> {
   const scheduledData = useSelector(state=> state.firestore.data[ItineraryData])
 
 
-// let calendarData = {}
-// let dates = [];
-
-// if(ItineraryArr){
-//     ItineraryArr.forEach((obj, idx) => {
-//       dates.push(Object.keys(obj));
-//     });
-//   dates = dates.flat().filter(el => el !== 'id');
-// ItineraryArr.forEach((obj, idx) => {
-//     calendarData[dates[idx]] = obj[dates[idx]];
-//   });
-// }
-
-
-
 const [isOpen, setIsOpen] = useState(false)
 const [chosenDay, setChosenDay] = useState(new Date())
 const [titleText, setTitleText] = useState("")
@@ -103,10 +88,8 @@ if(HoursTest && MinTest && titleText.length > 0 && descriptionText.length > 0
       if(chosenDay.day.toString().length === 1){
          chosenDay.day= `0${chosenDay.day}`
       }
-      console.group("BRANDON")
-      console.log(chosenDay.day, chosenDay.month)
       
-
+  
       const dateString = `${chosenDay.year}-${chosenDay.month}-${chosenDay.day}`
 
   const EventObj = {
@@ -121,7 +104,6 @@ if(HoursTest && MinTest && titleText.length > 0 && descriptionText.length > 0
                     date: dateString
          }]
         }
-  
    
       try{    
         await ItineraryLocation.collection("Itinerary").add(EventObj)
@@ -343,28 +325,24 @@ return(
             items={calendarData}
                 renderItem={item => (
                   <View style={styles.item}>
-                    <Text
-                      style={{ color: '#6a6a6a' }}
-                    >
-                      {item.time} 
-            </Text>
-            <Text style={{fontWeight: "bold", marginTop: 5, fontSize: 15}}
-            >
-                {item.title}
-            </Text>
-            <Avatar
-  size="medium"
-  rounded
-  title="MT"
-  onPress={() => console.log("Works!")}
-  activeOpacity={0.7}
-  containerStyle={{flex: 2, marginLeft: 260, marginBottom: 20}}
-/>
-</View>
+                      <Text style={{ color: '#6a6a6a' }}>
+                        {item.time} 
+                      </Text>
+                      <Text style={{fontWeight: "bold", marginTop: 5, fontSize: 15}}>
+                          {item.title}
+                      </Text>
+                      <Avatar
+                          size="medium"
+                          rounded
+                          title="MT"
+                          onPress={() => console.log("Works!")}
+                          activeOpacity={0.7}
+                          containerStyle={{flex: 2, marginLeft: 260, marginBottom: 20}}
+                      />
+                </View>
                 )
               }
     
-    // renderEmptyData={() => <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}><Text>No appointments</Text></View>}
             markedDates={{
               '2020-05-16': {selected: true, marked: true},
               '2020-05-17': {marked: true},
@@ -394,6 +372,8 @@ return(
                   }
                 }}
                 onDayPress={(day) => {setChosenDay(day)}}
+                
+                
         />
             
         </SafeAreaView>
