@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Alert, StyleSheet, Text, View, 
          SafeAreaView, ActivityIndicator,Keyboard, Switch} from 'react-native';
-import {Avatar, Icon, Overlay, Button } from 'react-native-elements'
+import {Icon, Overlay, Button } from 'react-native-elements'
 import Input from '../../../../components/Input';
 import {Agenda} from 'react-native-calendars';
 import moment from 'moment';
@@ -337,13 +337,12 @@ return(
             >
                 {item.description}
             </Text>
-            <Avatar
-  size="medium"
-  rounded
-  title="MT"
-  onPress={() => console.log("Works!")}
-  activeOpacity={0.7}
-  containerStyle={{flex: 2, marginLeft: 260, marginBottom: 10}}
+<Icon
+  reverse
+  name='ios-book'
+  type='ionicon'
+  color='#b1b8bc'
+  containerStyle={{flex: 2, marginLeft: 250, marginBottom: 0}}
 />
 </View>
                 )
@@ -358,20 +357,20 @@ return(
                   <Icon
                     name='playlist-add'
                     type='material'
-                    color='#cd7ff5'
+                    color='#09cdf6'
                     reverse
                     onPress={()=>setIsOpen(true)}
                   />
                 </View>}
             rowHasChanged={(r1, r2) => r1.title !== r2.title}
                 theme={{
-                  agendaDayNumColor: 'rgba(190,82,2, 0.75)',
-                  agendaDayTextColor: 'rgba(190,82,2, 0.75)',
+                  agendaDayNumColor: '#09cdf6',
+                  agendaDayTextColor: '#09cdf6',
                   agendaKnobColor: '#efefef',
-                  agendaTodayColor: 'rgba(190,82,2, 0.75)',
-                  dotColor: 'rgba(190,82,2, 0.75)',
-                  todayTextColor: 'rgba(190,82,2, 0.75)',
-                  selectedDayBackgroundColor: 'rgba(190,82,2, 0.75)',
+                  agendaTodayColor: '#09cdf6',
+                  dotColor: '#09cdf6',
+                  todayTextColor: '#09cdf6',
+                  selectedDayBackgroundColor: '#09cdf6',
                   'stylesheet.calendar.header': {
                     week: { marginTop: 0, flexDirection: 'row', justifyContent: 'space-between' }
                   }
