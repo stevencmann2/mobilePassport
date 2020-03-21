@@ -172,20 +172,6 @@ const Expenses = props =>{
                             <View style={styles.inputContainer}>
                                 <Input
                                     style={styles.input}
-                                    label='Description :'
-                                    placeholder='ex. Uber Ride'
-                                    blurOnSubmit
-                                    autoCorrect={true}
-                                    keyboardType="default"
-                                    maxLength={30}
-                                    onChangeText={(text)=> setDescriptionText(text)}
-                                    value={DescriptionText}  
-                                    returnKeyType='next' 
-                                /> 
-                            </View>
-                            <View style={styles.inputContainer}>
-                                <Input
-                                    style={styles.input}
                                     label='Amount ($):'
                                     blurOnSubmit
                                     autoCorrect={false}
@@ -194,6 +180,20 @@ const Expenses = props =>{
                                     onChangeText={(text)=> setAmountText(text)}
                                     value={AmountText}  
                                     returnKeyType='next' 
+                                /> 
+                            </View>
+                            <View style={styles.inputContainer}>
+                                <Input
+                                    style={styles.input}
+                                    label='Description :'
+                                    placeholder='ex. Uber Ride'
+                                    blurOnSubmit
+                                    autoCorrect={true}
+                                    keyboardType="default"
+                                    maxLength={30}
+                                    onChangeText={(text)=> setDescriptionText(text)}
+                                    value={DescriptionText}  
+                                    returnKeyType='done' 
                                 /> 
                             </View>
                             <View style={styles.buttonContainer}>
@@ -262,20 +262,8 @@ const Expenses = props =>{
                                     <Picker.Item label="Misc." value="Misc" />
                                 </Picker>
                             </View>
-                            <View style={styles.inputContainer}>
-                                <Input
-                                    style={styles.input}
-                                    label='Description :'
-                                    placeholder='ex. Uber Ride'
-                                    blurOnSubmit
-                                    autoCorrect={true}
-                                    keyboardType="default"
-                                    maxLength={30}
-                                    onChangeText={(text)=> setDescriptionText(text)}
-                                    value={DescriptionText}  
-                                    returnKeyType='next' 
-                                /> 
-                            </View>
+                            
+                              
                             <View style={styles.inputContainer}>
                                 <Input
                                     style={styles.input}
@@ -287,6 +275,20 @@ const Expenses = props =>{
                                     onChangeText={(text)=> setAmountText(text)}
                                     value={AmountText}  
                                     returnKeyType='next' 
+                                /> 
+                            </View>
+                            <View style={styles.inputContainer}>
+                                <Input
+                                    style={styles.input}
+                                    label='Description :'
+                                    placeholder='ex. Uber Ride'
+                                    blurOnSubmit
+                                    autoCorrect={true}
+                                    keyboardType="default"
+                                    maxLength={30}
+                                    onChangeText={(text)=> setDescriptionText(text)}
+                                    value={DescriptionText}  
+                                    returnKeyType='done' 
                                 /> 
                             </View>
                             <View style={styles.buttonContainer}>

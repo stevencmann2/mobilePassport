@@ -173,20 +173,6 @@ if(isEmpty(fullStoreSavingsArr)){
             <View style={styles.inputContainer}>
                 <Input
                     style={styles.input}
-                    label='Description :'
-                    placeholder='ex. Uber Ride'
-                    blurOnSubmit
-                    autoCorrect={true}
-                    keyboardType="default"
-                    maxLength={30}
-                    onChangeText={(text)=> setDescriptionText(text)}
-                    value={DescriptionText}  
-                    returnKeyType='next' 
-                /> 
-            </View>
-            <View style={styles.inputContainer}>
-                <Input
-                    style={styles.input}
                     label='Amount ($):'
                     blurOnSubmit
                     autoCorrect={false}
@@ -197,6 +183,21 @@ if(isEmpty(fullStoreSavingsArr)){
                     returnKeyType='next' 
                 /> 
             </View>
+            <View style={styles.inputContainer}>
+                <Input
+                    style={styles.input}
+                    label='Description :'
+                    placeholder='ex. Uber Ride'
+                    blurOnSubmit
+                    autoCorrect={true}
+                    keyboardType="default"
+                    maxLength={30}
+                    onChangeText={(text)=> setDescriptionText(text)}
+                    value={DescriptionText}  
+                    returnKeyType='done' 
+                /> 
+            </View>
+           
             <View style={styles.buttonContainer}>
                 <Button 
                     type="outline"
@@ -260,20 +261,7 @@ return(
                     <Picker.Item label="Misc." value="Misc" />
                 </Picker>
             </View>
-            <View style={styles.inputContainer}>
-                <Input
-                    style={styles.input}
-                    label='Description :'
-                    placeholder='ex. Uber Ride'
-                    blurOnSubmit
-                    autoCorrect={true}
-                    keyboardType="default"
-                    maxLength={30}
-                    onChangeText={(text)=> setDescriptionText(text)}
-                    value={DescriptionText}  
-                    returnKeyType='next' 
-                /> 
-            </View>
+            
             <View style={styles.inputContainer}>
                 <Input
                     style={styles.input}
@@ -285,6 +273,20 @@ return(
                     onChangeText={(text)=> setAmountText(text)}
                     value={AmountText}  
                     returnKeyType='next' 
+                /> 
+            </View>
+            <View style={styles.inputContainer}>
+                <Input
+                    style={styles.input}
+                    label='Description :'
+                    placeholder='ex. Uber Ride'
+                    blurOnSubmit
+                    autoCorrect={true}
+                    keyboardType="default"
+                    maxLength={30}
+                    onChangeText={(text)=> setDescriptionText(text)}
+                    value={DescriptionText}  
+                    returnKeyType='done' 
                 /> 
             </View>
             <View style={styles.buttonContainer}>

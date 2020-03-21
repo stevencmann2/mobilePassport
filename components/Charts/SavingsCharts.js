@@ -279,7 +279,6 @@ return(
       overallChart: {
           alignItems: 'center',
       },
-  
       eachChart:{
       },
       tooltipTextContainer:{
