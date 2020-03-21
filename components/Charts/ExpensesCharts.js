@@ -88,10 +88,7 @@ const ExpensesCharts = () =>{
         const LodgingExpensesArr = useSelector(state=> state.firestore.ordered[LodgingExpenses])
         const AirfareExpensesArr = useSelector(state=> state.firestore.ordered[AirfareExpenses])
         
-
-     console.group("&&&&&&&&&&& FOOD DRINK ARRAY &&&&&&&&&&&&&&&&")
-     console.log(FoodExpensesArr)
-   
+   //NEW ARRAY OF ONLY AMOUNTS DONE BY CATEGORY
    const FoodValArr = _.map(FoodExpensesArr, 'Amount')
    const EmergencyValArr = _.map(EmergencyExpensesArr, 'Amount')
    const MiscValArr = _.map(MiscExpensesArr, 'Amount')
@@ -100,6 +97,7 @@ const ExpensesCharts = () =>{
    const LodgingValArr = _.map(LodgingExpensesArr, 'Amount')
    const AirfareValArr = _.map(AirfareExpensesArr, 'Amount')
 
+   //TOTAL Sum of Categories ARRAYS
    const Foodtotal = _.sum(FoodValArr)
    const Emergencytotal = _.sum(EmergencyValArr)
    const Misctotal = _.sum(MiscValArr)
@@ -108,39 +106,67 @@ const ExpensesCharts = () =>{
    const Lodgingtotal = _.sum(LodgingValArr)
    const Airfaretotal = _.sum(AirfareValArr)
 
-   console.group("total type check===================")
-   console.log(typeof(FoodTotal))
-//    console.log(typeof(Emergencytotal))
-//    console.log(typeof(Misctotal))
-//    console.log(typeof(Activitiestotal))
-//    console.log(typeof(Transportationtotal))
-//    console.log(typeof(Lodgingtotal))
-//    console.log(typeof(Airfaretotal))
+   // BUDGET BREAKDOWN BY CATEGORY
+   let FoodBudget = _.get(BudgetData[0], 'Food')
+   let EmergencyBudget = _.get(BudgetData[0], 'Emergency')
+   let MiscBudget = _.get(BudgetData[0], 'Misc')
+   let ActivitiesBudget = _.get(BudgetData[0], 'Activities')
+   let TransportationBudget = _.get(BudgetData[0], 'Tranportation')
+   let LodgingBudget = _.get(BudgetData[0], 'Lodging')
+   let AirfareBudget = _.get(BudgetData[0], 'Airfare')
 
-
-//    // BUDGET BREAKDOWN BY CATEGORY
-   const FoodBudget = _.get(BudgetData[0], 'Food')
-   const EmergencyBudget = _.get(BudgetData[0], 'Emergency')
-   const MiscBudget = _.get(BudgetData[0], 'Misc')
-   const ActivitiesBudget = _.get(BudgetData[0], 'Activities')
-   const TransportationBudget = _.get(BudgetData[0], 'Tranportation')
-   const LodgingBudget = _.get(BudgetData[0], 'Lodging')
-   const AirfareBudget = _.get(BudgetData[0], 'Airfare')
+   let FoodNotAccounted;
+   let EmergencyNotAccounted;
+   let MiscNotAccounted;
+   let ActivitiesNotAccounted;
+   let TransportationNotAccounted;
+   let AirfareNotAccounted; 
+   let LodgingNotAccounted;
+ 
+   
+   if(FoodBudget === undefined){
+       FoodBudget = 1
+       FoodNotAccounted = true
+    }
+   if(EmergencyBudget === undefined){
+        EmergencyBudget = 1
+        EmergencyNotAccounted = true
+    }
+    if(MiscBudget === undefined){
+        MiscBudget = 1
+        MiscNotAccounted = true
+    }
+    if(ActivitiesBudget === undefined){
+        ActivitiesBudget = 1
+        ActivitiesNotAccounted = true
+    }
+    if(TransportationBudget === undefined){
+        TransportationBudget = 1
+        TransportationNotAccounted = true
+    }
+    if(LodgingBudget === undefined){
+        LodgingBudget = 1
+        LodgingNotAccounted = true
+    }
+    if(AirfareBudget === undefined){
+        AirfareBudget = 1
+        AirfareNotAccounted = true
+    }
 
    const FoodData = [{x: 1, y:(Foodtotal/FoodBudget)},{x:2, y:((1)-(Foodtotal/FoodBudget))}, 
-    {name: "Food", currentTotal: Foodtotal, budget: FoodBudget } ]
+    {name: "Food", currentTotal: Foodtotal, budget: FoodBudget, Nobudget: FoodNotAccounted } ]
 const EmergencyData = [{x:1, y:(Emergencytotal/EmergencyBudget)}, {x:2, y:((1)-(Emergencytotal/EmergencyBudget))}, 
-            {name: "Emergency", currentTotal: Emergencytotal, budget: EmergencyBudget}]
+            {name: "Emergency", currentTotal: Emergencytotal, budget: EmergencyBudget, Nobudget: EmergencyNotAccounted}]
 const MiscData = [{x:1, y:(Misctotal/MiscBudget)}, {x:2, y:((1)-(Misctotal/MiscBudget))}, 
-        {name: "Misc", currentTotal: Misctotal, budget: MiscBudget}]
+        {name: "Misc", currentTotal: Misctotal, budget: MiscBudget, Nobudget: MiscNotAccounted}]
 const ActivitiesData = [{x:1, y:(Activitiestotal/ActivitiesBudget)}, {x:2, y:((1)-(Activitiestotal/ActivitiesBudget))}, 
-                {name: "Activities", currentTotal: Activitiestotal, budget: ActivitiesBudget}]
+                {name: "Activities", currentTotal: Activitiestotal, budget: ActivitiesBudget, Nobudget: ActivitiesNotAccounted}]
 const TransportationData = [{x:1, y:(Transportationtotal/TransportationBudget)}, {x:2, y:((1)-(Transportationtotal/TransportationBudget))}, 
-                {name: "Transportation", currentTotal: Transportationtotal, budget: TransportationBudget}]
+                {name: "Transportation", currentTotal: Transportationtotal, budget: TransportationBudget, Nobudget: TransportationNotAccounted}]
 const LodgingData = [{x:1, y:(Lodgingtotal/LodgingBudget)}, {x:2, y:((1)-(Lodgingtotal/LodgingBudget))}, 
-            {name: "Lodging", currentTotal: Lodgingtotal, budget: LodgingBudget} ]
+            {name: "Lodging", currentTotal: Lodgingtotal, budget: LodgingBudget, Nobudget: LodgingNotAccounted} ]
 const AirfareData = [{x:1, y:(Airfaretotal/AirfareBudget)}, {x:2, y:((1)-(Airfaretotal/AirfareBudget))}, 
-            {name: "Airfare", currentTotal: Airfaretotal, budget: AirfareBudget} ]
+            {name: "Airfare", currentTotal: Airfaretotal, budget: AirfareBudget, Nobudget: AirfareNotAccounted} ]
 
 
 const ChartsArr = [FoodData, EmergencyData, MiscData, ActivitiesData, 
@@ -169,19 +195,20 @@ return(
       
         
         {ChartsArr.map((item, index) => (
-            (item[0].y!==0 && item[0].y!==1) ? (
-            <View key={index}>
+            (item[0].y!==0 && item[1].y!==1 && !isNaN(item[0].y)) ? (
+            <View key={item[2].name}>
                 <Tooltip 
 
                     popover={
                         <View style={styles.tooltipTextContainer}>
-                            <Text style={styles.toolTipTextHeader}>{item[2].name}:</Text>
-                            <Text style={styles.toolTipText}>You've spent ${item[2].currentTotal}</Text>
-                            <Text style={styles.toolTipText}>of your ${item[2].budget} budget</Text>
-                        </View>
+                        <Text style={styles.toolTipTextHeader}>{item[2].name}</Text>
+                        <Text style={styles.toolTipText}>You've spent: ${item[2].currentTotal}</Text>
+                        {item[2].Nobudget ? (<Text style={styles.notBudget}> Not in your planned budget</Text>): 
+                                        (<Text style={styles.toolTipText}>Planned budget: ${item[2].budget}</Text>)}
+                    </View>
                     }
                     backgroundColor="#aeced1"
-                    width={200}
+                    width={250}
                     height={100}
                     >
 
@@ -240,6 +267,10 @@ return(
       },
       toolTipText: {
         padding: 2
+      },
+      notBudget: {
+        padding: 2,
+        fontStyle: 'italic'
       }
     })
 

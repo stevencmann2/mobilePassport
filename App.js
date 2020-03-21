@@ -14,11 +14,8 @@ import { AppLoading } from 'expo';
 import {decode, encode} from 'base-64'
 import { Asset } from 'expo-asset'
 
-
-
 if (!global.btoa) { global.btoa = encode }
 if (!global.atob) { global.atob = decode }
-
 
 const initialState = {
   firebase: {
@@ -26,26 +23,19 @@ const initialState = {
   },
 }
 
-
 const store = createStore(initialState);
-
-
 try {
   firebase.initializeApp(firebaseConfig);
-  firebase.firestore();
-  
+  firebase.firestore(); 
 } catch (err) {
   console.log(err)
 };
-
-
 
 function DetermineView({ children }) {
   const auth = useSelector(state => state.auth.token)
   if (auth=== null) return <MainStackNavigator />;
   return <UserNavigation />
 }
-
 
 
 
@@ -56,19 +46,46 @@ async function loadResourcesAsync() {
      'comfortaa-bold': require('./assets/fonts/Comfortaa-Bold.ttf'), 
      'abel-regular': require('./assets/fonts/Abel-Regular.ttf')
     }),
-    // Asset.loadAsync({
-    //   'home-screen': require('./assets/images/HomeScreenBackground.jpg'),
-    //   'login-screen': require('./assets/images/LogInBackground.jpg'),
-    //   'newUser-screen': require('./assets/images/NewUserBackground.jpg'),
-    //   'default-background': require('./assets/images/defaultBackground.jpg'),
-    //   'sample1': require('./assets/images/sample1.jpg'),
-    //   'sample2': require('./assets/images/sample2.jpg'),
-    //   'sample3': require('./assets/images/sample3.jpg'),
-    //   'sample4': require('./assets/images/sample4.jpg'),
-
-    // })
+   
   ]);
 }
+
+// function cacheImages(images) {
+//   return images.map(image => {
+//     if (typeof image === 'string') {
+//       return Image.prefetch(image);
+//     } else {
+//       return Asset.fromModule(image).downloadAsync();
+//     }
+//   });
+// }
+
+// function cacheFonts(fonts) {
+//   return fonts.map(font => Font.loadAsync(font));
+// }
+
+
+
+// async function loadResourcesAsync() {
+//   const imageAssets = cacheImages([  
+//     require('./assets/images/HomeScreenBackground.jpg'),
+//     require('./assets/images/LogInBackground.jpg'),
+//     require('./assets/images/NewUserBackground.jpg'),
+//     require('./assets/images/defaultBackground.jpg'),
+//     require('./assets/images/sample1.jpg'),
+//     require('./assets/images/sample2.jpg'),
+//     require('./assets/images/sample3.jpg'),
+//     require('./assets/images/sample4.jpg'),
+//   ]);
+
+//   const fontAssets = cacheFonts([
+//     require('./assets/fonts/Comfortaa-Regular.ttf'),
+//     require('./assets/fonts/Comfortaa-Bold.ttf'), 
+//     require('./assets/fonts/Abel-Regular.ttf')
+//   ]);
+
+//   await Promise.all([...imageAssets, ...fontAssets]);
+// }
 
 
 
@@ -77,6 +94,15 @@ const App = () => {
 
   const [LoadingComplete, setLoadingComplete] = useState(false)
  
+
+
+
+
+
+
+
+
+  
 
   const rrfProps = {
     firebase: firebase,
