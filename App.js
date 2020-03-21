@@ -112,22 +112,7 @@ const App = () => {
   };
 
 
-<<<<<<< HEAD
-  if(LoadingComplete){
-
-    return (
-          
-        <Provider store={store}>
-          <ReactReduxFirebaseProvider {...rrfProps}>
-            <DetermineView/>
-          </ReactReduxFirebaseProvider>
-        </Provider>
-
-    );
-  } else {
-=======
   if(!LoadingComplete){
->>>>>>> be6de01e1e5f7ecf396b024e4d297f39f3ed2836
     return (
       <AppLoading
         startAsync={loadResourcesAsync}

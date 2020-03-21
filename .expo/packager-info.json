@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": "https://zu-dtz.anonymous.mobilepassport.exp.direct",
-  "packagerNgrokUrl": "https://packager.zu-dtz.anonymous.mobilepassport.exp.direct",
-  "ngrokPid": 90936
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 16412,
+  "expoServerNgrokUrl": "https://r6-anv.anonymous.mobilepassport.exp.direct",
+  "packagerNgrokUrl": "https://packager.r6-anv.anonymous.mobilepassport.exp.direct",
+  "ngrokPid": 16984
 }
