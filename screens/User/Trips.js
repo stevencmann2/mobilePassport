@@ -24,6 +24,7 @@ const Trips = ({ navigation }) =>{
    
     const [animationType, setAnimationType]=useState("bounceIn")
     const [animationTime, setAnimationTime] = useState(1)
+    const [animationDuration, setAnimationDuration] = useState(2000)
     
     
     const dispatch = useDispatch();
@@ -115,7 +116,7 @@ const Trips = ({ navigation }) =>{
     }
 
     const selectTrip = async(id) => {
-        console.log('this is the id im grabbing', id)
+        
         try {
             await dispatch(tripActions.trackTrip(id));
             navigation.navigate('DashNav')
@@ -123,13 +124,13 @@ const Trips = ({ navigation }) =>{
         } catch (err) {
          console.log(err);
     
-        }
-        
+        }   
     }
 
     const deleteTripConfirm = (id) => {
         setAnimationTime('infinite')
         setAnimationType("shake")
+        setAnimationDuration(2000)
         Alert.alert(
             
             'Trip Delete Warning!',
@@ -139,23 +140,30 @@ const Trips = ({ navigation }) =>{
                 onPress: ()=> deleteTripHandler(id)
                 },
                 {text: 'Cancel',
-                onPress: ()=>console.log('Cancel Pressed, Alert Closed')
+                onPress: ()=> cancelDelete()
                 }
             ]
       )
       }
 
+      const cancelDelete = ()=>{
+        setAnimationTime()
+        setAnimationType("")
+        setAnimationDuration()
+      }
+
       const deleteTripHandler = async(id) => {  
-        console.log("from handler delete " + id)
+    
         try{    
           await firestore.collection('Trips').doc(id).delete()
-           console.log(`deleting savings ${id}`)
            setAnimationTime(1)
             setAnimationType("bounceIn")
+            setAnimationDuration(2000)
         } catch (err) {
             console.log(err)
             setAnimationTime(1)
             setAnimationType("bounceIn")
+            setAnimationDuration(2000)
             deleteErrorAlert()    
         }
       }
@@ -171,14 +179,6 @@ const Trips = ({ navigation }) =>{
             ]
      )
     }
-
-
-
-
-
-
-
-
 
    
     if(!isLoaded(UserData)){
@@ -278,7 +278,7 @@ const Trips = ({ navigation }) =>{
           
             {TripsData.length > 0 ? (
                 TripsData.map((trip)=>
-                <Animatable.View  key={trip.id} animation={animationType} iterationCount={animationTime} duration={2000} direction="normal">
+                <Animatable.View  key={trip.id} animation={animationType} iterationCount={animationTime} duration={animationDuration} direction="normal">
                     <View style={styles.container}>
                         <TouchableOpacity
                             onPress={()=>selectTrip(trip.id)}
