@@ -323,7 +323,7 @@ return(
             ///// DATA GOES HERE
             items={calendarData}
                 renderItem={item => (
-                  <View style={styles.item}>
+                <View style={styles.item}>
                     <Text
                       style={{ color: '#6a6a6a' }}
                     >
