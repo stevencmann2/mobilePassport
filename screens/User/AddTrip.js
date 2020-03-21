@@ -36,7 +36,7 @@ const [showRet, setShowRet] = useState(false);
 const incompleteFields = () => {
     Alert.alert(
         'Cannot Add Trip Yet',
-        'Please verify all fields are filled out correctly',
+        'Please verify all fields are filled out correctly.',
         [
             {text: 'Ok',
             onPress: ()=>console.log('Ok Pressed, Alert Closed')
@@ -107,7 +107,7 @@ const onChangeReturning = (event, selectedDate) => {
 const errorAlert = () => {
     Alert.alert(
         'Internal Catch Error',
-        'Something went wrong, please let us know an issue occured while building your trip',
+        'Something went wrong, please let us know an issue occured while creating your trip.',
           [
               {text: 'Ok',
               onPress: ()=>console.log('Ok Pressed, Alert Closed')
@@ -187,7 +187,7 @@ const errorAlert = () => {
             ):(<View style={styles.buttonCenter}>
                 <Button
                     type="outline"
-                    title="Departing Date"
+                    title="Departure Date"
                     onPress={showDeparting}/>
             </View>)}
             
@@ -195,7 +195,7 @@ const errorAlert = () => {
                 <View style={styles.buttonCenter}>
                 <Button
                 type="outline"
-                title="Returning Date"
+                title="Return Date"
                 onPress={showReturning}/>
             </View> 
             )}
