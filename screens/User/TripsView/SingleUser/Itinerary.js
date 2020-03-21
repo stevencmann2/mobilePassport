@@ -339,6 +339,7 @@ return(
                           activeOpacity={0.7}
                           containerStyle={{flex: 2, marginLeft: 260, marginBottom: 20}}
                       />
+                   
                 </View>
                 )
               }
