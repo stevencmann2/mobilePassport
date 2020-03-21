@@ -244,7 +244,7 @@ const errorAlert = () => {
                     <Icon
                         name="arrow-right"
                         size={15}
-                        color="white"
+                        color="white" 
                     />
                     }
                 style={styles.inputContainer}

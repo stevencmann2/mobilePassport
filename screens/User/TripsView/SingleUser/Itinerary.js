@@ -323,24 +323,7 @@ return(
             ///// DATA GOES HERE
             items={calendarData}
                 renderItem={item => (
-<<<<<<< HEAD
-                  <View style={styles.item}>
-                      <Text style={{ color: '#6a6a6a' }}>
-                        {item.time} 
-                      </Text>
-                      <Text style={{fontWeight: "bold", marginTop: 5, fontSize: 15}}>
-                          {item.title}
-                      </Text>
-                      <Avatar
-                          size="medium"
-                          rounded
-                          title="MT"
-                          onPress={() => console.log("Works!")}
-                          activeOpacity={0.7}
-                          containerStyle={{flex: 2, marginLeft: 260, marginBottom: 20}}
-                      />
-                </View>
-=======
+
                 <View style={styles.item}>
                     <Text
                       style={{ color: '#6a6a6a' }}
@@ -363,7 +346,6 @@ return(
   containerStyle={{flex: 2, marginLeft: 250, marginBottom: 0}}
 />
 </View>
->>>>>>> 67aa867972228a9bc511cd246f1d0ba7b55074d5
                 )
               }
             markedDates={{
