@@ -172,7 +172,7 @@ if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr)){
     <ScrollView>
       <View stlye={styles.screen}>
         <View style={styles.screenHeader}>
-          <Text>Recent Actions </Text>
+          <Text style= {{fontSize: 25, marginTop: 30}}>Recent Actions </Text>
         </View>
 
       

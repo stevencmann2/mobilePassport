@@ -313,7 +313,7 @@ const Dashboard = props =>{
     <View style={styles.screen}>  
     
         <View style={styles.banner}>
-            <Text>Welcome {username} </Text>
+            <Text style= {{fontSize: 20}}>Welcome {username} </Text>
         </View>  
 
         <View style={styles.iconContainer}>
