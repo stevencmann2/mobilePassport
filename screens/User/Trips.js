@@ -299,7 +299,6 @@ const Trips = ({ navigation }) =>{
                                 />
                             </View>
                          </TouchableOpacity>
-
                         <View style={styles.TripName}>
                             <Text>
                                 {trip.tripName}
@@ -316,7 +315,7 @@ const Trips = ({ navigation }) =>{
                        
                 <View style={styles.buttonContainer}>
                     <Button
-                        type= 'outline'
+                        type= 'clear'
                         title="Add Trip"
                         //can't get the buttons to change color
                         color= '#c717fc'
@@ -348,7 +347,7 @@ const styles = StyleSheet.create({
         
       },
     container: {
-        marginTop: 200,
+        marginTop: 100,
         fontSize: 17,
         fontFamily: 'comfortaa-bold',
         paddingHorizontal: 10
@@ -369,6 +368,8 @@ const styles = StyleSheet.create({
     TripName: {
         alignItems: 'center',
         justifyContent: 'center',
+        fontFamily: 'comfortaa-bold',
+        fontSize: 30,
         marginTop: 20
     },
     buttonContainer: {
