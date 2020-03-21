@@ -309,7 +309,7 @@ const Expenses = props =>{
                     
                     
                      <View style={styles.screenHeader}>
-                        <Text>Your Expenses</Text>
+                        <Text style= {{fontSize: 25, marginTop: 30}}>Your Expenses</Text>
                      </View>
                      <View style={styles.initialButtonContainer}>
         

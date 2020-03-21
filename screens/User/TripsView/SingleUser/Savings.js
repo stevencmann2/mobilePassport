@@ -304,7 +304,7 @@ return(
         </View>
      </Overlay>
         <View style={styles.screenHeader}>
-            <Text>Your Savings</Text>
+            <Text style= {{fontSize: 25, marginTop: 30}}>Your Savings</Text>
         </View>
             <View style={styles.buttonContainer}>   
                 <Button 

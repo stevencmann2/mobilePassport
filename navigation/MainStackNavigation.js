@@ -18,7 +18,7 @@ const MainStackNavigator = ()=> {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      primary: 'rgb(255, 45, 85)',
+      primary: '#cb81e6',
     },
   };
 

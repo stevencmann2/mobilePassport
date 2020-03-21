@@ -3,6 +3,10 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "zu-dtz",
+<<<<<<< HEAD
+  "urlRandomness": "vh-2ya",
+=======
+  "urlRandomness": "r6-anv",
+>>>>>>> 8531ed3522968aed45875d1d6083e82ed8862150
   "https": false
 }
