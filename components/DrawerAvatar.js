@@ -2,46 +2,32 @@ import React from 'react'
 import { Avatar } from 'react-native-elements';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem} from '@react-navigation/drawer'
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
-import { useSelector } from 'react-redux'
 
-const DrawerAvatar = props => {
 
-    // const firestore = useFirestore();
-    // const UserId = useSelector(state=> state.auth.userId)
-    // const Profile = `Profile${UserId}`
-    // useFirestoreConnect([
-    //     {collection: 'Users', doc: UserId, storeAs: 'Profile'}
-    // ]);
-  
-    // const UserProfile = useSelector(state =>state.firestore.ordered[Profile])
-  
-// if(!isLoaded(UserProfile)){
-
-//     <View style={styles.Loadingscreen}>
-//                     <ActivityIndicator  
-//                         size="large"
-//                     /> 
-//     </View>
-// }
-
+const DrawerAvatar = (props)=> {
 
 return (
 
-<DrawerContentScrollView {...props}>
+    <DrawerContentScrollView {...props}>
 
-    <View style={styles.Avatarcontainer}>
-        <Avatar
-            rounded title="MD"
-            size="xlarge"
-        />
-        <Text>Username</Text>
-    </View>
-    <DrawerItemList {...props} />
-            
-        
+    {props.UserProfile? (
+        <View style={styles.Avatarcontainer}>
+            <Avatar
+                rounded
+                size="xlarge"
+                // FOR PHONE USAGE
+            //    source={{uri: props.UserProfile.ProfilePicture}}
+                title={props.UserProfile.firstName.charAt(0)+ props.UserProfile.lastName.charAt(0)}
+            />
+            <View style={styles.textContainer}>
+                 <Text style={styles.usernameText}>{props.UserProfile.username}</Text>
+            </View>
+        </View>
+        ): (null)}
 
- </DrawerContentScrollView>
+        <DrawerItemList {...props} />
+
+    </DrawerContentScrollView>
     )
 
 }
@@ -52,6 +38,12 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       marginTop: 10,
       marginBottom: 20
+    },
+    textContainer:{
+        marginTop: 15
+    },
+    usernameText: {
+        fontSize: 18
     }
     
 })
