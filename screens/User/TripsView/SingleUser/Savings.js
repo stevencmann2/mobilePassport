@@ -12,7 +12,7 @@ import {
     TouchableWithoutFeedback
 } from 'react-native'
 import { useSelector } from 'react-redux'
-import { Button, Overlay } from 'react-native-elements'
+import { Button, Overlay, Icon } from 'react-native-elements'
 import Input  from '../../../../components/Input'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import SavingsCharts from '../../../../components/Charts/SavingsCharts'
@@ -49,6 +49,7 @@ const Savings = props =>{
     const[AmountText, setAmountText] = useState()
     const[pickedCategory, setPickedCategory] = useState('Misc');
     const[DescriptionText, setDescriptionText] = useState('');
+    const [screenInfo, setScreenInfo] = useState(false)
 
     const addSavings = async() => {
         const savingsDescription = DescriptionText.trim()
@@ -140,7 +141,52 @@ if(isEmpty(fullStoreSavingsArr)){
         behavior="padding"
         keyboardVerticalOffset={15}
         >
-    <View style={styles.screen}>
+    <View style={styles.NoSavingsScreen}>
+    <View style={styles.EmptyIconContainer}>
+        <Icon
+            name='ios-help-circle-outline'
+            type='ionicon'
+            size ={18}
+            color='black'
+            onPress={()=>setScreenInfo(true)}
+            />
+        </View>
+        <Overlay
+        isVisible={screenInfo}
+        onBackdropPress={() => setScreenInfo(false)}
+        borderRadius={20}
+                >
+            <View style={styles.overlayView}>
+                <View style={styles.overlayHeader}>
+                    <Text style={styles.overlayHeaderText}>Savings Tracker</Text>
+                </View>
+                <View style={styles.overlayBody}>
+                    <Text style={styles.overlayText}>
+                    Want to see how much you've saved prior to your trip?  
+                    </Text>
+                    <Text style={styles.overlayText}>
+                     Click the add savings button to begin. Once added, charts will appear to help you understand how you are spending your hard earned money.
+                    </Text>
+                    <Text style={styles.overlayText}>
+                    Need more info? Try pressing the individual charts that appear to better understand their meaning! 
+                    </Text>
+                </View>
+                
+
+                <View style={styles.overlayButton}>
+                    <Button 
+                        type="outline"
+                        title="Got It"
+                        onPress={()=>setScreenInfo(false)}
+                    />
+                </View>
+
+
+            </View>
+            
+        </Overlay>
+
+
         <Overlay 
         isVisible={open}
         onBackdropPress={() => setOpen(false)}
@@ -148,6 +194,7 @@ if(isEmpty(fullStoreSavingsArr)){
         borderRadius={20}
         
         >
+        
         <View style={styles.overlayView}>
             <View style={styles.overlayHeader}>
                 <Text>Add Your Savings!</Text>
@@ -214,7 +261,7 @@ if(isEmpty(fullStoreSavingsArr)){
      </Overlay>
     
             
-            <View style={styles.screen}> 
+            <View style={styles.initialButtonContainer}> 
                 <Button 
                 type="outline"
                 title="Add Savings"
@@ -331,6 +378,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 40,
+      },NoSavingsScreen: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
       },
       noBudget: {
         flex: 1,
@@ -384,7 +435,34 @@ const styles = StyleSheet.create({
       },
       chartsContainer: {
         marginTop: 30
-    }
+    },
+    EmptyIconContainer: {
+        alignItems: 'center',
+        marginBottom: 50,     
+    },
+    overlayBody: {  
+        justifyContent: 'center',
+        marginTop: 50,
+        marginBottom: 20
+    },
+    overlayText: {
+        marginBottom: 15,
+        lineHeight: 25
+    },
+   overlayHeaderText: {
+       fontSize: 20
+   },
+    overlayButton:{
+        justifyContent: 'flex-end',
+    },
+    EmptyScreenView: {
+        flexDirection: 'column',
+        justifyContent: "space-around"
+    },
+    initialButtonContainer:{
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     
 })
 

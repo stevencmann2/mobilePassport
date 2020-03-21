@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Switch, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input, Button} from 'react-native-elements';
+import { Button} from 'react-native-elements';
+import Input from '../../components/Input'
 import { useDispatch, useSelector } from 'react-redux';
 import * as addTripActions from '../../store/actions/trips'
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
@@ -259,60 +260,7 @@ const errorAlert = () => {
    
   );
 };
-// <View style={styles.ButtonContainer}>
-// <View >
-// {showDep ? (
-//     <View style={styles.dateContainer}>
-//         <DateTimePicker 
-//             value={dateDep}
-//             display="default"
-//             minimumDate={new Date ()}
-//             onChange={onChangeDeparting}
-//             />
-//             <Button
-//                 type="outline"
-//                 title="Hide Departing Date"
-//                 onPress={()=> setShowDep(false)}
-                
-//             />
-//     </View>
-        
-//         ):(
-//             <View style={styles.ButtonContainerDep}>
-//             <Button
-//             type="outline"
-//             title="Departing Date"
-//             onPress={showDeparting}/>
-//             </View>
-//         )}
-// </View>
-// <View >
-// {showRet ? (
-    // <View style={styles.dateContainer}>
-    //     <DateTimePicker 
-    //         value={dateRet}
-    //         display="default"
-    //         minimumDate={dateDep}
-    //         onChange={onChangeReturning}
-    //         />
-    //         <Button
-    //             type="outline"
-    //             title="Hide Returning Date"
-    //             onPress={()=> setShowRet(false)}
-                
-    //         />
-    // </View>
-        
-//         ):(
-//             <View style={styles.ButtonContainerRet}>
-//                 <Button
-//                 type="outline"
-//                 title="Returning Date"
-//                 onPress={showReturning}/>
-//             </View>
-//             )}
 
-// </View>
 
 const styles = StyleSheet.create({
     screen: {
