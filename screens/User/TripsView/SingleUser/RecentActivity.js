@@ -172,14 +172,14 @@ if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr)){
     <ScrollView>
       <View stlye={styles.screen}>
         <View style={styles.screenHeader}>
-          <Text>Recent Actions </Text>
+          <Text style= {{fontSize: 25, marginTop: 30}}>Recent Actions </Text>
         </View>
 
       
       {SavingsResultsArr.length > 0 ? (
         <View style={styles.resultsContainer}>
           <View style={styles.listHeader}>
-            <Text>Savings</Text>
+            <Text style= {{fontSize: 20}}>Savings</Text>
           </View>
               <View style={styles.listContainer}>
             {
@@ -204,7 +204,7 @@ if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr)){
    {ExpensesResultsArr.length > 0 ? (
     <View style={styles.resultsContainer}>
       <View style={styles.listHeader}>
-        <Text>Expenses</Text>
+        <Text style= {{fontSize: 20}}>Expenses</Text>
       </View>
       <View style={styles.listContainer}>
       {
