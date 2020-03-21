@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
@@ -19,6 +20,7 @@ import  HeaderButton  from '../components/HeaderButton';
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 import { ActivityIndicator, View } from 'react-native';
+import { isLoading } from 'expo-font';
 
 
 
@@ -37,6 +39,7 @@ const MyTheme = {
 };
 
 const UserNavigation = () => {
+  
   const UserId = useSelector(state=> state.auth.userId)
   const Profile = `Profile${UserId}`
   useFirestoreConnect([
@@ -47,29 +50,29 @@ const UserNavigation = () => {
 
 
   if(!isLoaded(UserProfile)){
-  <View>
-    <ActivityIndicator 
-      size="large"
-    />
-  </View>
-}
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <ActivityIndicator 
+        size="large"
+      />
+    </View>
+  }
+   
+    return (
+      <NavigationContainer theme={MyTheme}>
+        <Drawer.Navigator 
+          initialRouteName="Trips"
+          drawerStyle={DrawerColor}
+          drawerContent={props => DrawerAvatar({...props, UserProfile})}
+          drawerContentOptions={DrawerOptions}>
+              <Drawer.Screen name="My Account" component={MyAccountScreen} />
+              <Drawer.Screen name="Trips" component={TripsPageNavigator} />
+              <Drawer.Screen name="Location Services" component={LocationServicesScreen} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    
+    );
+  }
  
-  return (
-    <NavigationContainer theme={MyTheme}>
-      <Drawer.Navigator 
-        initialRouteName="Trips"
-        drawerStyle={DrawerColor}
-        drawerContent={props => DrawerAvatar({...props, UserProfile})}
-        drawerContentOptions={DrawerOptions}>
-            <Drawer.Screen name="My Account" component={MyAccountScreen} />
-            <Drawer.Screen name="Trips" component={TripsPageNavigator} />
-            <Drawer.Screen name="Location Services" component={LocationServicesScreen} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-  
-  );
-
- }
 // 
 // For Main Landing page of User -  Select Existing Trip or Add Trip
 const TripsPageNavigator = () =>{
