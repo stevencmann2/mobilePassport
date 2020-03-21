@@ -14,7 +14,7 @@ const LocationServices = props => {
 return(
     <View style={styles.screen}>
         <View style={styles.header}>
-            <Text> Location Services Coming Soon</Text>
+            <Text style={styles.comingSoon}> Location Services Coming Soon</Text>
         </View>
         <View style={styles.mapContainer}>
             <ChooseLocation navigation={navigation}/>
@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 400,
         maxWidth: '80%'
+    },
+    comingSoon: {
+        fontSize: 25
     }
 })
 
