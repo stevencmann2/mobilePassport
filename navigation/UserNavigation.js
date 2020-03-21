@@ -74,7 +74,10 @@ const TripsPageNavigator = () =>{
               headerTitle: 'My Trips',
              }}
           />
-        <Stack.Screen name="AddTrip" component={AddTripScreen} />
+        <Stack.Screen name="AddTrip" component={AddTripScreen} 
+         options= {{
+          headerTitle: 'Add Trip',
+         }}/>
         <Stack.Screen name="MapsScreen" component={MapsScreen} 
           options={{
             headerTitle: 'Map',

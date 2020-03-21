@@ -325,30 +325,6 @@ return(
             items={calendarData}
                 renderItem={item => (
                   <View style={styles.item}>
-<<<<<<< HEAD
-                    <Text
-                      style={{ color: '#6a6a6a' }}
-                    >
-                      {item.time} 
-            </Text>
-            <Text style={{fontWeight: "bold", marginTop: 5, fontSize: 15}}
-            >
-                {item.title}
-            </Text>
-            <Text style={{ marginTop: 5, fontSize: 15}}
-            >
-                {item.description}
-            </Text>
-            <Avatar
-  size="medium"
-  rounded
-  title="MT"
-  onPress={() => console.log("Works!")}
-  activeOpacity={0.7}
-  containerStyle={{flex: 2, marginLeft: 260, marginBottom: 10}}
-/>
-</View>
-=======
                       <Text style={{ color: '#6a6a6a' }}>
                         {item.time} 
                       </Text>
@@ -364,7 +340,6 @@ return(
                           containerStyle={{flex: 2, marginLeft: 260, marginBottom: 20}}
                       />
                 </View>
->>>>>>> 3d117f26fbddc8a81191a91139b7609502fc094a
                 )
               }
     
