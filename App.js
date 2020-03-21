@@ -91,6 +91,7 @@ async function loadResourcesAsync() {
 
 
 const App = () => {
+
   const [LoadingComplete, setLoadingComplete] = useState(false)
  
 
@@ -136,6 +137,7 @@ const App = () => {
   
 
 }
+
 
 export default App;
 
