@@ -137,7 +137,7 @@ const DashboardNavigator = () => {
     
 
 
-      <Tab.Screen name="Dashboard" component={IndividualDashboardScreen} />
+      <Tab.Screen name="Dashboard" component={IndividualDashboardScreen}/>
       <Tab.Screen name="Expenses" component={ExpensesScreen} />
       <Tab.Screen name="Savings" component={SavingsScreen} />
       <Tab.Screen name="Itinerary" component={ItineraryScreen} />

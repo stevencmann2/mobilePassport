@@ -12,7 +12,7 @@ import {
     Keyboard,
 } from 'react-native'
 import { useSelector } from 'react-redux'
-import { Button, Overlay, Icon} from 'react-native-elements'
+import { Button, Overlay, Icon, Header } from 'react-native-elements'
 import Input  from '../../../../components/Input'
 import { useFirestoreConnect, useFirestore, isEmpty, isLoaded } from 'react-redux-firebase'
 import ExpensesCharts from '../../../../components/Charts/ExpensesCharts' 
