@@ -8,7 +8,8 @@ import {
     Alert,
     ActivityIndicator,
     TouchableWithoutFeedback,
-    Keyboard
+    Keyboard,
+    ImageBackground
 } from 'react-native'
 import { Header, Image, Icon, Button } from 'react-native-elements'
 import Input from '../../components/Input'
@@ -195,8 +196,11 @@ const Trips = ({ navigation }) =>{
     }
 
 
-    if(isEmpty(UserData)){
+    if(isEmpty(UserData)&& isLoaded(<ImageBackground/>)){
         return(
+    <ImageBackground 
+    source={require('../../assets/images/defaultBackground.jpg')}
+    style={styles.backgroundImage}>
          <TouchableWithoutFeedback 
                 onPress={()=> 
                 Keyboard.dismiss()}>
@@ -276,11 +280,17 @@ const Trips = ({ navigation }) =>{
     
             </View>
         </TouchableWithoutFeedback>
+        </ImageBackground>
         )
 
     }
             
+    if(isLoaded(UserData && <ImageBackground/>)){
         return(
+            <ImageBackground 
+            source={require('../../assets/images/defaultBackground.jpg')}
+            style={styles.backgroundImage}>
+
             <ScrollView>
             <View style={styles.screen}>
           
@@ -325,10 +335,10 @@ const Trips = ({ navigation }) =>{
            
          </View>
          </ScrollView>
-
+        </ImageBackground>
         )
     }
-
+}
 
 
     
@@ -346,6 +356,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         
       },
+      backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        opacity: 0.8
+     },
     container: {
         marginTop: 100,
         fontSize: 17,

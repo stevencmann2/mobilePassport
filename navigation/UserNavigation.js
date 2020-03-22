@@ -58,7 +58,7 @@ const UserNavigation = () => {
   }
    
     return (
-      <NavigationContainer theme={MyTheme}>
+      <NavigationContainer theme={DarkTheme}>
         <Drawer.Navigator 
           initialRouteName="Trips"
           drawerStyle={DrawerColor}
@@ -137,7 +137,7 @@ const DashboardNavigator = () => {
     
 
 
-      <Tab.Screen name="Dashboard" component={IndividualDashboardScreen} />
+      <Tab.Screen name="Dashboard" component={IndividualDashboardScreen}/>
       <Tab.Screen name="Expenses" component={ExpensesScreen} />
       <Tab.Screen name="Savings" component={SavingsScreen} />
       <Tab.Screen name="Itinerary" component={ItineraryScreen} />
