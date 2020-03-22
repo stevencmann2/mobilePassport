@@ -315,7 +315,7 @@ const Trips = ({ navigation }) =>{
                        
                 <View style={styles.buttonContainer}>
                     <Button
-                        type= 'clear'
+                        type= 'outline'
                         title="Add Trip"
                         //can't get the buttons to change color
                         color= '#c717fc'
