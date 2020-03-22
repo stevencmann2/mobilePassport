@@ -34,7 +34,7 @@ const MyAccount = props =>{
        
     }
 
-if(!isLoaded(<ImageBackground/>)){
+if(!isLoaded(<ImageBackground/> && <TakePhoto/>)){
 
         return( 
             <View style={styles.Loadingscreen}>

@@ -58,7 +58,7 @@ const UserNavigation = () => {
   }
    
     return (
-      <NavigationContainer theme={DarkTheme}>
+      <NavigationContainer theme={MyTheme}>
         <Drawer.Navigator 
           initialRouteName="Trips"
           drawerStyle={DrawerColor}

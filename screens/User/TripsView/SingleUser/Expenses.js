@@ -10,6 +10,7 @@ import {
     ScrollView,
     ActivityIndicator,
     Keyboard,
+    ImageBackground
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button, Overlay, Icon, Header } from 'react-native-elements'
@@ -120,16 +121,23 @@ const Expenses = props =>{
             /> 
         </View>)
     }
-    if(isEmpty(BudgetData)){
+    if(isEmpty(BudgetData) && isLoaded(<ImageBackground/>)){
         return(
+        <ImageBackground 
+            source={require('../../../../assets/images/defaultBackground.jpg')}
+                style={styles.backgroundImage}>
             <View style={styles.noBudget}>
                 <Text style={styles.noBudgetText}>Can not use this feature yet</Text>
                 <Text style={styles.noBudgetText}>Complete budget form to use</Text>
             </View>
+            </ImageBackground>
         )
     }
-    if(isEmpty(fullStoreExpensesArr)){
+    if(isEmpty(fullStoreExpensesArr) && isLoaded(<ImageBackground/>) ){
         return(
+            <ImageBackground 
+                source={require('../../../../assets/images/defaultBackground.jpg')}
+                 style={styles.backgroundImage}>
                  <TouchableWithoutFeedback 
                         onPress={()=> 
                         Keyboard.dismiss()}>
@@ -271,18 +279,21 @@ const Expenses = props =>{
                 </View>
                 </KeyboardAvoidingView>
             </TouchableWithoutFeedback>
-                
+        </ImageBackground>
             )
         }
 
       
-    if(isLoaded(fullStoreExpensesArr && <ExpensesCharts/> && BudgetData)){
+    if(isLoaded(fullStoreExpensesArr && <ImageBackground/> && <ExpensesCharts/> && BudgetData)){
+        
         return(
+            <ImageBackground 
+            source={require('../../../../assets/images/defaultBackground.jpg')}
+             style={styles.backgroundImage}>
             <ScrollView>
                 <Header
-  centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
-/>
-       
+                    centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+                    />
                 <View style={styles.screen}>
                     <Overlay 
                         isVisible={open}
@@ -375,11 +386,8 @@ const Expenses = props =>{
                 </View>
                 
          </ScrollView>
-                
-            )
-    
-    
-    }
+    </ImageBackground>       
+  )}
 }
 
 
@@ -404,6 +412,11 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginTop: 40,    
       },
+      backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        
+     },
       noBudgetText:{
         lineHeight: 25,
       },

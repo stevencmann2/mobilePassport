@@ -9,7 +9,8 @@ import {
     Keyboard,
     ScrollView,
     KeyboardAvoidingView,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    ImageBackground
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button, Overlay, Icon, Header } from 'react-native-elements'
@@ -121,17 +122,26 @@ if(!isLoaded(fullStoreSavingsArr && BudgetData)){
         /> 
     </View>)
 }
-if(isEmpty(BudgetData)){
+if(isEmpty(BudgetData) && isLoaded(<ImageBackground/>)){
     return(
+        <ImageBackground 
+        source={require('../../../../assets/images/defaultBackground.jpg')}
+            style={styles.backgroundImage}>
         <View style={styles.noBudget}>
             <Text style={styles.noBudgetText}>Can not use this feature yet</Text>
             <Text style={styles.noBudgetText}>Complete budget form to use</Text>
         </View>
+        </ImageBackground>
     )
 }
 
-if(isEmpty(fullStoreSavingsArr)){
+if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
     return(
+
+        <ImageBackground 
+        source={require('../../../../assets/images/defaultBackground.jpg')}
+            style={styles.backgroundImage}>
+
     <TouchableWithoutFeedback 
         onPress={()=> 
         Keyboard.dismiss()}>
@@ -275,12 +285,16 @@ if(isEmpty(fullStoreSavingsArr)){
         
         </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
+    </ImageBackground>
     )
 }    
 
-if(isLoaded(fullStoreSavingsArr && <SavingsCharts/>&& BudgetData)){
+if(isLoaded(fullStoreSavingsArr && <ImageBackground/> && <SavingsCharts/>&& BudgetData)){
 
 return(
+    <ImageBackground 
+    source={require('../../../../assets/images/defaultBackground.jpg')}
+        style={styles.backgroundImage}>
  <ScrollView>
       <Header
   centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
@@ -370,7 +384,7 @@ return(
             
     </View> 
     </ScrollView>
-    
+    </ImageBackground>
    
 )}
 }
@@ -394,6 +408,11 @@ const styles = StyleSheet.create({
         marginTop: 40,
         
       },
+      backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        
+     },
       noBudgetText:{
         lineHeight: 25,
       },
