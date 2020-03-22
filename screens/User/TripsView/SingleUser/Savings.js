@@ -12,10 +12,11 @@ import {
     TouchableWithoutFeedback
 } from 'react-native'
 import { useSelector } from 'react-redux'
-import { Button, Overlay, Header } from 'react-native-elements'
+import { Button, Overlay, Header, Icon } from 'react-native-elements'
 import Input  from '../../../../components/Input'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import SavingsCharts from '../../../../components/Charts/SavingsCharts'
+
 
 const Savings = props =>{
     
@@ -131,7 +132,7 @@ if(isEmpty(BudgetData)){
 
 if(isEmpty(fullStoreSavingsArr)){
     return(
-    <TouchableWithoutFeedback 
+    <TouchableWithoutFeedback
         onPress={()=> 
         Keyboard.dismiss()}>
 
@@ -144,6 +145,52 @@ if(isEmpty(fullStoreSavingsArr)){
   centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
 />
     <View style={styles.screen}>
+    <View style={styles.NoSavingsScreen}>
+    <View style={styles.EmptyIconContainer}>
+        <Icon
+            name='ios-help-circle-outline'
+            type='ionicon'
+            size ={18}
+            color='black'
+            onPress={()=>setScreenInfo(true)}
+            />
+        </View>
+        <Overlay
+        isVisible={screenInfo}
+        onBackdropPress={() => setScreenInfo(false)}
+        borderRadius={20}
+                >
+            <View style={styles.overlayView}>
+                <View style={styles.overlayHeader}>
+                    <Text style={styles.overlayHeaderText}>Savings Tracker</Text>
+                </View>
+                <View style={styles.overlayBody}>
+                    <Text style={styles.overlayText}>
+                    Want to see how much you've saved prior to your trip?  
+                    </Text>
+                    <Text style={styles.overlayText}>
+                     Click the add savings button to begin. Once added, charts will appear to help you understand how you are spending your hard earned money.
+                    </Text>
+                    <Text style={styles.overlayText}>
+                    Need more info? Try pressing the individual charts that appear to better understand their meaning! 
+                    </Text>
+                </View>
+                
+
+                <View style={styles.overlayButton}>
+                    <Button 
+                        type="outline"
+                        title="Got It"
+                        onPress={()=>setScreenInfo(false)}
+                    />
+                </View>
+
+
+            </View>
+            
+        </Overlay>
+
+
         <Overlay 
         isVisible={open}
         onBackdropPress={() => setOpen(false)}
@@ -226,10 +273,13 @@ if(isEmpty(fullStoreSavingsArr)){
                 />
             </View>
         </View>
-        
+        </View>
         </KeyboardAvoidingView>
+
         </TouchableWithoutFeedback>
-    )
+     
+
+     )
 }    
 
 if(isLoaded(fullStoreSavingsArr && <SavingsCharts/>&& BudgetData)){
