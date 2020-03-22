@@ -13,6 +13,7 @@ import {
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button, Overlay, Icon, Header } from 'react-native-elements'
+
 import Input  from '../../../../components/Input'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import SavingsCharts from '../../../../components/Charts/SavingsCharts'
@@ -144,6 +145,7 @@ if(isEmpty(fullStoreSavingsArr)){
         <Header
         centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
       />
+
     <View style={styles.NoSavingsScreen}>
     <View style={styles.EmptyIconContainer}>
         <Icon
