@@ -141,6 +141,9 @@ if(isEmpty(fullStoreSavingsArr)){
         behavior="padding"
         keyboardVerticalOffset={15}
         >
+        <Header
+        centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+      />
     <View style={styles.NoSavingsScreen}>
     <View style={styles.EmptyIconContainer}>
         <Icon
@@ -279,6 +282,9 @@ if(isLoaded(fullStoreSavingsArr && <SavingsCharts/>&& BudgetData)){
 
 return(
  <ScrollView>
+      <Header
+  centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+/>
     <View style={styles.screen}>
         <Overlay 
         isVisible={open}
@@ -350,9 +356,6 @@ return(
             </View>
         </View>
      </Overlay>
-        <View style={styles.screenHeader}>
-            <Text style= {{fontSize: 25, marginTop: 30}}>Your Savings</Text>
-        </View>
             <View style={styles.buttonContainer}>   
                 <Button 
                     type="outline"

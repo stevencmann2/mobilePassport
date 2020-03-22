@@ -130,7 +130,7 @@ const Expenses = props =>{
     }
     if(isEmpty(fullStoreExpensesArr)){
         return(
-            <TouchableWithoutFeedback 
+                 <TouchableWithoutFeedback 
                         onPress={()=> 
                         Keyboard.dismiss()}>
         
@@ -139,7 +139,10 @@ const Expenses = props =>{
                     behavior="padding"
                     keyboardVerticalOffset={15}
                     >
-                
+                    <Header
+                    centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+                  />
+                                  
                 <View style={styles.NoExpensesScreen}>
                 <View style={styles.EmptyScreenView}>
                 <View style={styles.EmptyIconContainer}>
@@ -157,7 +160,7 @@ const Expenses = props =>{
                         height='95%'
                         borderRadius={20}
                         >
-                        
+       
                         <View style={styles.overlayView}>
                             <View style={styles.overlayHeader}>
                                 <Text>Add an Expense!</Text>
@@ -277,6 +280,10 @@ const Expenses = props =>{
     if(isLoaded(fullStoreExpensesArr && <ExpensesCharts/> && BudgetData)){
         return(
             <ScrollView>
+                <Header
+  centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+/>
+       
                 <View style={styles.screen}>
                     <Overlay 
                         isVisible={open}
@@ -351,11 +358,7 @@ const Expenses = props =>{
                         </View>
                         
                      </Overlay>
-                    
-                    
-                     <View style={styles.screenHeader}>
-                        <Text style= {{fontSize: 25, marginTop: 30}}>Your Expenses</Text>
-                     </View>
+                
                      <View style={styles.initialButtonContainer}>
         
                         <Button 
