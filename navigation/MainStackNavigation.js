@@ -24,7 +24,7 @@ const MainStackNavigator = ()=> {
 
   // THEME PROP SET TO DARK THEME BY DEFAULT
 return(
-  <NavigationContainer theme={DarkTheme}>
+  <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
       initialRouteName='Home'
       screenOptions={{
@@ -40,11 +40,25 @@ return(
         <Stack.Screen 
             name='NewUser' 
             component={NewUserScreen} 
-            options={{ title: 'Passport' }}/>
+            options={{ title: 'Passport', 
+            headerTitleStyle: {
+              fontFamily: 'comfortaa-bold',
+            },
+            headerStyle: {
+              backgroundColor: 'white',
+            }
+          }}/>
         <Stack.Screen 
             name='LogIn' 
             component={LogInScreen} 
-            options={{ title: 'Passport' }}/>
+            options={{ title: 'Passport',
+            headerTitleStyle: {
+              fontFamily: 'comfortaa-bold',
+            },
+            headerStyle: {
+              backgroundColor: 'white',
+            }
+          }}/>
       
       
       </Stack.Navigator>

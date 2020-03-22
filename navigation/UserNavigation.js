@@ -81,15 +81,33 @@ const TripsPageNavigator = () =>{
         <Stack.Screen name="My Trips" component={TripsScreen} 
             options= {{
               headerTitle: 'My Trips',
+              headerTitleStyle: {
+                fontFamily: 'comfortaa-bold',
+              },
+              headerStyle: {
+                backgroundColor: 'white',
+              },
              }}
           />
         <Stack.Screen name="AddTrip" component={AddTripScreen} 
           options= {{
           headerTitle: 'Trip Builder',
+          headerTitleStyle: {
+            fontFamily: 'comfortaa-bold',
+          },
+          headerStyle: {
+            backgroundColor: 'white',
+          },
          }}/>
         <Stack.Screen name="MapsScreen" component={MapsScreen} 
           options={{
             headerTitle: 'Map',
+            headerTitleStyle: {
+              fontFamily: 'comfortaa-bold',
+            },
+            headerStyle: {
+              backgroundColor: 'white',
+            },
             headerRight: ()=>(<HeaderButton/>),}}/>
         <Stack.Screen name="DashNav" 
             component={DashboardNavigator} 
@@ -149,7 +167,8 @@ const DashboardNavigator = () => {
 // STYLING FOR THE DRAWER
 
 const DrawerColor = {
-    backgroundColor: '#cb81e6',  
+    // backgroundColor: '#cb81e6',  
+    backgroundColor: 'tomato'
 };
 // PROPERTY NAMES DEFINED BY THE API, PER ITEM LISTED
 ///https://reactnavigation.org/docs/drawer-navigator/#props

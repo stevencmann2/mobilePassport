@@ -212,10 +212,11 @@ ItineraryArr.forEach((obj, idx) => {
 
 return(
 
-      <SafeAreaView style={{flex: 1}}>
+      <View style={{flex:1}}>
           <Header
-  centerComponent={{ text: 'INTINERARY', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
-  containerStyle={{ marginTop: -45}}
+          backgroundColor="white"
+  centerComponent={{ text: 'Itinerary', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
+  // containerStyle={{ marginTop: -45}}
 />
             <Overlay 
             isVisible={isOpen}
@@ -391,7 +392,7 @@ return(
                 
         />
             
-        </SafeAreaView>
+        </View>
      
   )
    }

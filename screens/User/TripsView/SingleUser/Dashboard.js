@@ -144,7 +144,7 @@ const Dashboard = props =>{
                         <Overlay 
                             isVisible={welcome}
                             onBackdropPress={() => setWelcome(false)}
-                            windowBackgroundColor='black'
+                            windowBackgroundColor='tomato'
                             borderRadius={20}
                          >
                          <View style={styles.overlayView}>
@@ -319,7 +319,8 @@ style={styles.backgroundImage}>
 
 <ScrollView style={styles.LoadedBackground}>
 <Header
-  centerComponent={{ text: 'TOTAL BUDGET', style: { color: '#fff', fontFamily: 'comfortaa-bold'} }}
+    backgroundColor="white"
+  centerComponent={{ text: 'Total Budget', style: { color: 'black', fontFamily: 'comfortaa-bold'} }}
 />
     <View style={styles.screen}>  
         <View style={styles.banner}>

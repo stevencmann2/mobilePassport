@@ -152,12 +152,13 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
         keyboardVerticalOffset={15}
         >
         <Header
-        centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+        backgroundColor="white"
+        centerComponent={{ text: 'Savings Tracker', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
       />
     <View style={styles.NoSavingsScreen}>
     <View style={styles.EmptyIconContainer}>
         <Icon
-            name='ios-help-circle-outline'
+            name='ios-information-circle-outline'
             type='ionicon'
             size ={18}
             color='black'
@@ -297,8 +298,9 @@ return(
         style={styles.backgroundImage}>
  <ScrollView>
       <Header
-  centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
-/>
+         backgroundColor="white"
+         centerComponent={{ text: 'Savings Tracker', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
+        />
     <View style={styles.screen}>
         <Overlay 
         isVisible={open}

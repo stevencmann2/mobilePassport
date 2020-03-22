@@ -148,13 +148,14 @@ const Expenses = props =>{
                     keyboardVerticalOffset={15}
                     >
                     <Header
-                    centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+                    backgroundColor="white"
+                    centerComponent={{ text: 'Expenses Tracker', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
                   />
                 <View style={styles.NoExpensesScreen}>
                 <View style={styles.EmptyScreenView}>
                 <View style={styles.EmptyIconContainer}>
                         <Icon
-                            name='ios-help-circle-outline'
+                            name='ios-information-circle-outline'
                             type='ionicon'
                             size ={18}
                             color='black'
@@ -292,7 +293,8 @@ const Expenses = props =>{
              style={styles.backgroundImage}>
             <ScrollView>
                 <Header
-                    centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+                backgroundColor="white"
+                    centerComponent={{ text: 'Expenses Tracker', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
                     />
                 <View style={styles.screen}>
                     <Overlay 

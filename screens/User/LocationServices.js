@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, ImageBackground } from 'react-native'
+import {Header} from 'react-native-elements'
 import ChooseLocation from '../../components/Location'
 import  {isLoaded } from 'react-redux-firebase'
 
@@ -32,9 +33,13 @@ const LocationServices = props => {
             <ImageBackground 
                 source={require('../../assets/images/defaultBackground.jpg')}
                 style={styles.backgroundImage}>
+                <Header
+                    backgroundColor="white"
+                    centerComponent={{ text: 'Location Services', style: { color: 'black', fontFamily: 'comfortaa-bold'} }}
+                />
             <View style={styles.screen}>
                 <View style={styles.header}>
-                    <Text style={styles.comingSoon}> Location Services Coming Soon</Text>
+                    <Text style={styles.comingSoon}>Coming Soon!</Text>
                 </View>
                 <View style={styles.mapContainer}>
                     <ChooseLocation navigation={navigation}/>
@@ -49,7 +54,6 @@ const styles = StyleSheet.create({
     screen: {
       flex: 1,
       alignItems: 'center',
-      justifyContent: 'center',
       marginTop: 40,
      
     },
