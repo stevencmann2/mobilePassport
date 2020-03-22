@@ -14,7 +14,7 @@ import {
 import { useSelector } from 'react-redux'
 import Input from '../../../../components/Input'
 import Card from '../../../../components/Card'
-import { Button, Overlay, Icon} from 'react-native-elements'
+import { Button, Overlay, Icon, Header} from 'react-native-elements'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import BudgetBreakdownChart from '../../../../components/Charts/BudgetBreakdownChart'
 
@@ -310,8 +310,10 @@ const Dashboard = props =>{
     
 
 <ScrollView>
+<Header
+  centerComponent={{ text: 'TOTAL BUDGET', style: { color: '#fff', fontFamily: 'comfortaa-bold'} }}
+/>
     <View style={styles.screen}>  
-    
         <View style={styles.banner}>
             <Text style= {{fontSize: 20}}>Welcome {username} </Text>
         </View>  

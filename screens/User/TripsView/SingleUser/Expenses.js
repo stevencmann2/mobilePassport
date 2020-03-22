@@ -12,7 +12,11 @@ import {
     Keyboard,
 } from 'react-native'
 import { useSelector } from 'react-redux'
+<<<<<<< HEAD
+import { Button, Overlay, Header} from 'react-native-elements'
+=======
 import { Button, Overlay, Icon} from 'react-native-elements'
+>>>>>>> 655a09bd5e09c1b8ef74a98bd97e0a9bfc5a1f52
 import Input  from '../../../../components/Input'
 import { useFirestoreConnect, useFirestore, isEmpty, isLoaded } from 'react-redux-firebase'
 import ExpensesCharts from '../../../../components/Charts/ExpensesCharts' 
@@ -130,7 +134,7 @@ const Expenses = props =>{
     }
     if(isEmpty(fullStoreExpensesArr)){
         return(
-            <TouchableWithoutFeedback 
+                 <TouchableWithoutFeedback 
                         onPress={()=> 
                         Keyboard.dismiss()}>
         
@@ -139,6 +143,13 @@ const Expenses = props =>{
                     behavior="padding"
                     keyboardVerticalOffset={15}
                     >
+<<<<<<< HEAD
+            
+            <Header
+  centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+/>
+                <View style={styles.screen}>
+=======
                 
                 <View style={styles.NoExpensesScreen}>
                 <View style={styles.EmptyScreenView}>
@@ -151,13 +162,14 @@ const Expenses = props =>{
                             onPress={()=>setScreenInfo(true)}
                         />
                 </View>
+>>>>>>> 655a09bd5e09c1b8ef74a98bd97e0a9bfc5a1f52
                     <Overlay 
                         isVisible={open}
                         onBackdropPress={() => setOpen(false)}
                         height='95%'
                         borderRadius={20}
                         >
-                        
+       
                         <View style={styles.overlayView}>
                             <View style={styles.overlayHeader}>
                                 <Text>Add an Expense!</Text>
@@ -277,6 +289,10 @@ const Expenses = props =>{
     if(isLoaded(fullStoreExpensesArr && <ExpensesCharts/> && BudgetData)){
         return(
             <ScrollView>
+                <Header
+  centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+/>
+       
                 <View style={styles.screen}>
                     <Overlay 
                         isVisible={open}
@@ -351,11 +367,7 @@ const Expenses = props =>{
                         </View>
                         
                      </Overlay>
-                    
-                    
-                     <View style={styles.screenHeader}>
-                        <Text style= {{fontSize: 25, marginTop: 30}}>Your Expenses</Text>
-                     </View>
+                
                      <View style={styles.initialButtonContainer}>
         
                         <Button 
