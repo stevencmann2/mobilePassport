@@ -142,7 +142,6 @@ const Expenses = props =>{
                     <Header
                     centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
                   />
-                                  
                 <View style={styles.NoExpensesScreen}>
                 <View style={styles.EmptyScreenView}>
                 <View style={styles.EmptyIconContainer}>
