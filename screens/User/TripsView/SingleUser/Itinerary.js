@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Alert, StyleSheet, Text, View, 
          SafeAreaView, ActivityIndicator,Keyboard, Switch} from 'react-native';
-import {Icon, Overlay, Button } from 'react-native-elements'
+import {Icon, Overlay, Button, Header } from 'react-native-elements'
 import Input from '../../../../components/Input';
 import {Agenda} from 'react-native-calendars';
 import moment from 'moment';
@@ -206,13 +206,17 @@ ItineraryArr.forEach((obj, idx) => {
   console.log(calendarData)
 
 return(
- 
       <SafeAreaView style={{flex: 1}}>
+          <Header
+  centerComponent={{ text: 'INTINERARY', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+  containerStyle={{ marginTop: -45}}
+/>
             <Overlay 
             isVisible={isOpen}
             onBackdropPress={() => setIsOpen(false)}
             borderRadius={20}
           >
+            
               <View style={styles.overlayView}>
                 <View style={styles.overlayHeader}>
                     <Text style={styles.overlayHeaderText}>New Event</Text>
