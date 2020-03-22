@@ -12,7 +12,8 @@ import {
     Keyboard,
 } from 'react-native'
 import { useSelector } from 'react-redux'
-import { Button, Overlay, Icon} from 'react-native-elements'
+
+import { Button, Overlay, Icon, Header } from 'react-native-elements'
 import Input  from '../../../../components/Input'
 import { useFirestoreConnect, useFirestore, isEmpty, isLoaded } from 'react-redux-firebase'
 import ExpensesCharts from '../../../../components/Charts/ExpensesCharts' 
@@ -139,7 +140,12 @@ const Expenses = props =>{
                     behavior="padding"
                     keyboardVerticalOffset={15}
                     >
-                
+
+                    <Header
+                    centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+                  />
+                                  
+
                 <View style={styles.NoExpensesScreen}>
                 <View style={styles.EmptyScreenView}>
                 <View style={styles.EmptyIconContainer}>
@@ -379,6 +385,8 @@ const Expenses = props =>{
     
     }
 }
+
+
 
 
 const styles = StyleSheet.create({

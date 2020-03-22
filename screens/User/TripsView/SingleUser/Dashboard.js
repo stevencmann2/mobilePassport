@@ -9,7 +9,8 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     ActivityIndicator,
-    Alert
+    Alert,
+    ImageBackground
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import Input from '../../../../components/Input'
@@ -123,10 +124,13 @@ const Dashboard = props =>{
                 </View>)
     }
   
-    if(isEmpty(BudgetData)){
+    if(isEmpty(BudgetData) && isLoaded(<ImageBackground/>)){
         
         return(
-            
+        
+         <ImageBackground 
+            source={require('../../../../assets/images/defaultBackground.jpg')}
+            style={styles.backgroundImage}>
             <TouchableWithoutFeedback 
             onPress={()=> 
             Keyboard.dismiss()}>
@@ -135,7 +139,7 @@ const Dashboard = props =>{
                     behavior="padding"
                     keyboardVerticalOffset={15}
                     >
-                    <ScrollView>
+                    <ScrollView style={styles.EmptyBackground}>
                         <View style={styles.initialscreen}> 
                         <Overlay 
                             isVisible={welcome}
@@ -301,15 +305,19 @@ const Dashboard = props =>{
             </ScrollView>
         </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
+    </ImageBackground>
         
      )}
      
-   if(isLoaded(BudgetData && <BudgetBreakdownChart/> && UserProfile)) {
+   if(isLoaded(BudgetData && <BudgetBreakdownChart/> &&<ImageBackground/> && UserProfile)) {
    return(
     
     
+<ImageBackground 
+source={require('../../../../assets/images/defaultBackground.jpg')}
+style={styles.backgroundImage}>
 
-<ScrollView>
+<ScrollView style={styles.LoadedBackground}>
 <Header
   centerComponent={{ text: 'TOTAL BUDGET', style: { color: '#fff', fontFamily: 'comfortaa-bold'} }}
 />
@@ -365,6 +373,7 @@ const Dashboard = props =>{
            
     </View>
 </ScrollView>
+</ImageBackground>
 )
    }
 
@@ -385,6 +394,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 60,
       }, 
+      backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        opacity: 0.8
+     },
       Loadingscreen: {
         flex: 1,
         alignItems: 'center',
