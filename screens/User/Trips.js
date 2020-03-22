@@ -27,8 +27,9 @@ const Trips = ({ navigation }) =>{
     const [animationType, setAnimationType]=useState("bounceIn")
     const [animationTime, setAnimationTime] = useState(1)
     const [animationDuration, setAnimationDuration] = useState(2000)
+   
     
-    
+  
     const dispatch = useDispatch();
     const userTrips = 'userTrips'
     // FIRESTORE STUFF
@@ -69,7 +70,8 @@ const Trips = ({ navigation }) =>{
                 firstName: firstNameText,
                 lastName: lastNameText,
                 username: usernameText,
-                userId: UserId
+                userId: UserId,
+                
             })
          } catch (err) {
           console.log(err)
@@ -211,6 +213,9 @@ const Trips = ({ navigation }) =>{
        
        
                 <Card style={styles.formCard}>
+                <View style={styles.cardHeader}>
+                    <Text style={{fontSize: 16}}>Account Preferences:</Text>
+                </View>
                      <View>
                         <Input
                             style={styles.input}
@@ -259,6 +264,7 @@ const Trips = ({ navigation }) =>{
                             returnKeyType='next'
                         /> 
                         </TouchableOpacity>
+                       
                         <Button 
                             type='outline'
                             title="Next"
@@ -371,7 +377,8 @@ const styles = StyleSheet.create({
     },
     input: {
         width: '100%',
-        textAlign: 'center'
+        textAlign: 'center',
+        marginBottom: 10
     
     },
     banner: {
@@ -390,6 +397,10 @@ const styles = StyleSheet.create({
     formCard: {
         width: 300,
         maxWidth: '80%'
+    },
+    cardHeader: {
+        alignItems: 'center',
+       marginBottom: 25
     }
     
 })

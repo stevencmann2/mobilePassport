@@ -12,7 +12,11 @@ import {
     Keyboard,
 } from 'react-native'
 import { useSelector } from 'react-redux'
+<<<<<<< HEAD
 import { Button, Overlay, Header} from 'react-native-elements'
+=======
+import { Button, Overlay, Icon} from 'react-native-elements'
+>>>>>>> 655a09bd5e09c1b8ef74a98bd97e0a9bfc5a1f52
 import Input  from '../../../../components/Input'
 import { useFirestoreConnect, useFirestore, isEmpty, isLoaded } from 'react-redux-firebase'
 import ExpensesCharts from '../../../../components/Charts/ExpensesCharts' 
@@ -48,6 +52,7 @@ const Expenses = props =>{
     const[AmountText, setAmountText] = useState()
     const[pickedCategory, setPickedCategory] = useState('Misc');
     const[DescriptionText, setDescriptionText] = useState('');
+    const [screenInfo, setScreenInfo] = useState(false)
 
     const addExpense = async() => {
         const expenseDescription = DescriptionText.trim()
@@ -138,11 +143,26 @@ const Expenses = props =>{
                     behavior="padding"
                     keyboardVerticalOffset={15}
                     >
+<<<<<<< HEAD
             
             <Header
   centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
 />
                 <View style={styles.screen}>
+=======
+                
+                <View style={styles.NoExpensesScreen}>
+                <View style={styles.EmptyScreenView}>
+                <View style={styles.EmptyIconContainer}>
+                        <Icon
+                            name='ios-help-circle-outline'
+                            type='ionicon'
+                            size ={18}
+                            color='black'
+                            onPress={()=>setScreenInfo(true)}
+                        />
+                </View>
+>>>>>>> 655a09bd5e09c1b8ef74a98bd97e0a9bfc5a1f52
                     <Overlay 
                         isVisible={open}
                         onBackdropPress={() => setOpen(false)}
@@ -215,16 +235,50 @@ const Expenses = props =>{
                         
                      </Overlay>
                     <View style={styles.initialButtonContainer}>
-        
-                        
                         <Button 
                         type="outline"
                         title="Add Expense"
                         onPress={()=>setOpen(true)}
                         />
                     </View>
+
+                    <Overlay
+                    isVisible={screenInfo}
+                    onBackdropPress={() => setScreenInfo(false)}
+                    borderRadius={20}
+                            >
+                        <View style={styles.overlayView}>
+                            <View style={styles.overlayHeader}>
+                                <Text style={styles.overlayHeaderText}>Expenses Tracker</Text>
+                            </View>
+                            <View style={styles.overlayBody}>
+                                <Text style={styles.overlayText}>
+                                Need to account for expenses prior to or during your trip? This is where you will add it! 
+                                </Text>
+                                <Text style={styles.overlayText}>
+                                 Click the add expense button to begin. Once added, charts will appear to help you understand how you are spending your hard earned money.
+                                </Text>
+                                <Text style={styles.overlayText}>
+                                Need more info? Try pressing the individual charts that appear to better understand their meaning! 
+                                </Text>
+                            </View>
+                            
+            
+                            <View style={styles.overlayButton}>
+                                <Button 
+                                    type="outline"
+                                    title="Got It"
+                                    onPress={()=>setScreenInfo(false)}
+                                />
+                            </View>
+
+
+                        </View>
+                        
+                    </Overlay>
                 </View>
                 
+                </View>
                 </KeyboardAvoidingView>
             </TouchableWithoutFeedback>
                 
@@ -346,13 +400,17 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       marginTop: 40,
     },
+    NoExpensesScreen: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
     noBudget: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         marginHorizontal: 20,
-        marginTop: 40,
-        
+        marginTop: 40,    
       },
       noBudgetText:{
         lineHeight: 25,
@@ -389,13 +447,36 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     initialButtonContainer:{
-        alignContent: 'center',
+        alignItems: 'center',
         justifyContent: 'center',
     },
     chartsContainer: {
         marginTop: 30
+    },
+ 
+    EmptyIconContainer: {
+        alignItems: 'center',
+        marginBottom: 50,     
+    },
+    overlayBody: {  
+        justifyContent: 'center',
+        marginTop: 50,
+        marginBottom: 20
+    },
+    overlayText: {
+        marginBottom: 15,
+        lineHeight: 25
+    },
+   overlayHeaderText: {
+       fontSize: 20
+   },
+    overlayButton:{
+        justifyContent: 'flex-end',
+    },
+    EmptyScreenView: {
+        flexDirection: 'column',
+        justifyContent: "space-around"
     }
-    
 
 })
 
