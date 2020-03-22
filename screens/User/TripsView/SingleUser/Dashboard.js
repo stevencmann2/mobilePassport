@@ -144,7 +144,7 @@ const Dashboard = props =>{
                         <Overlay 
                             isVisible={welcome}
                             onBackdropPress={() => setWelcome(false)}
-                            windowBackgroundColor='#cd7ff5'
+                            windowBackgroundColor='black'
                             borderRadius={20}
                          >
                          <View style={styles.overlayView}>
@@ -397,7 +397,7 @@ const styles = StyleSheet.create({
       backgroundImage: {
         flex: 1,
         resizeMode: 'cover',
-        opacity: 0.8
+        
      },
       Loadingscreen: {
         flex: 1,

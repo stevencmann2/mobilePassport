@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Alert, StyleSheet, Text, View, 
-         SafeAreaView, ActivityIndicator,Keyboard, Switch} from 'react-native';
+         SafeAreaView, ActivityIndicator, Keyboard, Switch, ImageBackground} from 'react-native';
 import {Icon, Overlay, Button, Header } from 'react-native-elements'
 import Input from '../../../../components/Input';
 import {Agenda} from 'react-native-calendars';
@@ -179,12 +179,17 @@ if(!isLoaded(ItineraryArr&& BudgetData)){
 
 }
 
-if(isEmpty(BudgetData)){
+if(isEmpty(BudgetData) && isLoaded(<ImageBackground/>)){
+
   return(
+    <ImageBackground 
+      source={require('../../../../assets/images/defaultBackground.jpg')}
+      style={styles.backgroundImage}>
     <View style={styles.noBudget}>
         <Text style={styles.noBudgetText}>Can not use this feature yet</Text>
         <Text style={styles.noBudgetText}>Complete budget form to use</Text>
     </View>
+    </ImageBackground>
   )
 }
 
@@ -206,6 +211,7 @@ ItineraryArr.forEach((obj, idx) => {
   console.log(calendarData)
 
 return(
+
       <SafeAreaView style={{flex: 1}}>
           <Header
   centerComponent={{ text: 'INTINERARY', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
@@ -400,6 +406,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 40,
   },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    
+ },
   noBudget: {
     flex: 1,
     alignItems: 'center',

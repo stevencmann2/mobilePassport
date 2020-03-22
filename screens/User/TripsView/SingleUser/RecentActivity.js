@@ -5,7 +5,8 @@ import {
     StyleSheet,
     ScrollView,
     ActivityIndicator,
-    Alert
+    Alert,
+    ImageBackground
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
@@ -159,16 +160,25 @@ if(!isLoaded(fullStoreExpensesArr && fullStoreSavingsArr)){
     </View>
   )
 }
-if(fullStoreSavingsArr.length < 1 && fullStoreExpensesArr < 1){
+if(fullStoreSavingsArr.length < 1 && fullStoreExpensesArr < 1 && isLoaded(<ImageBackground/>) ){
   return(
+    <ImageBackground 
+    source={require('../../../../assets/images/defaultBackground.jpg')}
+    style={styles.backgroundImage}>
     <View style={styles.loadContainer}>
         <Text> No recent actions to report</Text>
     </View>
+    </ImageBackground>
   )
 }
 
-if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr)){
+if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr && <ImageBackground/>)){
   return (
+
+    <ImageBackground 
+    source={require('../../../../assets/images/defaultBackground.jpg')}
+    style={styles.backgroundImage}>
+
     <ScrollView>
       <Header
   centerComponent={{ text: 'RECENT ACTIVITY', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
@@ -229,6 +239,7 @@ if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr)){
         
 </View>
 </ScrollView>
+</ImageBackground>
   )
 
     }
@@ -243,6 +254,11 @@ const styles = StyleSheet.create({
         marginBottom: 40,
         alignItems: 'center'
       },
+      backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        
+     },
       listHeader:{
         alignItems: 'flex-start',
         paddingLeft: 8
