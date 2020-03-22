@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ActivityIndicator, ImageBackground } from 'react-native'
 import ChooseLocation from '../../components/Location'
+import  {isLoaded, isEmpty } from 'react-redux-firebase'
 
 
 
@@ -11,16 +12,37 @@ import ChooseLocation from '../../components/Location'
 
 const LocationServices = props => {
     const { navigation } = props
-return(
-    <View style={styles.screen}>
-        <View style={styles.header}>
-            <Text style={styles.comingSoon}> Location Services Coming Soon</Text>
-        </View>
-        <View style={styles.mapContainer}>
-            <ChooseLocation navigation={navigation}/>
-        </View>
-    </View>
+
+
+    if(!isLoaded(<ImageBackground/>)){
+
+        return( 
+            <View style={styles.Loadingscreen}>
+                <ActivityIndicator  size="large"
+                /> 
+            </View>)
+        
+    }
+
+
+    if(isLoaded(<ImageBackground/> && <ChooseLocation/> )){
+
+
+        return(
+            <ImageBackground 
+                source={require('../../assets/images/defaultBackground.jpg')}
+                style={styles.backgroundImage}>
+            <View style={styles.screen}>
+                <View style={styles.header}>
+                    <Text style={styles.comingSoon}> Location Services Coming Soon</Text>
+                </View>
+                <View style={styles.mapContainer}>
+                    <ChooseLocation navigation={navigation}/>
+                </View>
+            </View>
+           </ImageBackground>
 )
+}
 }
 
 const styles = StyleSheet.create({
@@ -31,6 +53,12 @@ const styles = StyleSheet.create({
       marginTop: 40,
      
     },
+    Loadingscreen: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center', 
+        marginTop: 40,
+      },
     header: {
         padding: 30
     },
@@ -41,7 +69,11 @@ const styles = StyleSheet.create({
     },
     comingSoon: {
         fontSize: 25
-    }
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+     },
 })
 
 
