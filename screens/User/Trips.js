@@ -359,7 +359,6 @@ const styles = StyleSheet.create({
       backgroundImage: {
         flex: 1,
         resizeMode: 'cover',
-        opacity: 0.8
      },
     container: {
         marginTop: 100,
