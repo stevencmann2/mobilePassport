@@ -299,7 +299,6 @@ const Trips = ({ navigation }) =>{
                                 />
                             </View>
                          </TouchableOpacity>
-
                         <View style={styles.TripName}>
                             <Text>
                                 {trip.tripName}
@@ -348,7 +347,7 @@ const styles = StyleSheet.create({
         
       },
     container: {
-        marginTop: 200,
+        marginTop: 100,
         fontSize: 17,
         fontFamily: 'comfortaa-bold',
         paddingHorizontal: 10
@@ -369,6 +368,8 @@ const styles = StyleSheet.create({
     TripName: {
         alignItems: 'center',
         justifyContent: 'center',
+        fontFamily: 'comfortaa-bold',
+        fontSize: 30,
         marginTop: 20
     },
     buttonContainer: {

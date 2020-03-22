@@ -127,12 +127,7 @@ const errorAlert = () => {
     >
     <ScrollView>
     <View style={styles.screen}>
-    
-        <View style={styles.bannerContainer}>
-            <Text>
-                 Passport Trip Builder
-            </Text>
-        </View>
+
 
         
        
@@ -245,7 +240,7 @@ const errorAlert = () => {
                     <Icon
                         name="arrow-right"
                         size={15}
-                        color="white"
+                        color="white" 
                     />
                     }
                 style={styles.inputContainer}
@@ -275,8 +270,9 @@ const styles = StyleSheet.create({
 
       },
     formContainer: {
-          width: 400,
-          maxWidth: '80%'
+        marginTop: 20,
+        width: 400,
+        maxWidth: '80%'
 
       },
       dateContainer: {
