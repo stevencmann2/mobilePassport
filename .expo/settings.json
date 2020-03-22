@@ -3,10 +3,6 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
-<<<<<<< HEAD
-  "urlRandomness": "ud-sjm",
-=======
-  "urlRandomness": "r6-anv",
->>>>>>> 655a09bd5e09c1b8ef74a98bd97e0a9bfc5a1f52
+  "urlRandomness": "nc-2gg",
   "https": false
 }
