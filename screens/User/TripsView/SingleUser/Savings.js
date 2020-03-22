@@ -12,11 +12,7 @@ import {
     TouchableWithoutFeedback
 } from 'react-native'
 import { useSelector } from 'react-redux'
-<<<<<<< HEAD
-import { Button, Overlay, Header } from 'react-native-elements'
-=======
 import { Button, Overlay, Icon } from 'react-native-elements'
->>>>>>> 655a09bd5e09c1b8ef74a98bd97e0a9bfc5a1f52
 import Input  from '../../../../components/Input'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import SavingsCharts from '../../../../components/Charts/SavingsCharts'
@@ -145,12 +141,6 @@ if(isEmpty(fullStoreSavingsArr)){
         behavior="padding"
         keyboardVerticalOffset={15}
         >
-<<<<<<< HEAD
-             <Header
-  centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
-/>
-    <View style={styles.screen}>
-=======
     <View style={styles.NoSavingsScreen}>
     <View style={styles.EmptyIconContainer}>
         <Icon
@@ -197,7 +187,6 @@ if(isEmpty(fullStoreSavingsArr)){
         </Overlay>
 
 
->>>>>>> 655a09bd5e09c1b8ef74a98bd97e0a9bfc5a1f52
         <Overlay 
         isVisible={open}
         onBackdropPress={() => setOpen(false)}
