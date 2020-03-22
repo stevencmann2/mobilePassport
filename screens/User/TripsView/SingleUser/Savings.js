@@ -12,7 +12,7 @@ import {
     TouchableWithoutFeedback
 } from 'react-native'
 import { useSelector } from 'react-redux'
-import { Button, Overlay } from 'react-native-elements'
+import { Button, Overlay, Header } from 'react-native-elements'
 import Input  from '../../../../components/Input'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import SavingsCharts from '../../../../components/Charts/SavingsCharts'
@@ -140,6 +140,9 @@ if(isEmpty(fullStoreSavingsArr)){
         behavior="padding"
         keyboardVerticalOffset={15}
         >
+             <Header
+  centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+/>
     <View style={styles.screen}>
         <Overlay 
         isVisible={open}
@@ -232,6 +235,9 @@ if(isLoaded(fullStoreSavingsArr && <SavingsCharts/>&& BudgetData)){
 
 return(
  <ScrollView>
+      <Header
+  centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+/>
     <View style={styles.screen}>
         <Overlay 
         isVisible={open}
@@ -303,9 +309,6 @@ return(
             </View>
         </View>
      </Overlay>
-        <View style={styles.screenHeader}>
-            <Text style= {{fontSize: 25, marginTop: 30}}>Your Savings</Text>
-        </View>
             <View style={styles.buttonContainer}>   
                 <Button 
                     type="outline"

@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
-import { ListItem } from 'react-native-elements'
+import { ListItem, Header } from 'react-native-elements'
 import _ from 'lodash'
 
 
@@ -170,16 +170,16 @@ if(fullStoreSavingsArr.length < 1 && fullStoreExpensesArr < 1){
 if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr)){
   return (
     <ScrollView>
+      <Header
+  centerComponent={{ text: 'RECENT ACTIVITY', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+/>
       <View stlye={styles.screen}>
-        <View style={styles.screenHeader}>
-          <Text style= {{fontSize: 25, marginTop: 30}}>Recent Actions </Text>
-        </View>
 
       
       {SavingsResultsArr.length > 0 ? (
         <View style={styles.resultsContainer}>
           <View style={styles.listHeader}>
-            <Text style= {{fontSize: 20}}>Savings</Text>
+            <Text style= {{fontSize: 20, marginTop: 30}}>Savings</Text>
           </View>
               <View style={styles.listContainer}>
             {
