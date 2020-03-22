@@ -188,7 +188,7 @@ if(isEmpty(BudgetData)){
   )
 }
 
-if(isLoaded(BudgetData && ItineraryArr)){
+if(isLoaded(BudgetData && ItineraryArr && <Agenda />)){
 
   let calendarData = {}
   let dates = [];
