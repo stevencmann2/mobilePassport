@@ -84,7 +84,7 @@ const TripsPageNavigator = () =>{
              }}
           />
         <Stack.Screen name="AddTrip" component={AddTripScreen} 
-        options= {{
+          options= {{
           headerTitle: 'Trip Builder',
          }}/>
         <Stack.Screen name="MapsScreen" component={MapsScreen} 
