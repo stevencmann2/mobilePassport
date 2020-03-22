@@ -70,7 +70,7 @@ const Home = props => {
             
         <View style={styles.welcome}>  
             <Text style={styles.welcome}>
-                Welcome to Passport THIS IS A TEST
+                Welcome to Passport
             </Text>
         </View>  
          
