@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, ImageBackground } from 'react-native'
 import ChooseLocation from '../../components/Location'
-import  {isLoaded, isEmpty } from 'react-redux-firebase'
+import  {isLoaded } from 'react-redux-firebase'
 
 
 
@@ -25,7 +25,7 @@ const LocationServices = props => {
     }
 
 
-    if(isLoaded(<ImageBackground/> && <ChooseLocation/> )){
+    if(isLoaded(<ImageBackground/> && <ChooseLocation/>  )){
 
 
         return(
