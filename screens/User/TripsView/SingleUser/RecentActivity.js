@@ -189,7 +189,7 @@ if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr && <ImageBackground/> &&
       backgroundColor="white"
   centerComponent={{ text: 'Recent Activity', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
 />
-      <View stlye={styles.screen}>
+      <View style={styles.screen}>
       <Overlay
         isVisible={screenInfo}
         onBackdropPress={() => setScreenInfo(false)}

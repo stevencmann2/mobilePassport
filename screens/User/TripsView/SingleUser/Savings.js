@@ -137,16 +137,10 @@ if(isEmpty(BudgetData) && isLoaded(<ImageBackground/>)){
 
 if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
     return(
-<<<<<<< HEAD
-    <TouchableWithoutFeedback
-=======
-
         <ImageBackground 
         source={require('../../../../assets/images/defaultBackground.jpg')}
             style={styles.backgroundImage}>
-
     <TouchableWithoutFeedback 
->>>>>>> 0027006cda26a2def7eac0da63c390896ca7f81d
         onPress={()=> 
         Keyboard.dismiss()}>
 
@@ -301,16 +295,12 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
         
         </View>
         </KeyboardAvoidingView>
-
+        
         </TouchableWithoutFeedback>
-<<<<<<< HEAD
-     
 
-     )
-=======
     </ImageBackground>
+
     )
->>>>>>> 0027006cda26a2def7eac0da63c390896ca7f81d
 }    
 
 if(isLoaded(fullStoreSavingsArr && <ImageBackground/> && <SavingsCharts/>&& BudgetData)){

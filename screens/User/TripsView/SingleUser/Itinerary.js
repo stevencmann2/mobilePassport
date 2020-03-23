@@ -359,7 +359,7 @@ return(
   reverse
   name='ios-book'
   type='ionicon'
-  color='#09cdf6'
+  color='#cb81e6'
   containerStyle={{flex: 2, marginLeft: 250, marginBottom: 0}}
 />
 </View>
@@ -375,20 +375,20 @@ return(
                   <Icon
                     name='playlist-add'
                     type='material'
-                    color='#09cdf6'
+                    color='#cb81e6'
                     reverse
                     onPress={()=>setIsOpen(true)}
                   />
                 </View>}
             rowHasChanged={(r1, r2) => r1.title !== r2.title}
                 theme={{
-                  agendaDayNumColor: '#09cdf6',
-                  agendaDayTextColor: '#09cdf6',
-                  agendaKnobColor: '#efefef',
-                  agendaTodayColor: '#09cdf6',
-                  dotColor: '#09cdf6',
-                  todayTextColor: '#09cdf6',
-                  selectedDayBackgroundColor: '#09cdf6',
+                  agendaDayNumColor: '#cb81e6',
+                  agendaDayTextColor: '#cb81e6',
+                  agendaKnobColor: '#c4c5c5',
+                  agendaTodayColor: '#cb81e6',
+                  dotColor: '#cb81e6',
+                  todayTextColor: '#cb81e6',
+                  selectedDayBackgroundColor: '#cb81e6',
                   'stylesheet.calendar.header': {
                     week: { marginTop: 0, flexDirection: 'row', justifyContent: 'space-between' }
                   }

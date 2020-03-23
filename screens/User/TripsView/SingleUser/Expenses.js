@@ -291,14 +291,8 @@ const Expenses = props =>{
 </View>
            
                 </KeyboardAvoidingView>
-
             </TouchableWithoutFeedback>
-<<<<<<< HEAD
-            
-                
-=======
         </ImageBackground>
->>>>>>> 0027006cda26a2def7eac0da63c390896ca7f81d
             )
         }
 
