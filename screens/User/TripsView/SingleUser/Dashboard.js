@@ -144,7 +144,7 @@ const Dashboard = props =>{
                         <Overlay 
                             isVisible={welcome}
                             onBackdropPress={() => setWelcome(false)}
-                            windowBackgroundColor='black'
+                            windowBackgroundColor='tomato'
                             borderRadius={20}
                          >
                          <View style={styles.overlayView}>
@@ -171,7 +171,10 @@ const Dashboard = props =>{
 
                             <View style={styles.overlayButton}>
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'red'],}}
                                     title="Get Started!"
                                     onPress={()=>setWelcome(false)}
                                 />
@@ -289,12 +292,18 @@ const Dashboard = props =>{
                                 </View>
                                 <View style={styles.buttonContainer}>
                                     <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'red'],}}
                                     title="Continue"
                                     onPress = {submitBudget}
                                     />
                                     <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'red'],}}
                                     title="Calculate"
                                     onPress = {currentFormTotal}
                                 />
@@ -319,7 +328,8 @@ style={styles.backgroundImage}>
 
 <ScrollView style={styles.LoadedBackground}>
 <Header
-  centerComponent={{ text: 'TOTAL BUDGET', style: { color: '#fff', fontFamily: 'comfortaa-bold'} }}
+    backgroundColor="white"
+  centerComponent={{ text: 'Total Budget', style: { color: 'black', fontFamily: 'comfortaa-bold'} }}
 />
     <View style={styles.screen}>  
         <View style={styles.banner}>
@@ -359,7 +369,10 @@ style={styles.backgroundImage}>
 
                 <View style={styles.overlayButton}>
                     <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                            colors: ['purple', 'red'],}}
                         title="Got It"
                         onPress={()=>setScreenInfo(false)}
                     />

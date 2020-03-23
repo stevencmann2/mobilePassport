@@ -93,7 +93,10 @@ return(
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button 
-                    type="outline"
+                    type="solid"
+                    raised
+                    linearGradientProps={{
+                        colors: ['purple', 'red'],}}
                     title="Close"
                     onPress={()=>setOpenBudget(false)}
                     />
@@ -122,7 +125,10 @@ return(
     
         <View style={styles.buttonContainer}>
             <Button 
-                type="outline"
+                type="solid"
+                raised
+                linearGradientProps={{
+                    colors: ['purple', 'red'],}}
                 title="More Info"
                 onPress={()=>setOpenBudget(true)}
             />

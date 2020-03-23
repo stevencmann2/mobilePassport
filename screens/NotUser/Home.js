@@ -11,52 +11,6 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-elements';
 
-
-// const {width, height} = Dimensions.get('window')
-
-// class Home extends Component {
-//     render() {
-//         return (
-//             <View style={{flex:1, backgroundcolor: 'white', justifyContent: 'flex-end'}}>
-//                 <View style={{...StyleSheet.absoluteFill }}>
-//                     <Image
-//                         source={require('../../assets/images/HomeScreenBackground.jpg')}
-//                         style={{ flex:1, height: null, width: null }}
-//                     />
-//                 </View>
-//                 <View style={{height: height / 3}}>
-                
-//                 <View style={{...styles.button, backgroundcolor:'#cb81e6', opacity: 0.9 }}>
-//                     <Text style={{fontSize: 20, fontWeight: 'bold'}}> Sign In</Text>
-//                 </View>
-
-//                 <View style={{...styles.button,  backgroundColor: "purple", opacity: 0.9 }}>
-//                     <Text style={{fontSize: 20, fontWeight: 'bold'}}> Create Account</Text>
-//                 </View>
-
-//                 </View>
-//             </View>
-//         )
-//     }
-// }
-
-
-// const styles = StyleSheet.create ({
-//     container: {
-//         flex: 1, 
-//         alignItems: 'center',
-//         justifyContent: 'center'
-//     },
-//     button: {
-//         backgroundColor: 'white',
-//         height: 70,
-//         marginHorizontal: 20,
-//         borderRadius: 35,
-//         alignItems: 'center',
-//         justifyContent: 'center'
-//     }
-// })
-
 const Home = props => {
 
     const { navigation } = props
@@ -129,7 +83,6 @@ const Home = props => {
      backgroundImage: {
         flex: 1,
         resizeMode: 'cover',
-        opacity: 0.8
         }
       });
 

@@ -152,12 +152,13 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
         keyboardVerticalOffset={15}
         >
         <Header
-        centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+        backgroundColor="white"
+        centerComponent={{ text: 'Savings Tracker', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
       />
     <View style={styles.NoSavingsScreen}>
     <View style={styles.EmptyIconContainer}>
         <Icon
-            name='ios-help-circle-outline'
+            name='ios-information-circle-outline'
             type='ionicon'
             size ={18}
             color='black'
@@ -188,7 +189,10 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
 
                 <View style={styles.overlayButton}>
                     <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                            colors: ['purple', 'red'],}}
                         title="Got It"
                         onPress={()=>setScreenInfo(false)}
                     />
@@ -260,12 +264,18 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
            
             <View style={styles.buttonContainer}>
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raised 
+                    linearGradientProps={{
+                        colors: ['purple', 'red'],}}
                     title="Log Savings"
                     onPress={addSavings}
                 />
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raised
+                    linearGradientProps={{
+                        colors: ['purple', 'red'],}}
                     title="Cancel"
                     onPress={cancelHandler}
                 />
@@ -276,7 +286,10 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
             
             <View style={styles.initialButtonContainer}> 
                 <Button 
-                type="outline"
+                type="solid"
+                raised
+                linearGradientProps={{
+                    colors: ['purple', 'red'],}}
                 title="Add Savings"
                 onPress={()=>setOpen(true)}
                 />
@@ -297,8 +310,9 @@ return(
         style={styles.backgroundImage}>
  <ScrollView>
       <Header
-  centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
-/>
+         backgroundColor="white"
+         centerComponent={{ text: 'Savings Tracker', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
+        />
     <View style={styles.screen}>
         <Overlay 
         isVisible={open}
@@ -358,12 +372,17 @@ return(
             </View>
             <View style={styles.buttonContainer}>
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raised
+                    linearGradientProps={{
+                        colors: ['purple', 'red'],}}
                     title="Log Savings"
                     onPress={addSavings}
                 />
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raisedlinearGradientProps={{
+                        colors: ['purple', 'red'],}}
                     title="Cancel"
                     onPress={cancelHandler}
                 />
@@ -372,7 +391,10 @@ return(
      </Overlay>
             <View style={styles.buttonContainer}>   
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raised
+                    linearGradientProps={{
+                        colors: ['purple', 'red'],}}
                     title="Add Savings"
                     onPress={()=>setOpen(true)}
                 />

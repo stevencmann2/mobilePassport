@@ -148,13 +148,14 @@ const Expenses = props =>{
                     keyboardVerticalOffset={15}
                     >
                     <Header
-                    centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+                    backgroundColor="white"
+                    centerComponent={{ text: 'Expenses Tracker', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
                   />
                 <View style={styles.NoExpensesScreen}>
                 <View style={styles.EmptyScreenView}>
                 <View style={styles.EmptyIconContainer}>
                         <Icon
-                            name='ios-help-circle-outline'
+                            name='ios-information-circle-outline'
                             type='ionicon'
                             size ={18}
                             color='black'
@@ -219,12 +220,18 @@ const Expenses = props =>{
                             </View>
                             <View style={styles.buttonContainer}>
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'red'],}}
                                     title="Create Expense"
                                     onPress={addExpense}
                                 />
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'red'],}}
                                     title="Cancel"
                                     onPress={cancelHandler}
                                 />
@@ -234,7 +241,10 @@ const Expenses = props =>{
                      </Overlay>
                     <View style={styles.initialButtonContainer}>
                         <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                            colors: ['purple', 'red'],}}
                         title="Add Expense"
                         onPress={()=>setOpen(true)}
                         />
@@ -264,7 +274,10 @@ const Expenses = props =>{
             
                             <View style={styles.overlayButton}>
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'red'],}}
                                     title="Got It"
                                     onPress={()=>setScreenInfo(false)}
                                 />
@@ -292,7 +305,8 @@ const Expenses = props =>{
              style={styles.backgroundImage}>
             <ScrollView>
                 <Header
-                    centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+                backgroundColor="white"
+                    centerComponent={{ text: 'Expenses Tracker', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
                     />
                 <View style={styles.screen}>
                     <Overlay 
@@ -355,12 +369,18 @@ const Expenses = props =>{
                             </View>
                             <View style={styles.buttonContainer}>
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'red'],}}
                                     title="Create Expense"
                                     onPress={addExpense}
                                 />
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'red'],}}
                                     title="Cancel"
                                     onPress={cancelHandler}
                                 />
@@ -372,7 +392,10 @@ const Expenses = props =>{
                      <View style={styles.initialButtonContainer}>
         
                         <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                            colors: ['purple', 'red'],}}
                         title="Add Expense"
                         onPress={()=>setOpen(true)}
                         />
