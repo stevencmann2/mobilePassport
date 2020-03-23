@@ -275,7 +275,7 @@ const Trips = ({ navigation }) =>{
                             raised
                             title="Next"
                             linearGradientProps={{
-                                colors: ['purple', 'red'],}}
+                                colors: ['purple', 'black']}}
                             onPress={userHandler}
                         />
                 
@@ -314,7 +314,7 @@ const Trips = ({ navigation }) =>{
                 
                             <View style={styles.ImgContainer}>
                                 <Image 
-                                    source={require('../../assets/images/PalmTrees.jpg')} 
+                                    source={require('../../assets/images/mountainLake.jpg')} 
                                     style={styles.Img} 
                                 />
                             </View>
@@ -343,7 +343,7 @@ const Trips = ({ navigation }) =>{
                         raised
                         color= '#c717fc'
                         linearGradientProps={{
-                            colors: ['purple', 'red'],}}
+                            colors: ['purple', 'black']}}
                         onPress={()=> navigation.navigate('AddTrip')}
                     />
                 </View>

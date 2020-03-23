@@ -74,7 +74,7 @@ if(!isLoaded(<ImageBackground/> && <TakePhoto/>)){
                     raised
                     title="Log Out"
                     linearGradientProps={{
-                        colors: ['purple', 'red'],}}
+                        colors: ['purple', 'black']}}
                     onPress={logOutHandler}
                     
                     />

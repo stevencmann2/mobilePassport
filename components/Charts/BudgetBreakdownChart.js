@@ -96,7 +96,7 @@ return(
                     type="solid"
                     raised
                     linearGradientProps={{
-                        colors: ['purple', 'red'],}}
+                        colors: ['purple', 'black']}}
                     title="Close"
                     onPress={()=>setOpenBudget(false)}
                     />
@@ -128,7 +128,7 @@ return(
                 type="solid"
                 raised
                 linearGradientProps={{
-                    colors: ['purple', 'red'],}}
+                    colors: ['purple', 'black']}}
                 title="More Info"
                 onPress={()=>setOpenBudget(true)}
             />

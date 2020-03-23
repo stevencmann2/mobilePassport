@@ -174,7 +174,7 @@ const Dashboard = props =>{
                                     type="solid"
                                     raised
                                     linearGradientProps={{
-                                        colors: ['purple', 'red'],}}
+                                        colors: ['purple', 'black']}}
                                     title="Get Started!"
                                     onPress={()=>setWelcome(false)}
                                 />
@@ -295,7 +295,7 @@ const Dashboard = props =>{
                                     type="solid"
                                     raised
                                     linearGradientProps={{
-                                        colors: ['purple', 'red'],}}
+                                        colors: ['purple', 'black']}}
                                     title="Continue"
                                     onPress = {submitBudget}
                                     />
@@ -303,7 +303,7 @@ const Dashboard = props =>{
                                     type="solid"
                                     raised
                                     linearGradientProps={{
-                                        colors: ['purple', 'red'],}}
+                                        colors: ['purple', 'black']}}
                                     title="Calculate"
                                     onPress = {currentFormTotal}
                                 />
@@ -372,7 +372,7 @@ style={styles.backgroundImage}>
                         type="solid"
                         raised
                         linearGradientProps={{
-                            colors: ['purple', 'red'],}}
+                            colors: ['purple', 'black']}}
                         title="Got It"
                         onPress={()=>setScreenInfo(false)}
                     />

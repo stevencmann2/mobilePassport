@@ -113,7 +113,7 @@ const [chosenPhoto, setChosenPhoto] = useState();
           type='solid'
           raised
           linearGradientProps={{
-            colors: ['purple', 'red'],}}
+            colors: ['purple', 'black']}}
           onPress={updateProfileHandler}
         />
       </View>

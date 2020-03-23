@@ -315,7 +315,7 @@ return(
                         type="solid"
                         raised
                         linearGradientProps={{
-                          colors: ['purple', 'red'],}}
+                          colors: ['purple', 'black']}}
                         title="Cancel"
                         onPress={cancelHandler}
                     />
@@ -325,7 +325,7 @@ return(
                         type="solid"
                         raised
                         linearGradientProps={{
-                          colors: ['purple', 'red'],}}
+                            colors: ['purple', 'black']}}
                         title="Submit"
                         onPress={eventSubmit}
                     />
@@ -359,7 +359,7 @@ return(
   reverse
   name='ios-book'
   type='ionicon'
-  color='#b1b8bc'
+  color='#09cdf6'
   containerStyle={{flex: 2, marginLeft: 250, marginBottom: 0}}
 />
 </View>

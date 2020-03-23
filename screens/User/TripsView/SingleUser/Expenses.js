@@ -223,7 +223,7 @@ const Expenses = props =>{
                                     type="solid"
                                     raised
                                     linearGradientProps={{
-                                        colors: ['purple', 'red'],}}
+                                        colors: ['purple', 'black']}}
                                     title="Create Expense"
                                     onPress={addExpense}
                                 />
@@ -231,7 +231,7 @@ const Expenses = props =>{
                                     type="solid"
                                     raised
                                     linearGradientProps={{
-                                        colors: ['purple', 'red'],}}
+                                        colors: ['purple', 'black']}}
                                     title="Cancel"
                                     onPress={cancelHandler}
                                 />
@@ -244,7 +244,7 @@ const Expenses = props =>{
                         type="solid"
                         raised
                         linearGradientProps={{
-                            colors: ['purple', 'red'],}}
+                            colors: ['purple', 'black']}}
                         title="Add Expense"
                         onPress={()=>setOpen(true)}
                         />
@@ -277,7 +277,7 @@ const Expenses = props =>{
                                     type="solid"
                                     raised
                                     linearGradientProps={{
-                                        colors: ['purple', 'red'],}}
+                                        colors: ['purple', 'black']}}
                                     title="Got It"
                                     onPress={()=>setScreenInfo(false)}
                                 />
@@ -372,7 +372,7 @@ const Expenses = props =>{
                                     type="solid"
                                     raised
                                     linearGradientProps={{
-                                        colors: ['purple', 'red'],}}
+                                        colors: ['purple', 'black']}}
                                     title="Create Expense"
                                     onPress={addExpense}
                                 />
@@ -380,7 +380,7 @@ const Expenses = props =>{
                                     type="solid"
                                     raised
                                     linearGradientProps={{
-                                        colors: ['purple', 'red'],}}
+                                        colors: ['purple', 'black']}}
                                     title="Cancel"
                                     onPress={cancelHandler}
                                 />
@@ -395,7 +395,7 @@ const Expenses = props =>{
                         type="solid"
                         raised
                         linearGradientProps={{
-                            colors: ['purple', 'red'],}}
+                            colors: ['purple', 'black']}}
                         title="Add Expense"
                         onPress={()=>setOpen(true)}
                         />
