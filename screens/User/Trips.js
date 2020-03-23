@@ -219,7 +219,7 @@ const Trips = ({ navigation }) =>{
        
                 <Card style={styles.formCard}>
                 <View style={styles.cardHeader}>
-                    <Text style={{fontSize: 16}}>Account Preferences:</Text>
+                    <Text style={{fontSize: 16}}>Account Preferences</Text>
                 </View>
                      <View>
                         <Input
@@ -419,7 +419,8 @@ const styles = StyleSheet.create({
     bannerHeader:{
         lineHeight: 25,
         fontSize: 18,
-        marginBottom: 10
+        marginBottom: 10,
+        fontFamily: 'comfortaa-bold',
     },
     bannerText:{
         lineHeight: 25,  
@@ -433,10 +434,13 @@ const styles = StyleSheet.create({
        marginBottom: 25
     },
     tripTitle:{
-        fontSize: 18
+        fontSize: 18,
+        fontFamily: 'comfortaa-bold',
     },
     tripDate: {
-        fontSize: 13
+        marginTop: 8,
+        fontSize: 13,
+        fontFamily: 'comfortaa-bold',
     }
     
 })

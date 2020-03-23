@@ -131,8 +131,10 @@ const errorAlert = () => {
     <ScrollView>
     <View style={styles.screen}>
 
+        <View style={styles.ScreenHeader}>
+            <Text style={styles.ScreenHeaderText}>Passport Trip Builder</Text>
+        </View>
 
-        
        
         <View style={styles.formContainer}>
             <View style={styles.inputContainer}>
@@ -287,12 +289,19 @@ const styles = StyleSheet.create({
       backgroundImage: {
         flex: 1,
         resizeMode: 'cover',
-        
      },
     bannerContainer: {
           marginTop: 20,
           marginBottom: 10
 
+      },
+      ScreenHeader: {
+        marginTop: 30,
+        marginBottom: 20
+      },
+      ScreenHeaderText: {
+        fontSize: 22,
+        fontFamily: 'comfortaa-bold',
       },
     formContainer: {
         marginTop: 20,
