@@ -73,10 +73,10 @@ return(
         >
             <View style={styles.overlayView}>
                 <View style={styles.overlayHeader}>
-                    <Text>Budget by Category</Text>
+                    <Text style={styles.overlayHeaderText}>Budget by Category</Text>
                 </View>
                 <View style={styles.overlaySubheading}>
-                    <Text>Expected budget as % </Text>
+                    <Text>Expected budget (%) </Text>
                 </View>
                 <View style={styles.overlayBody}>
                 {
@@ -161,6 +161,9 @@ const styles = StyleSheet.create({
     overlayHeader: {
         marginTop: 10,
         alignItems: 'center'
+    },
+    overlayHeaderText:{
+        fontSize: 22
     },
     overlaySubheading: {
         marginTop: 22,

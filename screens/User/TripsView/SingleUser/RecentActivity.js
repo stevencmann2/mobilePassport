@@ -359,11 +359,11 @@ const styles = StyleSheet.create({
     },
     overlayHeader: {  
         alignItems: 'center',
-        marginBottom: 20
+        marginBottom: 10
     },
     overlayBody: {  
       justifyContent: 'center',
-      marginTop: 50,
+      marginTop: 20,
       marginBottom: 20
   },
   overlayText: {
@@ -371,6 +371,7 @@ const styles = StyleSheet.create({
       lineHeight: 25
   },
  overlayHeaderText: {
+   marginTop: 15,
      fontSize: 20
  },
   overlayButton:{
