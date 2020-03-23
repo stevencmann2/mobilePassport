@@ -168,7 +168,7 @@ const DashboardNavigator = () => {
 
 const DrawerColor = {
     // backgroundColor: '#cb81e6',  
-    backgroundColor: 'tomato'
+    backgroundColor: '#09cdf6'
 };
 // PROPERTY NAMES DEFINED BY THE API, PER ITEM LISTED
 ///https://reactnavigation.org/docs/drawer-navigator/#props

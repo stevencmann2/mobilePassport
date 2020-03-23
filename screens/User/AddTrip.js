@@ -187,7 +187,7 @@ const errorAlert = () => {
                     type="solid"
                     raised
                     linearGradientProps={{
-                        colors: ['purple', 'red'],}}
+                        colors: ['purple', 'black']}}
                     title="Departure Date"
                     onPress={showDeparting}/>
             </View>)}
@@ -198,7 +198,7 @@ const errorAlert = () => {
                 type="solid"
                 raised
                 linearGradientProps={{
-                    colors: ['purple', 'red'],}}
+                    colors: ['purple', 'black']}}
                 title="Return Date"
                 onPress={showReturning}/>
             </View> 
@@ -219,7 +219,7 @@ const errorAlert = () => {
                                     type="solid"
                                     raised
                                     linearGradientProps={{
-                                        colors: ['purple', 'red'],}}
+                                        colors: ['purple', 'black']}}
                                     title="Hide Departing Date"
                                     onPress={()=> setShowDep(false)}
                                     
@@ -240,7 +240,7 @@ const errorAlert = () => {
                             type="solid"
                             raised
                             linearGradientProps={{
-                                colors: ['purple', 'red'],}}
+                                colors: ['purple', 'black']}}
                             title="Hide Returning Date"
                             onPress={()=> setShowRet(false)} 
                         />
@@ -253,7 +253,7 @@ const errorAlert = () => {
                 type="solid"
                 raised
                 linearGradientProps={{
-                    colors: ['purple', 'red'],}}               
+                    colors: ['purple', 'black']}}             
                 title="Next"
                 icon={
                     <Icon

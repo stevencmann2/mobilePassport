@@ -192,7 +192,7 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
                         type="solid"
                         raised
                         linearGradientProps={{
-                            colors: ['purple', 'red'],}}
+                            colors: ['purple', 'black']}}
                         title="Got It"
                         onPress={()=>setScreenInfo(false)}
                     />
@@ -267,7 +267,7 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
                     type="solid"
                     raised 
                     linearGradientProps={{
-                        colors: ['purple', 'red'],}}
+                        colors: ['purple', 'black']}}
                     title="Log Savings"
                     onPress={addSavings}
                 />
@@ -275,7 +275,7 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
                     type="solid"
                     raised
                     linearGradientProps={{
-                        colors: ['purple', 'red'],}}
+                        colors: ['purple', 'black']}}
                     title="Cancel"
                     onPress={cancelHandler}
                 />
@@ -289,7 +289,7 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
                 type="solid"
                 raised
                 linearGradientProps={{
-                    colors: ['purple', 'red'],}}
+                    colors: ['purple', 'black']}}
                 title="Add Savings"
                 onPress={()=>setOpen(true)}
                 />
@@ -375,14 +375,14 @@ return(
                     type="solid"
                     raised
                     linearGradientProps={{
-                        colors: ['purple', 'red'],}}
+                        colors: ['purple', 'black']}}
                     title="Log Savings"
                     onPress={addSavings}
                 />
                 <Button 
                     type="solid"
-                    raisedlinearGradientProps={{
-                        colors: ['purple', 'red'],}}
+                    linearGradientProps={{
+                        colors: ['purple', 'black']}}
                     title="Cancel"
                     onPress={cancelHandler}
                 />
@@ -394,7 +394,7 @@ return(
                     type="solid"
                     raised
                     linearGradientProps={{
-                        colors: ['purple', 'red'],}}
+                        colors: ['purple', 'black']}}
                     title="Add Savings"
                     onPress={()=>setOpen(true)}
                 />

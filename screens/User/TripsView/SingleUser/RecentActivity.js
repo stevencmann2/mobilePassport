@@ -166,6 +166,10 @@ if(fullStoreSavingsArr.length < 1 && fullStoreExpensesArr < 1 && isLoaded(<Image
     <ImageBackground 
     source={require('../../../../assets/images/defaultBackground.jpg')}
     style={styles.backgroundImage}>
+    <Header
+    backgroundColor="white"
+centerComponent={{ text: 'Recent Activity', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
+/>
     <View style={styles.loadContainer}>
         <Text> No recent actions to report</Text>
     </View>
@@ -214,7 +218,7 @@ if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr && <ImageBackground/> &&
                         title="Got It"
                         raised
                         linearGradientProps={{
-                          colors: ['purple', 'red'],}}
+                          colors: ['purple', 'black']}}
                         onPress={()=>setScreenInfo(false)}
                     />
                 </View>

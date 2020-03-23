@@ -75,7 +75,7 @@ const ChooseLocation = props => {
             type='solid'
             raised
             linearGradientProps={{
-              colors: ['purple', 'red'],}}
+              colors: ['purple', 'black']}}
             title="Get User Location"
             onPress={getLocationHandler}
           />
@@ -83,7 +83,7 @@ const ChooseLocation = props => {
             type='solid'
             raised
             linearGradientProps={{
-              colors: ['purple', 'red'],}}
+              colors: ['purple', 'black']}}
             title="Choose on Map"
             onPress={pickOnMapHandler}
           />
