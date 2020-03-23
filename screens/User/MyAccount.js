@@ -58,7 +58,7 @@ if(!isLoaded(<ImageBackground/> && <TakePhoto/>)){
                 <Card style={styles.cardContainer}>
                     
                     <View style={styles.textContainer}>
-                        <Text style={{color: 'black'}}>
+                        <Text style={{color: 'black', fontSize: 17}}>
                             Add Profile Image
                         </Text>
                     </View>
@@ -70,8 +70,11 @@ if(!isLoaded(<ImageBackground/> && <TakePhoto/>)){
                 </Card>
                 <View style={styles.buttonContainer}>
                     <Button 
-                    type="outline"
+                    type="solid"
+                    raised
                     title="Log Out"
+                    linearGradientProps={{
+                        colors: ['purple', 'red'],}}
                     onPress={logOutHandler}
                     
                     />

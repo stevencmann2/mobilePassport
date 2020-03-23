@@ -312,14 +312,20 @@ return(
                 <View style={styles.buttonContainer}>
                 <View style={styles.overlayButton}>
                     <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                          colors: ['purple', 'red'],}}
                         title="Cancel"
                         onPress={cancelHandler}
                     />
                     </View>
                     <View style={styles.overlayButton}>
                     <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                          colors: ['purple', 'red'],}}
                         title="Submit"
                         onPress={eventSubmit}
                     />

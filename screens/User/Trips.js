@@ -19,6 +19,7 @@ import { useFirestoreConnect, useFirestore, withFirestore, isLoaded, isEmpty } f
 import * as tripActions from '../../store/actions/trips'
 import * as Animatable from 'react-native-animatable';
 import Colors from '../../constants/colors';
+import moment from 'moment';
 
 
 
@@ -270,8 +271,11 @@ const Trips = ({ navigation }) =>{
                         </TouchableOpacity>
                        
                         <Button 
-                            type='outline'
+                            type='solid'
+                            raised
                             title="Next"
+                            linearGradientProps={{
+                                colors: ['purple', 'red'],}}
                             onPress={userHandler}
                         />
                 
@@ -286,6 +290,12 @@ const Trips = ({ navigation }) =>{
     }
             
     if(isLoaded(UserData && <ImageBackground/>)){
+
+        let now = moment();
+      
+        
+        
+
         return(
             <ImageBackground 
             source={require('../../assets/images/defaultBackground.jpg')}
@@ -310,8 +320,11 @@ const Trips = ({ navigation }) =>{
                             </View>
                          </TouchableOpacity>
                         <View style={styles.TripName}>
-                            <Text>
+                            <Text style={styles.tripTitle}>
                                 {trip.tripName}
+                            </Text>
+                            <Text style={styles.tripDate}>
+                                {moment(trip.departing).diff(now, 'days') + " days away"}
                             </Text>
                         </View>
                     </View>
@@ -325,10 +338,12 @@ const Trips = ({ navigation }) =>{
                        
                 <View style={styles.buttonContainer}>
                     <Button
-                        type= 'outline'
+                        type= 'solid'
                         title="Add Trip"
-                        //can't get the buttons to change color
+                        raised
                         color= '#c717fc'
+                        linearGradientProps={{
+                            colors: ['purple', 'red'],}}
                         onPress={()=> navigation.navigate('AddTrip')}
                     />
                 </View>
@@ -416,6 +431,12 @@ const styles = StyleSheet.create({
     cardHeader: {
         alignItems: 'center',
        marginBottom: 25
+    },
+    tripTitle:{
+        fontSize: 18
+    },
+    tripDate: {
+        fontSize: 13
     }
     
 })

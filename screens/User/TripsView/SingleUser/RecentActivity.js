@@ -210,8 +210,11 @@ if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr && <ImageBackground/> &&
 
                 <View style={styles.overlayButton}>
                     <Button 
-                        type="outline"
+                        type="solid"
                         title="Got It"
+                        raised
+                        linearGradientProps={{
+                          colors: ['purple', 'red'],}}
                         onPress={()=>setScreenInfo(false)}
                     />
                 </View>

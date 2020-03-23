@@ -110,6 +110,10 @@ const [chosenPhoto, setChosenPhoto] = useState();
       <View>
         <Button
           title='Save Photo'
+          type='solid'
+          raised
+          linearGradientProps={{
+            colors: ['purple', 'red'],}}
           onPress={updateProfileHandler}
         />
       </View>

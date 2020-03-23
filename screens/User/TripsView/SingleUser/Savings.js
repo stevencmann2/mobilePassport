@@ -189,7 +189,10 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
 
                 <View style={styles.overlayButton}>
                     <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                            colors: ['purple', 'red'],}}
                         title="Got It"
                         onPress={()=>setScreenInfo(false)}
                     />
@@ -261,12 +264,18 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
            
             <View style={styles.buttonContainer}>
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raised 
+                    linearGradientProps={{
+                        colors: ['purple', 'red'],}}
                     title="Log Savings"
                     onPress={addSavings}
                 />
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raised
+                    linearGradientProps={{
+                        colors: ['purple', 'red'],}}
                     title="Cancel"
                     onPress={cancelHandler}
                 />
@@ -277,7 +286,10 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
             
             <View style={styles.initialButtonContainer}> 
                 <Button 
-                type="outline"
+                type="solid"
+                raised
+                linearGradientProps={{
+                    colors: ['purple', 'red'],}}
                 title="Add Savings"
                 onPress={()=>setOpen(true)}
                 />
@@ -360,12 +372,17 @@ return(
             </View>
             <View style={styles.buttonContainer}>
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raised
+                    linearGradientProps={{
+                        colors: ['purple', 'red'],}}
                     title="Log Savings"
                     onPress={addSavings}
                 />
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raisedlinearGradientProps={{
+                        colors: ['purple', 'red'],}}
                     title="Cancel"
                     onPress={cancelHandler}
                 />
@@ -374,7 +391,10 @@ return(
      </Overlay>
             <View style={styles.buttonContainer}>   
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raised
+                    linearGradientProps={{
+                        colors: ['purple', 'red'],}}
                     title="Add Savings"
                     onPress={()=>setOpen(true)}
                 />

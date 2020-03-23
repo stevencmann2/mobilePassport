@@ -220,12 +220,18 @@ const Expenses = props =>{
                             </View>
                             <View style={styles.buttonContainer}>
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'red'],}}
                                     title="Create Expense"
                                     onPress={addExpense}
                                 />
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'red'],}}
                                     title="Cancel"
                                     onPress={cancelHandler}
                                 />
@@ -235,7 +241,10 @@ const Expenses = props =>{
                      </Overlay>
                     <View style={styles.initialButtonContainer}>
                         <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                            colors: ['purple', 'red'],}}
                         title="Add Expense"
                         onPress={()=>setOpen(true)}
                         />
@@ -265,7 +274,10 @@ const Expenses = props =>{
             
                             <View style={styles.overlayButton}>
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'red'],}}
                                     title="Got It"
                                     onPress={()=>setScreenInfo(false)}
                                 />
@@ -357,12 +369,18 @@ const Expenses = props =>{
                             </View>
                             <View style={styles.buttonContainer}>
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'red'],}}
                                     title="Create Expense"
                                     onPress={addExpense}
                                 />
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'red'],}}
                                     title="Cancel"
                                     onPress={cancelHandler}
                                 />
@@ -374,7 +392,10 @@ const Expenses = props =>{
                      <View style={styles.initialButtonContainer}>
         
                         <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                            colors: ['purple', 'red'],}}
                         title="Add Expense"
                         onPress={()=>setOpen(true)}
                         />
