@@ -19,6 +19,7 @@ import { useFirestoreConnect, useFirestore, withFirestore, isLoaded, isEmpty } f
 import * as tripActions from '../../store/actions/trips'
 import * as Animatable from 'react-native-animatable';
 import Colors from '../../constants/colors';
+import moment from 'moment';
 
 
 
@@ -218,7 +219,7 @@ const Trips = ({ navigation }) =>{
        
                 <Card style={styles.formCard}>
                 <View style={styles.cardHeader}>
-                    <Text style={{fontSize: 16}}>Account Preferences:</Text>
+                    <Text style={{fontSize: 16}}>Account Preferences</Text>
                 </View>
                      <View>
                         <Input
@@ -270,8 +271,11 @@ const Trips = ({ navigation }) =>{
                         </TouchableOpacity>
                        
                         <Button 
-                            type='outline'
+                            type='solid'
+                            raised
                             title="Next"
+                            linearGradientProps={{
+                                colors: ['purple', 'black']}}
                             onPress={userHandler}
                         />
                 
@@ -286,6 +290,12 @@ const Trips = ({ navigation }) =>{
     }
             
     if(isLoaded(UserData && <ImageBackground/>)){
+
+        let now = moment();
+      
+        
+        
+
         return(
             <ImageBackground 
             source={require('../../assets/images/defaultBackground.jpg')}
@@ -304,14 +314,17 @@ const Trips = ({ navigation }) =>{
                 
                             <View style={styles.ImgContainer}>
                                 <Image 
-                                    source={require('../../assets/images/PalmTrees.jpg')} 
+                                    source={require('../../assets/images/mountainLake.jpg')} 
                                     style={styles.Img} 
                                 />
                             </View>
                          </TouchableOpacity>
                         <View style={styles.TripName}>
-                            <Text>
+                            <Text style={styles.tripTitle}>
                                 {trip.tripName}
+                            </Text>
+                            <Text style={styles.tripDate}>
+                                {moment(trip.departing).diff(now, 'days') + " days away"}
                             </Text>
                         </View>
                     </View>
@@ -325,10 +338,12 @@ const Trips = ({ navigation }) =>{
                        
                 <View style={styles.buttonContainer}>
                     <Button
-                        type= 'outline'
+                        type= 'solid'
                         title="Add Trip"
-                        //can't get the buttons to change color
+                        raised
                         color= '#c717fc'
+                        linearGradientProps={{
+                            colors: ['purple', 'black']}}
                         onPress={()=> navigation.navigate('AddTrip')}
                     />
                 </View>
@@ -359,7 +374,6 @@ const styles = StyleSheet.create({
       backgroundImage: {
         flex: 1,
         resizeMode: 'cover',
-        opacity: 0.8
      },
     container: {
         marginTop: 100,
@@ -405,7 +419,8 @@ const styles = StyleSheet.create({
     bannerHeader:{
         lineHeight: 25,
         fontSize: 18,
-        marginBottom: 10
+        marginBottom: 10,
+        fontFamily: 'comfortaa-bold',
     },
     bannerText:{
         lineHeight: 25,  
@@ -417,6 +432,15 @@ const styles = StyleSheet.create({
     cardHeader: {
         alignItems: 'center',
        marginBottom: 25
+    },
+    tripTitle:{
+        fontSize: 18,
+        fontFamily: 'comfortaa-bold',
+    },
+    tripDate: {
+        marginTop: 8,
+        fontSize: 13,
+        fontFamily: 'comfortaa-bold',
     }
     
 })

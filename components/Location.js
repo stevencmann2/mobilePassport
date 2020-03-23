@@ -72,12 +72,18 @@ const ChooseLocation = props => {
         </MapPreview>
         <View style={styles.buttonContainer}>
           <Button
-            type='outline'
+            type='solid'
+            raised
+            linearGradientProps={{
+              colors: ['purple', 'black']}}
             title="Get User Location"
             onPress={getLocationHandler}
           />
           <Button
-            type='outline'
+            type='solid'
+            raised
+            linearGradientProps={{
+              colors: ['purple', 'black']}}
             title="Choose on Map"
             onPress={pickOnMapHandler}
           />

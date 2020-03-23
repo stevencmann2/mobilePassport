@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Alert, StyleSheet, Text, View, 
-         SafeAreaView, ActivityIndicator,Keyboard, Switch} from 'react-native';
+         SafeAreaView, ActivityIndicator, Keyboard, Switch, ImageBackground} from 'react-native';
 import {Icon, Overlay, Button, Header } from 'react-native-elements'
 import Input from '../../../../components/Input';
 import {Agenda} from 'react-native-calendars';
@@ -179,12 +179,17 @@ if(!isLoaded(ItineraryArr&& BudgetData)){
 
 }
 
-if(isEmpty(BudgetData)){
+if(isEmpty(BudgetData) && isLoaded(<ImageBackground/>)){
+
   return(
+    <ImageBackground 
+      source={require('../../../../assets/images/defaultBackground.jpg')}
+      style={styles.backgroundImage}>
     <View style={styles.noBudget}>
         <Text style={styles.noBudgetText}>Can not use this feature yet</Text>
         <Text style={styles.noBudgetText}>Complete budget form to use</Text>
     </View>
+    </ImageBackground>
   )
 }
 
@@ -206,10 +211,12 @@ ItineraryArr.forEach((obj, idx) => {
   console.log(calendarData)
 
 return(
-      <SafeAreaView style={{flex: 1}}>
+
+      <View style={{flex:1}}>
           <Header
-  centerComponent={{ text: 'INTINERARY', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
-  containerStyle={{ marginTop: -45}}
+          backgroundColor="white"
+  centerComponent={{ text: 'Itinerary', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
+  // containerStyle={{ marginTop: -45}}
 />
             <Overlay 
             isVisible={isOpen}
@@ -305,14 +312,20 @@ return(
                 <View style={styles.buttonContainer}>
                 <View style={styles.overlayButton}>
                     <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                          colors: ['purple', 'black']}}
                         title="Cancel"
                         onPress={cancelHandler}
                     />
                     </View>
                     <View style={styles.overlayButton}>
                     <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                            colors: ['purple', 'black']}}
                         title="Submit"
                         onPress={eventSubmit}
                     />
@@ -346,7 +359,7 @@ return(
   reverse
   name='ios-book'
   type='ionicon'
-  color='#b1b8bc'
+  color='#09cdf6'
   containerStyle={{flex: 2, marginLeft: 250, marginBottom: 0}}
 />
 </View>
@@ -385,7 +398,7 @@ return(
                 
         />
             
-        </SafeAreaView>
+        </View>
      
   )
    }
@@ -400,6 +413,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 40,
   },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    
+ },
   noBudget: {
     flex: 1,
     alignItems: 'center',

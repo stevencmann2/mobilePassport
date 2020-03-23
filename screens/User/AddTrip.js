@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
+import { View, Text, StyleSheet, Switch, ScrollView, KeyboardAvoidingView, ImageBackground, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button} from 'react-native-elements';
 import Input from '../../components/Input'
@@ -117,9 +117,12 @@ const errorAlert = () => {
       }
 
 
+
   return (
 
-
+<ImageBackground 
+    source={require('../../assets/images/defaultBackground.jpg')}
+        style={styles.backgroundImage}>
     <KeyboardAvoidingView 
     style={{flex:1}}
     behavior="padding"
@@ -128,8 +131,10 @@ const errorAlert = () => {
     <ScrollView>
     <View style={styles.screen}>
 
+        <View style={styles.ScreenHeader}>
+            <Text style={styles.ScreenHeaderText}>Passport Trip Builder</Text>
+        </View>
 
-        
        
         <View style={styles.formContainer}>
             <View style={styles.inputContainer}>
@@ -181,7 +186,10 @@ const errorAlert = () => {
                 null
             ):(<View style={styles.buttonCenter}>
                 <Button
-                    type="outline"
+                    type="solid"
+                    raised
+                    linearGradientProps={{
+                        colors: ['purple', 'black']}}
                     title="Departure Date"
                     onPress={showDeparting}/>
             </View>)}
@@ -189,7 +197,10 @@ const errorAlert = () => {
             {showDep ? (null):(
                 <View style={styles.buttonCenter}>
                 <Button
-                type="outline"
+                type="solid"
+                raised
+                linearGradientProps={{
+                    colors: ['purple', 'black']}}
                 title="Return Date"
                 onPress={showReturning}/>
             </View> 
@@ -207,7 +218,10 @@ const errorAlert = () => {
                             />
                             <View style={styles.buttonCenter}>
                                 <Button
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'black']}}
                                     title="Hide Departing Date"
                                     onPress={()=> setShowDep(false)}
                                     
@@ -225,7 +239,10 @@ const errorAlert = () => {
                     />
                     <View style={styles.buttonCenter}>
                         <Button
-                            type="outline"
+                            type="solid"
+                            raised
+                            linearGradientProps={{
+                                colors: ['purple', 'black']}}
                             title="Hide Returning Date"
                             onPress={()=> setShowRet(false)} 
                         />
@@ -233,8 +250,12 @@ const errorAlert = () => {
             </View>
             ):(null)}
             </View>
+            <View style={styles.nextContainer}>
             <Button
-            
+                type="solid"
+                raised
+                linearGradientProps={{
+                    colors: ['purple', 'black']}}             
                 title="Next"
                 icon={
                     <Icon
@@ -243,15 +264,16 @@ const errorAlert = () => {
                         color="white" 
                     />
                     }
-                style={styles.inputContainer}
                 onPress={FormSubmit}
                 
             />  
+            </View>
             </View>
        
     </View>
     </ScrollView>
     </KeyboardAvoidingView>
+    </ImageBackground>
    
   );
 };
@@ -264,10 +286,22 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         padding: 10
       }, 
+      backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+     },
     bannerContainer: {
           marginTop: 20,
           marginBottom: 10
 
+      },
+      ScreenHeader: {
+        marginTop: 30,
+        marginBottom: 20
+      },
+      ScreenHeaderText: {
+        fontSize: 22,
+        fontFamily: 'comfortaa-bold',
       },
     formContainer: {
         marginTop: 20,
@@ -290,6 +324,9 @@ const styles = StyleSheet.create({
     ButtonContainer:{
         flexDirection: 'row',
         justifyContent: 'space-around'
+    },
+    nextContainer: {
+        marginTop: 20
     }
     
   });

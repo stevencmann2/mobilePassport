@@ -9,11 +9,11 @@ import {
     Keyboard,
     ScrollView,
     KeyboardAvoidingView,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    ImageBackground
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button, Overlay, Icon, Header } from 'react-native-elements'
-
 import Input  from '../../../../components/Input'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import SavingsCharts from '../../../../components/Charts/SavingsCharts'
@@ -122,18 +122,31 @@ if(!isLoaded(fullStoreSavingsArr && BudgetData)){
         /> 
     </View>)
 }
-if(isEmpty(BudgetData)){
+if(isEmpty(BudgetData) && isLoaded(<ImageBackground/>)){
     return(
+        <ImageBackground 
+        source={require('../../../../assets/images/defaultBackground.jpg')}
+            style={styles.backgroundImage}>
         <View style={styles.noBudget}>
             <Text style={styles.noBudgetText}>Can not use this feature yet</Text>
             <Text style={styles.noBudgetText}>Complete budget form to use</Text>
         </View>
+        </ImageBackground>
     )
 }
 
-if(isEmpty(fullStoreSavingsArr)){
+if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
     return(
+<<<<<<< HEAD
     <TouchableWithoutFeedback
+=======
+
+        <ImageBackground 
+        source={require('../../../../assets/images/defaultBackground.jpg')}
+            style={styles.backgroundImage}>
+
+    <TouchableWithoutFeedback 
+>>>>>>> 0027006cda26a2def7eac0da63c390896ca7f81d
         onPress={()=> 
         Keyboard.dismiss()}>
 
@@ -143,13 +156,13 @@ if(isEmpty(fullStoreSavingsArr)){
         keyboardVerticalOffset={15}
         >
         <Header
-        centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+        backgroundColor="white"
+        centerComponent={{ text: 'Savings Tracker', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
       />
-
     <View style={styles.NoSavingsScreen}>
     <View style={styles.EmptyIconContainer}>
         <Icon
-            name='ios-help-circle-outline'
+            name='ios-information-circle-outline'
             type='ionicon'
             size ={18}
             color='black'
@@ -180,7 +193,10 @@ if(isEmpty(fullStoreSavingsArr)){
 
                 <View style={styles.overlayButton}>
                     <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                            colors: ['purple', 'black']}}
                         title="Got It"
                         onPress={()=>setScreenInfo(false)}
                     />
@@ -252,12 +268,18 @@ if(isEmpty(fullStoreSavingsArr)){
            
             <View style={styles.buttonContainer}>
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raised 
+                    linearGradientProps={{
+                        colors: ['purple', 'black']}}
                     title="Log Savings"
                     onPress={addSavings}
                 />
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raised
+                    linearGradientProps={{
+                        colors: ['purple', 'black']}}
                     title="Cancel"
                     onPress={cancelHandler}
                 />
@@ -268,7 +290,10 @@ if(isEmpty(fullStoreSavingsArr)){
             
             <View style={styles.initialButtonContainer}> 
                 <Button 
-                type="outline"
+                type="solid"
+                raised
+                linearGradientProps={{
+                    colors: ['purple', 'black']}}
                 title="Add Savings"
                 onPress={()=>setOpen(true)}
                 />
@@ -278,18 +303,27 @@ if(isEmpty(fullStoreSavingsArr)){
         </KeyboardAvoidingView>
 
         </TouchableWithoutFeedback>
+<<<<<<< HEAD
      
 
      )
+=======
+    </ImageBackground>
+    )
+>>>>>>> 0027006cda26a2def7eac0da63c390896ca7f81d
 }    
 
-if(isLoaded(fullStoreSavingsArr && <SavingsCharts/>&& BudgetData)){
+if(isLoaded(fullStoreSavingsArr && <ImageBackground/> && <SavingsCharts/>&& BudgetData)){
 
 return(
+    <ImageBackground 
+    source={require('../../../../assets/images/defaultBackground.jpg')}
+        style={styles.backgroundImage}>
  <ScrollView>
       <Header
-  centerComponent={{ text: 'YOUR SAVINGS', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
-/>
+         backgroundColor="white"
+         centerComponent={{ text: 'Savings Tracker', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
+        />
     <View style={styles.screen}>
         <Overlay 
         isVisible={open}
@@ -349,12 +383,17 @@ return(
             </View>
             <View style={styles.buttonContainer}>
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raised
+                    linearGradientProps={{
+                        colors: ['purple', 'black']}}
                     title="Log Savings"
                     onPress={addSavings}
                 />
                 <Button 
-                    type="outline"
+                    type="solid"
+                    linearGradientProps={{
+                        colors: ['purple', 'black']}}
                     title="Cancel"
                     onPress={cancelHandler}
                 />
@@ -363,7 +402,10 @@ return(
      </Overlay>
             <View style={styles.buttonContainer}>   
                 <Button 
-                    type="outline"
+                    type="solid"
+                    raised
+                    linearGradientProps={{
+                        colors: ['purple', 'black']}}
                     title="Add Savings"
                     onPress={()=>setOpen(true)}
                 />
@@ -375,7 +417,7 @@ return(
             
     </View> 
     </ScrollView>
-    
+    </ImageBackground>
    
 )}
 }
@@ -399,6 +441,11 @@ const styles = StyleSheet.create({
         marginTop: 40,
         
       },
+      backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        
+     },
       noBudgetText:{
         lineHeight: 25,
       },

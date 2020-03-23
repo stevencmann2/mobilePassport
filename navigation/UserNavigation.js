@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
@@ -20,7 +19,7 @@ import  HeaderButton  from '../components/HeaderButton';
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 import { ActivityIndicator, View } from 'react-native';
-import { isLoading } from 'expo-font';
+
 
 
 
@@ -58,7 +57,7 @@ const UserNavigation = () => {
   }
    
     return (
-      <NavigationContainer theme={DarkTheme}>
+      <NavigationContainer theme={MyTheme}>
         <Drawer.Navigator 
           initialRouteName="Trips"
           drawerStyle={DrawerColor}
@@ -73,23 +72,40 @@ const UserNavigation = () => {
     );
   }
  
-// 
-// For Main Landing page of User -  Select Existing Trip or Add Trip
+
 const TripsPageNavigator = () =>{
   return(
   <Stack.Navigator >
         <Stack.Screen name="My Trips" component={TripsScreen} 
             options= {{
               headerTitle: 'My Trips',
+              headerTitleStyle: {
+                fontFamily: 'comfortaa-bold',
+              },
+              headerStyle: {
+                backgroundColor: 'white',
+              },
              }}
           />
         <Stack.Screen name="AddTrip" component={AddTripScreen} 
           options= {{
           headerTitle: 'Trip Builder',
+          headerTitleStyle: {
+            fontFamily: 'comfortaa-bold',
+          },
+          headerStyle: {
+            backgroundColor: 'white',
+          },
          }}/>
         <Stack.Screen name="MapsScreen" component={MapsScreen} 
           options={{
             headerTitle: 'Map',
+            headerTitleStyle: {
+              fontFamily: 'comfortaa-bold',
+            },
+            headerStyle: {
+              backgroundColor: 'white',
+            },
             headerRight: ()=>(<HeaderButton/>),}}/>
         <Stack.Screen name="DashNav" 
             component={DashboardNavigator} 
@@ -123,8 +139,7 @@ const DashboardNavigator = () => {
         }else if(route.name === 'Actions'){
           iconName = focused ? 'ios-clipboard' : 'ios-clipboard'
         }
-        // console.log('inside tab navigator ', route)
-        // You can return any component that you like here!
+       
         return <Ionicons name={iconName} size={size} color={color} />;
       }
 
@@ -146,22 +161,15 @@ const DashboardNavigator = () => {
   )
 }
 
-// STYLING FOR THE DRAWER
+
 
 const DrawerColor = {
-    backgroundColor: '#cb81e6',  
+    backgroundColor: '#09cdf6', 
 };
-// PROPERTY NAMES DEFINED BY THE API, PER ITEM LISTED
-///https://reactnavigation.org/docs/drawer-navigator/#props
-const DrawerOptions ={
-    //text color!!!
-    activeTintColor: 'white',
-    inactiveTintColor: 'black',
-    
 
-    //background color!!!!! 
-    // activeBackgroundColor: '#add8e6',
-    // inactiveBackgroundColor: 'pink'
+const DrawerOptions ={ 
+    activeTintColor: 'white',
+    inactiveTintColor: 'black', 
 };
 
 export default UserNavigation;

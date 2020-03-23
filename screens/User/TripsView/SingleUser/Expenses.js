@@ -10,9 +10,9 @@ import {
     ScrollView,
     ActivityIndicator,
     Keyboard,
+    ImageBackground
 } from 'react-native'
 import { useSelector } from 'react-redux'
-
 import { Button, Overlay, Icon, Header } from 'react-native-elements'
 import Input  from '../../../../components/Input'
 import { useFirestoreConnect, useFirestore, isEmpty, isLoaded } from 'react-redux-firebase'
@@ -121,16 +121,23 @@ const Expenses = props =>{
             /> 
         </View>)
     }
-    if(isEmpty(BudgetData)){
+    if(isEmpty(BudgetData) && isLoaded(<ImageBackground/>)){
         return(
+        <ImageBackground 
+            source={require('../../../../assets/images/defaultBackground.jpg')}
+                style={styles.backgroundImage}>
             <View style={styles.noBudget}>
                 <Text style={styles.noBudgetText}>Can not use this feature yet</Text>
                 <Text style={styles.noBudgetText}>Complete budget form to use</Text>
             </View>
+            </ImageBackground>
         )
     }
-    if(isEmpty(fullStoreExpensesArr)){
+    if(isEmpty(fullStoreExpensesArr) && isLoaded(<ImageBackground/>) ){
         return(
+            <ImageBackground 
+                source={require('../../../../assets/images/defaultBackground.jpg')}
+                 style={styles.backgroundImage}>
                  <TouchableWithoutFeedback 
                         onPress={()=> 
                         Keyboard.dismiss()}>
@@ -140,17 +147,15 @@ const Expenses = props =>{
                     behavior="padding"
                     keyboardVerticalOffset={15}
                     >
-
                     <Header
-                    centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
+                    backgroundColor="white"
+                    centerComponent={{ text: 'Expenses Tracker', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
                   />
-                                  
-
                 <View style={styles.NoExpensesScreen}>
                 <View style={styles.EmptyScreenView}>
                 <View style={styles.EmptyIconContainer}>
                         <Icon
-                            name='ios-help-circle-outline'
+                            name='ios-information-circle-outline'
                             type='ionicon'
                             size ={18}
                             color='black'
@@ -215,12 +220,18 @@ const Expenses = props =>{
                             </View>
                             <View style={styles.buttonContainer}>
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'black']}}
                                     title="Create Expense"
                                     onPress={addExpense}
                                 />
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'black']}}
                                     title="Cancel"
                                     onPress={cancelHandler}
                                 />
@@ -230,7 +241,10 @@ const Expenses = props =>{
                      </Overlay>
                     <View style={styles.initialButtonContainer}>
                         <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                            colors: ['purple', 'black']}}
                         title="Add Expense"
                         onPress={()=>setOpen(true)}
                         />
@@ -260,7 +274,10 @@ const Expenses = props =>{
             
                             <View style={styles.overlayButton}>
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'black']}}
                                     title="Got It"
                                     onPress={()=>setScreenInfo(false)}
                                 />
@@ -276,19 +293,27 @@ const Expenses = props =>{
                 </KeyboardAvoidingView>
 
             </TouchableWithoutFeedback>
+<<<<<<< HEAD
             
                 
+=======
+        </ImageBackground>
+>>>>>>> 0027006cda26a2def7eac0da63c390896ca7f81d
             )
         }
 
       
-    if(isLoaded(fullStoreExpensesArr && <ExpensesCharts/> && BudgetData)){
+    if(isLoaded(fullStoreExpensesArr && <ImageBackground/> && <ExpensesCharts/> && BudgetData)){
+        
         return(
+            <ImageBackground 
+            source={require('../../../../assets/images/defaultBackground.jpg')}
+             style={styles.backgroundImage}>
             <ScrollView>
                 <Header
-  centerComponent={{ text: 'YOUR EXPENSES', style: { color: '#fff', fontFamily: 'comfortaa-bold' } }}
-/>
-       
+                backgroundColor="white"
+                    centerComponent={{ text: 'Expenses Tracker', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
+                    />
                 <View style={styles.screen}>
                     <Overlay 
                         isVisible={open}
@@ -350,12 +375,18 @@ const Expenses = props =>{
                             </View>
                             <View style={styles.buttonContainer}>
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'black']}}
                                     title="Create Expense"
                                     onPress={addExpense}
                                 />
                                 <Button 
-                                    type="outline"
+                                    type="solid"
+                                    raised
+                                    linearGradientProps={{
+                                        colors: ['purple', 'black']}}
                                     title="Cancel"
                                     onPress={cancelHandler}
                                 />
@@ -367,7 +398,10 @@ const Expenses = props =>{
                      <View style={styles.initialButtonContainer}>
         
                         <Button 
-                        type="outline"
+                        type="solid"
+                        raised
+                        linearGradientProps={{
+                            colors: ['purple', 'black']}}
                         title="Add Expense"
                         onPress={()=>setOpen(true)}
                         />
@@ -381,11 +415,8 @@ const Expenses = props =>{
                 </View>
                 
          </ScrollView>
-                
-            )
-    
-    
-    }
+    </ImageBackground>       
+  )}
 }
 
 
@@ -410,6 +441,11 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginTop: 40,    
       },
+      backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        
+     },
       noBudgetText:{
         lineHeight: 25,
       },
@@ -458,7 +494,7 @@ const styles = StyleSheet.create({
     },
     overlayBody: {  
         justifyContent: 'center',
-        marginTop: 50,
+        marginTop: 30,
         marginBottom: 20
     },
     overlayText: {
@@ -466,6 +502,7 @@ const styles = StyleSheet.create({
         lineHeight: 25
     },
    overlayHeaderText: {
+       marginTop: 20,
        fontSize: 20
    },
     overlayButton:{
