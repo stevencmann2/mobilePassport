@@ -145,7 +145,7 @@ const DashboardNavigator = () => {
 
     })}
     tabBarOptions={{
-      activeTintColor: 'tomato',
+      activeTintColor: '#09cdf6',
       inactiveTintColor: 'gray',
     }}
     >

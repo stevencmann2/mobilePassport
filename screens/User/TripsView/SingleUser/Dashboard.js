@@ -144,7 +144,7 @@ const Dashboard = props =>{
                         <Overlay 
                             isVisible={welcome}
                             onBackdropPress={() => setWelcome(false)}
-                            windowBackgroundColor='tomato'
+                            windowBackgroundColor='#09cdf6'
                             borderRadius={20}
                          >
                          <View style={styles.overlayView}>
