@@ -78,10 +78,8 @@ const RecentActivity = () => {
   ]
 
   const deleteSavingsHandler = async(id) => {  
-    console.log(id)
     try{    
       await TripDoc.collection("Savings").doc(id).delete();
-       console.log(`deleting savings ${id}`)
     } catch (err) {
         console.log(err)
         deleteErrorAlert()    
@@ -89,10 +87,8 @@ const RecentActivity = () => {
   }
 
   const deleteExpensesHandler = async(id) => {  
-    console.log(id)
     try{    
       await TripDoc.collection("Expenses").doc(id).delete();
-       console.log(`deleting expenses ${id}`)
     } catch (err) {
         console.log(err)
         deleteErrorAlert()    

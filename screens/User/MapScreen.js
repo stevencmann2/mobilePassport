@@ -25,10 +25,6 @@ const MapScreen = props => {
   }
 
 
-
-console.log("THIS IS THE SELECTED LOCATION")
-console.log(selectedLocation)
-
     let markerCoordinates;
 
   if (selectedLocation){

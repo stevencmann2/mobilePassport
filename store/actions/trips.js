@@ -1,11 +1,5 @@
-export const TRIPID = 'TRIPID';
+export const TRIPID = "TRIPID";
 
-
-export const trackTrip = tripId =>{
-
-    return{ type: TRIPID, tripId};
-}
-
-
-
-
+export const trackTrip = tripId => {
+  return { type: TRIPID, tripId };
+};

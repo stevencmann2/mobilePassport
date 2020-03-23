@@ -23,11 +23,6 @@ const SavingsCharts = () => {
     const CategoryTotal = 5000
     const ExpPercent  = (expenseTotal/CategoryTotal)
     const PercentasText = (ExpPercent.toFixed(2))*100
-    console.log(ExpPercent)
-
-
-
-
 
     return(
         <ScrollView>

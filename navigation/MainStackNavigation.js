@@ -1,68 +1,68 @@
-import * as React from 'react'
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-import NewUserScreen from '../screens/NotUser/NewUser';
-import LogInScreen from '../screens/NotUser/LogIn'
-import HomeScreen  from '../screens/NotUser/Home'
+import * as React from "react";
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme
+} from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import NewUserScreen from "../screens/NotUser/NewUser";
+import LogInScreen from "../screens/NotUser/LogIn";
+import HomeScreen from "../screens/NotUser/Home";
 
+const Stack = createStackNavigator();
 
-
-const Stack = createStackNavigator ();
-
-
-const MainStackNavigator = ()=> {
-  // EXAMPLE OF  THEME TO PASS IN USING REACT NATIVE NAVIGATION
-      // COULD ALSO PASS IN CUSTOM HEADER USING REACT NATIVE ELEMENTS USING HEADER COMPONENT
-      //MyTheme NOT IN USE RIGHT NOW
+const MainStackNavigator = () => {
   const MyTheme = {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      primary: '#cb81e6',
-    },
+      primary: "#cb81e6"
+    }
   };
 
   // THEME PROP SET TO DARK THEME BY DEFAULT
-return(
-  <NavigationContainer theme={MyTheme}>
+  return (
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
-      initialRouteName='Home'
-      screenOptions={{
-        gestureEnabled: true,
-        headerBackTitleVisible: false,
-        
-      }}
+        initialRouteName="Home"
+        screenOptions={{
+          gestureEnabled: true,
+          headerBackTitleVisible: false
+        }}
       >
-      <Stack.Screen 
-            name='Home' 
-            component={HomeScreen} 
-            options={{ title: 'Welcome to Passport', headerShown: false }}/>
-        <Stack.Screen 
-            name='NewUser' 
-            component={NewUserScreen} 
-            options={{ title: 'Passport', 
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: "Welcome to Passport", headerShown: false }}
+        />
+        <Stack.Screen
+          name="NewUser"
+          component={NewUserScreen}
+          options={{
+            title: "Passport",
             headerTitleStyle: {
-              fontFamily: 'comfortaa-bold',
+              fontFamily: "comfortaa-bold"
             },
             headerStyle: {
-              backgroundColor: 'white',
+              backgroundColor: "white"
             }
-          }}/>
-        <Stack.Screen 
-            name='LogIn' 
-            component={LogInScreen} 
-            options={{ title: 'Passport',
+          }}
+        />
+        <Stack.Screen
+          name="LogIn"
+          component={LogInScreen}
+          options={{
+            title: "Passport",
             headerTitleStyle: {
-              fontFamily: 'comfortaa-bold',
+              fontFamily: "comfortaa-bold"
             },
             headerStyle: {
-              backgroundColor: 'white',
+              backgroundColor: "white"
             }
-          }}/>
-      
-      
+          }}
+        />
       </Stack.Navigator>
-  </NavigationContainer>
-)
-}
+    </NavigationContainer>
+  );
+};
 export default MainStackNavigator;

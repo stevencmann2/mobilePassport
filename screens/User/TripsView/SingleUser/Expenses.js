@@ -63,7 +63,6 @@ const Expenses = props =>{
        if (pickedCategory && expenseDescription.length>0 && expenseAmount > 0){
         try{    
             await ExpenseLocation.collection("Expenses").add(expenseObj)
-             console.log(`posting Expense to Firestore ${expenseObj}`)
              setOpen(false)
              clearValues()
 
@@ -75,8 +74,6 @@ const Expenses = props =>{
           }
        }else{
         incompleteAlert();
-        console.log('failed test')
-        console.log(pickedCategory, expenseAmount, expenseDescription)
        }
     }
 

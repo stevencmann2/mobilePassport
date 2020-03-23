@@ -50,60 +50,10 @@ async function loadResourcesAsync() {
   ]);
 }
 
-// function cacheImages(images) {
-//   return images.map(image => {
-//     if (typeof image === 'string') {
-//       return Image.prefetch(image);
-//     } else {
-//       return Asset.fromModule(image).downloadAsync();
-//     }
-//   });
-// }
-
-// function cacheFonts(fonts) {
-//   return fonts.map(font => Font.loadAsync(font));
-// }
-
-
-
-// async function loadResourcesAsync() {
-//   const imageAssets = cacheImages([  
-//     require('./assets/images/HomeScreenBackground.jpg'),
-//     require('./assets/images/LogInBackground.jpg'),
-//     require('./assets/images/NewUserBackground.jpg'),
-//     require('./assets/images/defaultBackground.jpg'),
-//     require('./assets/images/sample1.jpg'),
-//     require('./assets/images/sample2.jpg'),
-//     require('./assets/images/sample3.jpg'),
-//     require('./assets/images/sample4.jpg'),
-//   ]);
-
-//   const fontAssets = cacheFonts([
-//     require('./assets/fonts/Comfortaa-Regular.ttf'),
-//     require('./assets/fonts/Comfortaa-Bold.ttf'), 
-//     require('./assets/fonts/Abel-Regular.ttf')
-//   ]);
-
-//   await Promise.all([...imageAssets, ...fontAssets]);
-// }
-
-
-
 
 const App = () => {
 
   const [LoadingComplete, setLoadingComplete] = useState(false)
- 
-
-
-
-
-
-
-
-
-  
-
   const rrfProps = {
     firebase: firebase,
     config: rrfConfig,
