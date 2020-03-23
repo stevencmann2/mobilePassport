@@ -78,10 +78,8 @@ const RecentActivity = () => {
   ]
 
   const deleteSavingsHandler = async(id) => {  
-    console.log(id)
     try{    
       await TripDoc.collection("Savings").doc(id).delete();
-       console.log(`deleting savings ${id}`)
     } catch (err) {
         console.log(err)
         deleteErrorAlert()    
@@ -89,10 +87,8 @@ const RecentActivity = () => {
   }
 
   const deleteExpensesHandler = async(id) => {  
-    console.log(id)
     try{    
       await TripDoc.collection("Expenses").doc(id).delete();
-       console.log(`deleting expenses ${id}`)
     } catch (err) {
         console.log(err)
         deleteErrorAlert()    
@@ -189,7 +185,7 @@ if(isLoaded(fullStoreExpensesArr && fullStoreSavingsArr && <ImageBackground/> &&
       backgroundColor="white"
   centerComponent={{ text: 'Recent Activity', style: { color: 'black', fontFamily: 'comfortaa-bold' } }}
 />
-      <View stlye={styles.screen}>
+      <View style={styles.screen}>
       <Overlay
         isVisible={screenInfo}
         onBackdropPress={() => setScreenInfo(false)}

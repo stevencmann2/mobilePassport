@@ -64,7 +64,6 @@ const Savings = props =>{
        if (pickedCategory && savingsDescription.length>0 && savingsAmount > 0){
         try{    
             await SavingsLocation.collection("Savings").add(savingsObj)
-             console.log(`posting Savings to Firestore ${savingsObj}`)
              setOpen(false)
              clearValues();
 
@@ -76,8 +75,6 @@ const Savings = props =>{
           }
        }else{
            incompleteAlert();
-        console.log('failed test')
-        console.log(pickedCategory, savingsAmount, savingsDescription)
        }
     }
 
@@ -137,11 +134,9 @@ if(isEmpty(BudgetData) && isLoaded(<ImageBackground/>)){
 
 if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
     return(
-
         <ImageBackground 
         source={require('../../../../assets/images/defaultBackground.jpg')}
             style={styles.backgroundImage}>
-
     <TouchableWithoutFeedback 
         onPress={()=> 
         Keyboard.dismiss()}>
@@ -294,11 +289,14 @@ if(isEmpty(fullStoreSavingsArr) && isLoaded(<ImageBackground/>)){
                 onPress={()=>setOpen(true)}
                 />
             </View>
-        </View>
         
+        </View>
         </KeyboardAvoidingView>
+
         </TouchableWithoutFeedback>
+
     </ImageBackground>
+
     )
 }    
 
