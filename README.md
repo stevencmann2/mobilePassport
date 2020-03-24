@@ -13,11 +13,11 @@ A continuation of our web application Passport. This is the mobile version of th
 
 ##Installation Instructions
 
- -Clone our repo to your computer
- -Install Expo CLI app onto your mobile device
- -Run NPM install in your Terminal or GitBash window
- -Run NPM start in your Terminal or GitBash window
- -Open your phone's camera and scan the code to open Passport Mobile
+- Clone our repo to your computer
+- Install Expo CLI app onto your mobile device
+- Run NPM install in your Terminal or GitBash window
+- Run NPM start in your Terminal or GitBash window
+- Open your phone's camera and scan the code in your browser to open Passport Mobile
 
 
 ## Animated Gifs/Pictures of App
@@ -27,13 +27,12 @@ A continuation of our web application Passport. This is the mobile version of th
 ## Tech Stack
 
 - What languages is it written with: React Native, JSX, Javascript
-- What libraries are used: Sequelize, Node, Express 
+- What libraries are used: Firebase, React Native Elements 
 - Other: Expo.io, Xcode, and Andriod Studio
 
 
 ## APIs
 
-- Auth0
 - Google Maps
 
 ## MVP
