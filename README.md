@@ -11,6 +11,14 @@ A continuation of our web application Passport. This is the mobile version of th
 - Steven Mann: User Authentification, Backend Developer
 - An Phan: Design, Frontend Development
 
+##Installation Instructions
+
+ -Clone our repo to your computer
+ -Install Expo CLI app onto your mobile device
+ -Run NPM install in your Terminal or GitBash window
+ -Run NPM start in your Terminal or GitBash window
+ -Open your phone's camera and scan the code to open Passport Mobile
+
 
 ## Animated Gifs/Pictures of App
 
@@ -26,14 +34,14 @@ A continuation of our web application Passport. This is the mobile version of th
 ## APIs
 
 - Auth0
-- SplitWise 
+- Google Maps
 
 ## MVP
 
 - User Authentification
 - Savings Tracking
 - Exprenses Tracking
-- Group Dashboard
+- Personal Dashboard
 
 
 ## Stretch Goals
